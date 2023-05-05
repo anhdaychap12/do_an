@@ -1,0 +1,5 @@
+1-Tạo thành công giỏ hàng
+	-ý tưởng: dùng dictionary(key, value)
+		+key: nối ProductID,Size,Color thành 1 chuỗi rồi lưu vào key
+		+value: số lượng sản phẩm
+2-dùng Ajax để không phải load lại trang nhiều lần

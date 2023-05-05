@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400&family=Quicksand:wght@300;500&family=Source+Sans+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Quicksand', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+section {
+    color: #808080;
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(171,171,171,1) 61%, rgba(148,187,233,1) 100%);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    min-width: 56%;
+    /* overflow: hidden; */
+}
+.container{
+    box-shadow: 0px 10px 34px 15px rgba(0, 0, 0, 0.24);
+    background-color: #DDF7E3;
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+    
+}   
+
+.img {
+    background: url(/assets/img/login.JPG) no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    display: block;
+    flex: 1.5;
+}
+
+
+
+.login {
+    flex: 1;
+    padding: 48px;
+}
+
+.login__title{
+    letter-spacing: 4px;
+}
+
+.login__title p{
+    margin: 0 0 24px;
+    font-size: 28px;
+    color: #000;
+}
+
+.login__form {
+
+}
+
+.login__group{
+    margin: 0 0 24px;
+}
+
+.login--error input{
+    border: 0.5px solid red;
+}
+
+.login--error small{
+    color: red;
+}
+
+.login__label{
+    font-size: 15px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.login__input{
+    margin-top: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border: 0.5px solid #ccc;
+    outline: none;
+    border-radius: 8px;
+}
+
+.login__input::placeholder{
+    opacity: 0.5;
+
+}
+
+.login__btn{
+    padding: 10px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #5D9C59;
+    border-radius: 8px;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+}
+
+.login__btn:hover{
+    background-color: #DF2E38;
+    cursor: pointer;
+}
+
+.login--flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.login__question{
+}
+
+.login__question input{
+    padding: 0 0 0 30px;
+}
+
+.login__foot {
+    text-align: center;
+}
+
+.login__link {
+    color: #808080;
+    text-decoration: none;
+}
+.login__link:hover{
+    color: #DF2E38;
+}
