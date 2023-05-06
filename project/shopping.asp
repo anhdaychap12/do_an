@@ -2,6 +2,7 @@
 <!-- #include file="checkLogin.asp" -->
 
 <%
+    ' khai bao bien
     Dim totalPrice, check_cart, mycarts, totalProduct
     totalPrice = 0
     totalProduct = 0
