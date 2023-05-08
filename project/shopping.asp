@@ -124,7 +124,7 @@
                                                 totalProduct = totalProduct + Clng(mycarts(i))
                                                 totalPrice = totalPrice + Clng(mycarts(i)) * Clng(rs("Price"))
                                             Next
-                                        
+                                            session("totalProduct") = totalProduct
                                         %>
                                         
                                     </div>
@@ -163,7 +163,8 @@
                         </div>
                 <%        ' true
                     Else
-                        ' false
+                        totalProduct = 0
+                        totalPrice = 0
                     End if
                 %>
             </div>
@@ -171,6 +172,20 @@
         
         <!--#include file="layout/footer.asp"-->
     </div>
+    <div class="modal delete-box" tabindex="-1" id="confirm-delete">
+        <div class="modal-dialog modal-form">
+            <div class="modal-heading">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="modal-content">
+                <h4> Pay Successfully!</h4>
+            </div>
+            <div class="modal-option">
+                <a class="modal-btn modal-btn-clear">Continue</a>
+                <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>  
     <script src="main.js"></script>
 </body>
 </html>

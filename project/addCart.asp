@@ -8,6 +8,7 @@
         set rs = connDB.execute("select * from ProductDetails where ProductDetailID = '"&ID_productDetail&"'")
         If not rs.EOF Then
             Dim curCarts, mycarts
+            session("totalProduct") = Clng(session("totalProduct")) + 1
             If IsEmpty(session("mycarts")) Then
                 set mycarts = Server.CreateObject("Scripting.Dictionary")
                 mycarts.add ID_productDetail, 1
@@ -24,6 +25,7 @@
                 End if
                 set Session("mycarts") = curCarts
             End if
+            
             Response.Write "Product has been added to your cart."
         Else
             Response.Write "Product is not exists, please try again."

@@ -87,7 +87,8 @@
             xmlhttp.onreadystatechange = function(){
                 
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById('test').innerHTML = xmlhttp.responseText;
+                    document.getElementById('messenger').innerHTML = xmlhttp.responseText;
+                    document.getElementById('confirm-delete').style.display = "block";
                 }
             }
             xmlhttp.open("POST", "addCart.asp?ID_productDetail=<%=ID_productDetail%>", true);
@@ -170,6 +171,23 @@
             End if
         %>        
     </div>
+    
+    <div class="modal delete-box" tabindex="-1" id="confirm-delete">
+        <div class="modal-dialog modal-form">
+            <div class="modal-heading">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="modal-content">
+                <h4>Success!</h4>
+                <p id = "messenger"></p>
+            </div>
+            <div class="modal-option">
+                <a class="modal-btn modal-btn-clear">Continue</a>
+                <a class="modal-btn modal-btn-cancel" href="shopping.asp">View Cart</a>
+
+            </div>
+        </div>
+    </div> 
     <script src="main.js"></script>
 </body>
 </html>

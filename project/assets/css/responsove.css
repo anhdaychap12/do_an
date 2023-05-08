@@ -40,13 +40,34 @@
         margin-bottom: 30px;
     }
 
-    /* database */
-    .admin-menu {
-        margin-bottom: 24px;
+    /* dashboard */
+    .dashboard-main-mobile {
+        display: block;
     }
 
-    .form {
-        overflow-x: scroll;
+    .dashboard-main {
+        min-height: 100% !important;
+    }
+
+    .dashboard-close-mobile {
+        position: absolute;
+        display: block;
+        top: 0px;
+        right: 0px;
+    }
+
+    .dashboard-nav-mobile {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        transform: translateX(-100%);
+        transition: transform 0.5s;
+    }
+
+    .Open {
+        transform: translateX(0);
     }
 
     /* men, women */
@@ -98,13 +119,9 @@
         border-left: 1px solid #ccc;
     } 
 
-    /* database */
-    .sub-admin-list {
-        right: 250px;
-    }
-    
-    .sub-admin-menu {
-        right: -110px;
+    /* dashboard */
+    .dashboard-nav-mobile {
+        width: 500px;
     }
 }
 
@@ -143,28 +160,23 @@
         top: unset;
     }
 
+    .cart-item-delete.delete-favorite {
+        bottom: unset;
+    }
+
     .cart-item > h4,
     .cart-item > p,
     .cart-item {
         text-align: center;
     }
 
-    /* database */
-    .sub-admin-list {
-        position: relative !important;
-        top: unset !important;
-        right: unset !important;
-        box-shadow: none;
-        background-color: #fff;
-        border-bottom: 1px solid #eee;
+    /* dashboard */
+    .dashboard-nav-mobile {
+        width: 250px;
     }
-    
-    .sub-admin-menu {
-        position: relative !important;
-        top: unset !important;
-        right: unset !important;
-        box-shadow: none;
-        background-color: #fff;
-        border-bottom: 1px solid #eee;
+
+    /* profile */
+    .info-img {
+        margin-bottom: 16px;
     }
 }
