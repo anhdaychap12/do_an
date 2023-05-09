@@ -95,10 +95,6 @@
             xmlhttp.send();
         }
 
-        function CloseConfirm(){
-                    document.getElementById('confirm-delete').style.display = "none";
-            
-        }
     </script>
 </head>
 <body>
