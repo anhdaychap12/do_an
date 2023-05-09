@@ -94,6 +94,11 @@
             xmlhttp.open("POST", "addCart.asp?ID_productDetail=<%=ID_productDetail%>", true);
             xmlhttp.send();
         }
+
+        function CloseConfirm(){
+                    document.getElementById('confirm-delete').style.display = "none";
+            
+        }
     </script>
 </head>
 <body>
@@ -182,7 +187,7 @@
                 <p id = "messenger"></p>
             </div>
             <div class="modal-option">
-                <a class="modal-btn modal-btn-clear">Continue</a>
+                <a class="modal-btn modal-btn-clear" onclick="CloseConfirm()">Continue</a>
                 <a class="modal-btn modal-btn-cancel" href="shopping.asp">View Cart</a>
 
             </div>
