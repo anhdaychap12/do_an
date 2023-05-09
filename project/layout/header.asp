@@ -106,7 +106,7 @@
                     <div class="nav-right-section">
                         <ul class="section-right-list">
                             <li class="section-right-item"><a href="" class="section-right-item-link"><i class="nav-icon fa-solid fa-magnifying-glass"></i></a></li>
-                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p><%=session("totalProduct")%></p></span></i></a></li>
+                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id = "sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
                             <li class="section-right-item"><a href="" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
                             
                             <%

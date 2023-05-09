@@ -26,7 +26,7 @@
                 set Session("mycarts") = curCarts
             End if
             
-            Response.Write "Product has been added to your cart."
+            Response.Write session("totalProduct")
         Else
             Response.Write "Product is not exists, please try again."
         End if
