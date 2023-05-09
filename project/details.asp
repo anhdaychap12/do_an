@@ -87,7 +87,8 @@
             xmlhttp.onreadystatechange = function(){
                 
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById('messenger').innerHTML = xmlhttp.responseText;
+                    document.getElementById('messenger').innerHTML = "Product has been added to your cart.";
+                    document.getElementById('sl_sp').innerHTML = xmlhttp.responseText;
                     document.getElementById('confirm-delete').style.display = "block";
                 }
             }
