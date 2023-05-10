@@ -1,5 +1,56 @@
  <!-- #include file="connect.asp" -->
+<%
+    ''check
+    
 
+    Function Ceil(Number)
+        Ceil = Int(Number)
+        If Ceil<>Number Then
+            Ceil = ceil + 1
+        End if  
+    End Function
+
+    Function checkPage(con, ret)
+        If con = true Then
+            Response.Write ret
+        Else
+            Response.Write ""
+        End if
+    End function
+
+    page = Request.QueryString("page")
+    limit = 3
+
+    If (trim(page) = "") or (isnull(page)) Then
+        page = 1
+    End if
+
+    offset = (Clng(page) * Clng(limit)) - Clng(limit)
+
+
+    set cmdPrep = Server.CreateObject("ADODB.Command")
+    connDB.Open()
+    cmdPrep.ActiveConnection = connDB
+    cmdPrep.CommandType = 1
+    cmdPrep.Prepared = true
+    cmdPrep.CommandText = "select COUNT(Promotions.PromotionID) as [count] from Promotions "
+    set rs = cmdPrep.execute()
+    totalRows = Clng(rs("count"))
+    rs.Close()
+    connDB.Close()
+    set rs = Nothing
+    
+    'lấy về tổng số trang
+    pages = Ceil(totalRows/limit)
+    'giới hạn tổng số trang là 4
+    Dim range
+    If (pages <= 4) Then
+        range = pages
+    Else
+        range = 4
+    End if
+    
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +186,15 @@
                                                     <tbody>
                                                         <%
                                                             connDB.open()
-                                                            Set Result = connDB.execute("SELECT * FROM Promotions  ")
+                                                            Set cmdPrep = Server.CreateObject("ADODB.Command")
+                                                            cmdPrep.ActiveConnection = connDB
+                                                            cmdPrep.CommandType = 1
+                                                            cmdPrep.Prepared = True
+                                                            cmdPrep.CommandText = "SELECT * FROM Promotions ORDER BY PromotionID offset ? rows fetch next ? rows only  "
+                                                            cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
+                                                            cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
+
+                                                            Set Result = cmdPrep.execute
                                                             do while not Result.EOF
                                                         %>
                                                         <tr>
@@ -160,12 +219,28 @@
                                             </div>
                                             <div class="page">
                                                 <ul class="navigation">
-                                                    <li class="navigation-item"><a href="#" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">1</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">2</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">3</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">4</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                    <%
+                                                        If (pages > 1) Then
+                                                            If (Clng(page) >= 2) Then
+                                                    %>
+                                                                <li class="navigation-item"><a href="/dashboard/DBDiscount.asp?page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                    <%
+                                                            End If
+
+                                                            for i = 1 to range
+                                                    %>
+                                                                <li class="navigation-item "><a href="/dashboard/DBDiscount.asp?page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                    <%
+                                                            Next
+
+                                                            If (Clng(page) < pages) Then
+                                                    %>
+                                                                <li class="navigation-item"><a href="/dashboard/DBDiscount.asp?page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                    <%      
+                                                            End If  
+                                                        End if
+                                                    %>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>                                
