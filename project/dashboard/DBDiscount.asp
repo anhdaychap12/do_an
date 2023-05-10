@@ -1,3 +1,5 @@
+ <!-- #include file="connect.asp" -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,19 +133,28 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <%
+                                                            connDB.open()
+                                                            Set Result = connDB.execute("SELECT * FROM Promotions  ")
+                                                            do while not Result.EOF
+                                                        %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Black Friday</td>
-                                                            <td>40%</td>
-                                                            <td>30/04/2023</td>
-                                                            <td>1/5/2023</td>
-                                                            <td>
-                                                                <div class="dashboard-option">
-                                                                    <a href="" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
-                                                                    <a href="" class="dashboard-option-btn dashboard-delete"><i class="fa-solid fa-trash-can"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                            <td><%=Result1("PromotionID")%></td>
+                                                            <td><%=Result1("PromotionName")%></td>
+                                                            <td><%=Result1("DiscountRate")%></td>
+                                                            <td><%=Result1("StartDate")%></td>
+                                                            <td><%=Result1("EndDate")%></td>
+                                                                    <td>
+                                                                        <div class="admin-option">
+                                                                            <a href="addedit.promotion.asp?id=<%=Result("PromotionID")%>" class="admin-option-btn admin-update">Update</a>
+                                                                            <a href="delete.promotion.asp?id=<%=Result("PromotionID")%>" class="admin-option-btn admin-delete" data-bs-target="#confirm-delete" title="Delete">Delete</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <%
+                                                                Result1.MoveNext
+                                                                loop
+                                                                %>
                                                     </tbody>
                                                 </table>
                                             </div>

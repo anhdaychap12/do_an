@@ -1,3 +1,4 @@
+ <!-- #include file="connect.asp" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,36 +114,58 @@
                             <div class="grid wide">
                                 <div class="row">
                                     <div class="col l-12 m-12 c-12">
-                                        <div class="dashboard-customer">
+                                        <div class="dashboard-order">
                                             <div class="dashboard-text">
-                                                <h4>Customer</h4>
+                                                <h4>Order</h4>
                                             </div>
                                             <div class="form">
                                                 <table>
                                                     <thead>
                                                         <tr>
                                                             <th>ID</th>
-                                                            <th>Name</th>
-                                                            <th>Phone</th>
-                                                            <th>Email</th>
-                                                            <th>Address</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Product Name</th>
+                                                            <th>Price</th>
+                                                            <th>Color</th>
+                                                            <th>Size</th>
+                                                            <th>Quantity</th>
+                                                            <th>Order Date</th>
+                                                            <th>Shipping fee</th>
+                                                            <th>Promotion (%)</th>
+                                                            <th>Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <%
+                                               
+                                                        connDB.open()
+                                                        Set Result = connDB.execute("select OrderDetails.OrderDetailID, Customers.Fullname, Products.ProcductName, Products.Price, Colors.Color, Sizes.Size , OrderDetails.Quantity, Orders.OrderDate, ShippingFrees.Price,Promotions.DiscountRate, Orders.TotalAmount from ((((((((ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID) inner join Sizes on ProductDetails.SizeID = Sizes.Size) inner join Colors on ProductDetails.ColorID = Colors.ColorID) inner join OrderDetails on ProductDetails.ProductDetailID = OrderDetails.ProductDetailID) inner join Orders on OrderDetails.OrderID = Orders.OrderID) inner join ShippingFrees on Orders.ShippingFreeID = ShippingFrees.ShippingFreeID) inner join Customers on Orders.CustomerID = Customers.CustomerID) inner join Promotions on Products.PromotionID = Promotions.PromotionID)")
+                                                        do while not Result.EOF
+                                                        %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Hồ Xuân Thủy</td>
-                                                            <td>0922908349</td>
-                                                            <td>thuy@gmail.com</td>
-                                                            <td>Ha Noi</td>
+                                                            <td><%=Result1("OrderDetails.OrderDetailID")%></td>
+                                                            <td><%=Result1("Customers.Fullname")%></td>
+                                                            <td><%=Result1("Products.ProcductName")%></td>
+                                                            <td><%=Result1("Products.Price")%></td>
+                                                            <td><%=Result1("Colors.Color")%></td>
+                                                            <td><%=Result1("Sizes.Size")%></td>
+                                                            <td><%=Result1("OrderDetails.Quantity")%></td>
+                                                            <td><%=Result1("Orders.OrderDate")%></td>
+                                                            <td><%=Result1("ShippingFrees.Price")%></td>
+                                                            <td><%=Result1("Promotions.DiscountRate")%></td>
+                                                            <td><%=Result1("Orders.TotalAmount")%></td>
                                                         </tr>
+                                                        <%
+                                                        Result2.MoveNext
+                                                        loop
+                                                        %>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="page">
                                                 <ul class="navigation">
                                                     <li class="navigation-item"><a href="#" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link actvie">1</a></li>
+                                                    <li class="navigation-item"><a href="#" class="navigation-link">1</a></li>
                                                     <li class="navigation-item"><a href="#" class="navigation-link">2</a></li>
                                                     <li class="navigation-item"><a href="#" class="navigation-link">3</a></li>
                                                     <li class="navigation-item"><a href="#" class="navigation-link">4</a></li>
