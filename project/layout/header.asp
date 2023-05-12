@@ -105,6 +105,7 @@
                 <div class="nav-right hide-on-mobile-tablet">
                     <div class="nav-right-section">
                         <ul class="section-right-list">
+
                             <li class="section-right-item">
                                 <a class="section-right-item-link">
                                     <div class="search-section">
