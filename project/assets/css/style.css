@@ -300,6 +300,10 @@
 }
 
 /* search */
+.section-right-item-link .search-icon {
+    cursor: pointer;
+}
+
 .search-section {
     position: relative;
 }
@@ -852,7 +856,11 @@
     transition: all 0.3s;
 }
 
-.active,
+.active1 {
+    border-color: #71cd14;
+    color: #71cd14;
+}
+
 .details-view > a:hover,
 .details-star-link:hover {
     color: #71cd14;
@@ -1380,6 +1388,8 @@
     padding: 8px 16px;
     background-color: #1c6aec;
     flex: 1;
+    text-decoration: none;
+    text-align: center;
     margin: 0 8px;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -1390,6 +1400,8 @@
 }
 
 .modal-btn-clear {
+    text-align: center;
+    text-decoration: none;
     text-align: center;
     background-color: #dc3545;
     padding: 8px 16px;
