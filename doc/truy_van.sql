@@ -9,6 +9,7 @@ where Products.ProductID = '1'
 
 select Colors.Color, SUM(ProductDetails.Quantity) as SoLuong from ProductDetails inner join Colors on ProductDetails.ColorID = Colors.ColorID where ProductDetails.ProductID = 1 group by Colors.Color
 select Sizes.Size, SUM(ProductDetails.Quantity) as SoLuong from ProductDetails inner join Sizes on ProductDetails.SizeID = Sizes.SizeID where ProductDetails.ProductID = 1 group by Sizes.Size
+select * from Customers
 
 select * from Sizes
 
