@@ -2,7 +2,7 @@
 <!-- #include file="checkLogin.asp" -->
 
 <%
-    ''check
+    ''check phuc
     
 
     Function Ceil(Number)
