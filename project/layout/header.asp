@@ -105,23 +105,33 @@
                 <div class="nav-right hide-on-mobile-tablet">
                     <div class="nav-right-section">
                         <ul class="section-right-list">
-                            <li class="section-right-item"><a href="" class="section-right-item-link"><i class="nav-icon fa-solid fa-magnifying-glass"></i></a></li>
-                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id = "sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
+
+                            <li class="section-right-item">
+                                <a class="section-right-item-link">
+                                    <div class="search-section">
+                                        <input type="text" class="search-text" placeholder="Search...">
+                                        <div class="search-icon js-click">
+                                            <i class="nav-icon fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p><%=session("totalProduct")%></p></span></i></a></li>
+
                             <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
                             
                             <%
                                 If Session("user") <> "" and trim(Session("user")) <> "" Then
                             %>    
-                                <li class="section-right-item"><a href="" class="section-right-item-link"><p><%=Session("user")%></p></a></li>
                                 <li class="section-right-item">
-                                    
-                                    <a href="logout.asp" class="section-right-item-link">
-                                        <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-                                        
-                                    </a>
-                                    <!-- <a href="" class="section-right-item-link">
-                                        <i class="nav-icon fa-solid fa-user"></i>
-                                    </a> -->
+                                    <img src="../assets/img/customer.jpg" alt="" class="avatar">
+                                    <ul class="section-right-list-sub">
+                                        <li class="section-right-item-sub"><p><%=Session("user")%></p></li>
+                                        <li class="section-right-item-sub"><a href="profile.asp" class="section-right-item-link-sub"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
+                                        <li class="section-right-item-sub"><a href="shopping.asp" class="section-right-item-link-sub"><i class="fa-solid fa-cart-shopping"></i> My cart</a></li>
+                                        <li class="section-right-item-sub"><a href="favorite.asp" class="section-right-item-link-sub"><i class="fa-solid fa-heart"></i> My favorite</a></li>
+                                        <li class="section-right-item-sub"><a href="logout.asp" class="section-right-item-link-sub"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+                                    </ul>
                                 </li>
                             <%        
                                 Else
@@ -149,10 +159,22 @@
             <div class="nav-center-section">
                 <ul class="section-center-list">
                     <li class="section-center-item">
-                        <img src="./assets/img/customer.jpg" alt="" class="avatar avatar-mobile">
-                        <a href="" class="section-center-item-link">
-                            <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
+                        <div class="search-mobile">
+                            <input type="text" class="search-mobile-text" placeholder="Search...">
+                            <button class="search-mobile-btn">
+                                <i class="nav-icon fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="section-center-item">
+                        <img src="../assets/img/customer.jpg" alt="" class="avatar avatar-mobile">
+                        <ul class="mobile sub-center">
+                            <li class="sub-center-item"><p>AnhCus</p></li>
+                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
+                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-cart-shopping"></i> My cart</a></li>
+                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-heart"></i> My Favorite</a></li>
+                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+                        </ul>
                         <!-- <a href="#" class="section-center-item-link"><i class="nav-icon fa-solid fa-user"></i></a> -->
                     </li>
                     <li class="section-center-item"><a href="/index.asp" class="section-center-item-link">HOME</a></li>
@@ -191,15 +213,6 @@
                         </ul>
                     </li>
                     <li class="section-center-item"><a href="#" class="section-center-item-link">CONTACT</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="mobile nav-right">
-            <div class="nav-right-section">
-                <ul class="section-right-list">
-                    <li class="section-right-item"><a href="#" class="section-right-item-link"><i class="nav-icon fa-solid fa-magnifying-glass"></i></a></li>
-                    <li class="section-right-item"><a href="#" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"></i></a></li>
-                    <li class="section-right-item"><a href="#" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
                 </ul>
             </div>
         </div>
