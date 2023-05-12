@@ -192,8 +192,7 @@
             </div>
         </div>
         <!--#include file="layout/footer.asp"-->
-    </div>    
+    </div>     
     <script src="main.js"></script>
-
 </body>
 </html>
