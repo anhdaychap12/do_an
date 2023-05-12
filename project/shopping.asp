@@ -10,7 +10,7 @@
         check_cart = "No products in your cart"
     Else
         check_cart = ""
-        set mycarts = session("mycarts")
+        set mycarts = session("mycarts")  
     End if
 
 %>
@@ -35,7 +35,7 @@
             <div class="grid wide">
                 <div class="row product-wrap">
                     <div class="product-title">
-                        <h2><span> Cart</span></h2>
+                        <h2><span>My Cart</span></h2>
                         <p>Bring called seed first of third give itself now ment</p>
                         <p id="test"></p>
                         <p><%=check_cart%></p>
@@ -56,7 +56,7 @@
                                                 <h4>My product</h4>
                                             </div>
                                             <div class="shopping-cart-item">
-                                                
+                                                <h4>1<span> </span> Porduct</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -72,11 +72,6 @@
 
                                                     <form action="" method="post">
                                                         <div class="row">
-                                                            <!-- <div class="col l-12 m-12 c-12">
-                                                                <div class="shopping-no-cart">
-                                                                    <img src="./assets/img/no-cart.jpg.png" alt="">
-                                                                </div>
-                                                            </div> -->
                                                             <div class="col l-12 m-12 c-12">
                                                                 <div class="cart-content">
                                                                     <div class="row">
@@ -98,11 +93,13 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <button class="cart-item-btn prev">
+                                                                                <button class="cart-item-btn prev" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                                                     <i class="fa-solid fa-minus"></i>
                                                                                 </button>
-                                                                                <input type="number" class="cart-item-number" value="<%=mycarts(i)%>"/>
-                                                                                <button class="cart-item-btn next">
+                                                                                <input type="number" min="0" class="cart-item-number" 
+                                                                                    value="<%=mycarts(i)%>"
+                                                                                />
+                                                                                <button class="cart-item-btn next" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                                                     <i class="fa-solid fa-plus"></i>
                                                                                 </button>
                                                                             </div>
@@ -140,16 +137,13 @@
                                     <div class="shopping-cost-ship">
                                         <h4>Shipping:</h4>
                                         <select class="select">
-                                            <option value="1">Standard-Delivery- $5</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
-                                            <option value="0">Free</option>
+                                            <option value="1">Express</option>
+                                            <option value="2">Normal</option>
                                         </select>
                                     </div>
                                     <div class="shopping-cost-discount">
-                                        <label for="Discount"><h4>Discount code:</h4></label>
-                                        <input type="text" id="Discount" placeholder="Discount...">
+                                        <h4>Discount:</h4>
+                                        <h4>Black Friday</h4>
                                     </div>
                                     <div class="shopping-cost-total">
                                         <h4>Total:</h4>
@@ -185,7 +179,17 @@
                 <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>  
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script>
+        $(function()
+        {
+            $('#confirm-delete').on('show.bs.modal', function(e){
+                $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+    </script> 
     <script src="main.js"></script>
 </body>
 </html>
