@@ -2,7 +2,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa;Password=ducanh"
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=PHUC\SQLEXPRESS;Database=WEB_BQA1;User Id=sa;Password=01052002"
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -107,7 +107,7 @@
                         <ul class="section-right-list">
                             <li class="section-right-item"><a href="" class="section-right-item-link"><i class="nav-icon fa-solid fa-magnifying-glass"></i></a></li>
                             <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id = "sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
-                            <li class="section-right-item"><a href="" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
+                            <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
                             
                             <%
                                 If Session("user") <> "" and trim(Session("user")) <> "" Then

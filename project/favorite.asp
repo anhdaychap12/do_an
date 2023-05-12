@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="main">
-        <!-- #include file="header.asp" -->
+        <!-- #include file="layout/header.asp" -->
         <div class="shopping">
             <div class="grid wide">
                 <div class="row product-wrap">
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <!-- #include file="footer.asp" -->
+        <!-- #include file="layout/footer.asp" -->
     </div>
     <div class="modal delete-box" tabindex="-1" id="confirm-delete">
         <div class="modal-dialog modal-form">
