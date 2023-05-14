@@ -66,102 +66,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-    <div class="main">
-        <div class="dashboard">
-            <div class="row no-gutters">
-                <div class="col l-2 m-0 c-0">
-                    <div class="dashboard-nav">
-                        <div class="dashboard-logo">
-                            <img src="./assets/img/logo.jpg" alt="">
-                        </div>
-                        <div class="dashboard-menu">
-                            <ul class="dashboard-menu-list">
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-nav dashboard-nav-mobile js-nav">
-                    <button class="dashboard-close-mobile js-close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <div class="dashboard-logo">
-                        <img src="./assets/img/logo.jpg" alt="">
-                    </div>
-                    <div class="dashboard-menu">
-                        <ul class="dashboard-menu-list">
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col l-10 m-12 c-12">
-                    <div class="dashboard-main">
-                        <div class="dashboard-main-header">
-                            <button class="dashboard-main-mobile js-btn">
-                                <i class="nav-icon fa fa-bars"></i>
-                            </button>
-                            <div class="dashboard-main-header-search hide-on-mobile-tablet">
-                                <input type="text" placeholder="Search...">
-                                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                            <div class="dashboard-main-header-login">
-                                <h4>Admin</h4>
-                                <img src="./assets/img/admin.jpg" alt="" class="admin-avatar">
-                                <a href="./website/logout.asp" class="dashboard-main-header-login-link">
-                                    <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-                                </a>    
-                                <!-- <a href="./website/login.asp" class="dashboard-main-header-login-link">
-                                    <i class="fa-solid fa-user"></i>
-                                    Login
-                                </a> -->
-                            </div>
-                        </div>
+        <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
                             <div class="grid wide">
                                 <div class="row">
@@ -169,7 +74,7 @@
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
                                                 <h4>Discount</h4>
-                                                <a href="" class="dashboard-option-btn dashboard-create">Create</a>
+                                                <a href="EditDiscount.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
                                                 <table>
@@ -198,20 +103,20 @@
                                                             do while not Result.EOF
                                                         %>
                                                         <tr>
-                                                            <td><%=Result1("PromotionID")%></td>
-                                                            <td><%=Result1("PromotionName")%></td>
-                                                            <td><%=Result1("DiscountRate")%></td>
-                                                            <td><%=Result1("StartDate")%></td>
-                                                            <td><%=Result1("EndDate")%></td>
+                                                            <td><%=Result("PromotionID")%></td>
+                                                            <td><%=Result("PromotionName")%></td>
+                                                            <td><%=Result("DiscountRate")%></td>
+                                                            <td><%=Result("StartDate")%></td>
+                                                            <td><%=Result("EndDate")%></td>
                                                                     <td>
                                                                         <div class="admin-option">
-                                                                            <a href="addedit.promotion.asp?id=<%=Result("PromotionID")%>" class="admin-option-btn admin-update">Update</a>
-                                                                            <a href="delete.promotion.asp?id=<%=Result("PromotionID")%>" class="admin-option-btn admin-delete" data-bs-target="#confirm-delete" title="Delete">Delete</a>
+                                                                            <a href="EditDisCount.asp?id=<%=Result("PromotionID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
+                                                                            <a href="deleteDiscount.asp?id=<%=Result("PromotionID")%>" class="dashboard-option-btn dashboard-delete" data-bs-target="#confirm-delete" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                                 <%
-                                                                Result1.MoveNext
+                                                                Result.MoveNext
                                                                 loop
                                                                 %>
                                                     </tbody>

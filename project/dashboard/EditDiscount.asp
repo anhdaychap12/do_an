@@ -1,4 +1,101 @@
 <!-- #include file="connect.asp" -->
+<%
+On Error Resume Next
+' handle Error
+Sub handleError(message)
+    Session("Error") = message
+    'send an email to the admin
+    'Write the error message in an application error log file
+End Sub
+    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
+        Response.redirect("/login.asp")
+    End If
+    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
+        id = Request.QueryString("id")
+        If (isnull(id) OR trim(id) = "") then 
+            id=0 
+        End if
+        If (cint(id)<>0) Then
+            Set cmdPrep = Server.CreateObject("ADODB.Command")
+            connDB.Open()
+            cmdPrep.ActiveConnection = connDB
+            cmdPrep.CommandType = 1
+            cmdPrep.CommandText = "SELECT * FROM Promotions WHERE PromotionID=?"
+            cmdPrep.Parameters(0)=id
+            Set Result = cmdPrep.execute 
+
+            If not Result.EOF then
+                PromotionName = Result("PromotionName")
+                DiscountRate = Result("DiscountRate")
+                StartDate = Result("StartDate")
+                EndDate = Result("EndDate")
+            End If
+
+            Result.Close()
+        End If
+    Else
+        id = Request.QueryString("id")
+        PromotionName = Request.form("PromotionName")
+        DiscountRate = Request.form("DiscountRate")
+        StartDate = Request.form("StartDate")
+        EndDate = Request.form("EndDate")
+
+
+        if (isnull (id) OR trim(id) = "") then id=0 end if
+
+        if (cint(id)=0) then
+            if (NOT isnull(name) and name<>"" and NOT isnull(hometown) and hometown<>"") then
+                Set cmdPrep = Server.CreateObject("ADODB.Command")
+                connDB.Open()                
+                cmdPrep.ActiveConnection = connDB
+                cmdPrep.CommandType = 1
+                cmdPrep.Prepared = True
+                cmdPrep.CommandText = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES(?,?,?,?)"
+                cmdPrep.parameters.Append cmdPrep.createParameter("PromotionName",202,1,50,PromotionName)
+                cmdPrep.parameters.Append cmdPrep.createParameter("DiscountRate",14,1, ,DiscountRate)
+                cmdPrep.parameters.Append cmdPrep.createParameter("StartDate",7,1, ,StartDate)
+                cmdPrep.parameters.Append cmdPrep.createParameter("EndDate",7,1, ,EndDate)
+
+                cmdPrep.execute               
+                
+                If Err.Number = 0 Then  
+                    Session("Success") = "New Promotion added!"                    
+                    Response.redirect("DBDiscount.asp")  
+                Else  
+                    handleError(Err.Description)
+                End If
+                On Error GoTo 0
+            else
+                Session("Error") = "You have to input enough info"                
+            end if
+        else
+            if (NOT isnull(name) and name<>"" and NOT isnull(hometown) and hometown<>"") then
+                Set cmdPrep = Server.CreateObject("ADODB.Command")
+                connDB.Open()                
+                cmdPrep.ActiveConnection = connDB
+                cmdPrep.CommandType = 1
+                cmdPrep.Prepared = True
+                cmdPrep.CommandText = "UPDATE Promotions SET PromotionName=?,DiscountRate=?,StartDate=?,EndDate=? WHERE PromotionID=?"
+                cmdPrep.parameters.Append cmdPrep.createParameter("PromotionName",202,1,50,PromotionName)
+                cmdPrep.parameters.Append cmdPrep.createParameter("DiscountRate",14,1, ,DiscountRate)
+                cmdPrep.parameters.Append cmdPrep.createParameter("StartDate",7,1, ,StartDate)
+                cmdPrep.parameters.Append cmdPrep.createParameter("EndDate",7,1, ,EndDate)
+                cmdPrep.parameters.Append cmdPrep.createParameter("PromotionID",3,1, ,id)
+
+                cmdPrep.execute
+                If Err.Number=0 Then
+                    Session("Success") = "The promtion was edited!"
+                    Response.redirect("DBDiscount.asp")
+                Else
+                    handleError(Err.Description)
+                End If
+                On Error Goto 0
+            else
+                Session("Error") = "You have to input enough info"
+            end if
+        end if
+    End If    
+%>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,36 +213,43 @@
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form action="Post">
+                                            <form method="post">
                                                 <h4 class="add-text class="add-description"">Discount info</h4>
                                                 <div class="row">
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="DiscountName" name="DiscountName" placeholder="Discount name">
+                                                            <input type="text" id="PromotionName" name="PromotionName" placeholder="Discount name" value="<%=PromotionName%>">
                                                          </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">    
-                                                            <input type="text" id="promotion" name="promotion" placeholder="Promotion">
+                                                            <input type="text" id="DiscountRate" name="DiscountRate" placeholder="Promotion" value="<%=DiscountRate%>">
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">From</p>
-                                                            <input type="date" id="StartDate" name="StartDate">
+                                                            <input type="text" id="StartDate" name="StartDate"placeholder="1/1/2023" value="<%=StartDate%>">
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">To</p>
-                                                            <input type="date" id="EndDate" name="EndDate">
+                                                            <input type="text" id="EndDate" name="EndDate" placeholder="1/12/2023"value="<%=EndDate%>">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="add-setting">
-                                                   <button class="add-btn" type="submit">Submit       
+                                                   <button class="add-btn" type="submit">
+                                                   <%
+                                                        if (id=0) then
+                                                            Response.write("Add")
+                                                        else
+                                                            Response.write("Edit")
+                                                        end if
+                                                    %>       
                                                    </button>
-                                                   <a href="database.asp" class="add-btn cancel">Cancel</a>
+                                                   <a href="DBDiscount.asp" class="add-btn cancel">Cancel</a>
                                                 </div>   
                                            </form>
                                         </div>
