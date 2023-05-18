@@ -68,44 +68,10 @@
     rs.Close()
     set rs = nothing
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Store</title>
-    <link rel="icon" type="image/png" href="./assets/img/favicon.jpg"/>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/responsove.css">
-    <link rel="stylesheet" href="./assets/css/Grid.css">
-    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
-    <script>
-        function LoadData(){
-            var xmlhttp;
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById('messenger').innerHTML = "Product has been added to your cart.";
-                    document.getElementById('sl_sp').innerHTML = xmlhttp.responseText;
-                    document.getElementById('confirm-delete').style.display = "block";
-                }
-            }
-            xmlhttp.open("POST", "addCart.asp?ID_productDetail=<%=ID_productDetail%>", true);
-            xmlhttp.send();
-        }
 
-        function CloseConfirm(){
-                    document.getElementById('confirm-delete').style.display = "none";
-
-        }
-
-    </script>
-</head>
+<!-- #include file="layout/header.asp" -->
 <body>
     <div class="main">
-        <!-- #include file="layout/header.asp" -->
         <%
             set rs = connDB.execute("select * from Products inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where Products.ProductID = '"&ID_product&"'")
             If not rs.EOF Then
@@ -196,7 +162,32 @@
         </div>
     </div> 
     <script src="main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script>
+        function LoadData(){
+            document.getElementById('confirm-delete').style.display = "block";
+            var data = {ID_productDetail: <%=ID_productDetail%>};
+            console.log(data);
+            $.ajax({
+                url: 'addCart.asp',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    $('#sl_sp').html(response.totalProduct)
+                    $('#messenger').html(response.messenger)
+                },
+                error: function (response){
+                    alert('Lỗi AJAX');
+                }
+            });
+        }
+
+        function CloseConfirm(){
+                    document.getElementById('confirm-delete').style.display = "none";
+
+        }
+
+    </script>
 </body>
 </html>
