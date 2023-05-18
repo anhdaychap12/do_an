@@ -25,10 +25,11 @@
                 End if
                 set Session("mycarts") = curCarts
             End if
-            
-            Response.Write session("totalProduct")
+            Response.ContentType = "application/json"
+            Response.Write "{""messenger"": ""Product has been added to your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
         Else
-            Response.Write "Product is not exists, please try again."
+            Response.ContentType = "application/json"
+            Response.Write "{""messenger"": ""Product is not exists your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
         End if
         rs.Close()
         set rs = nothing
