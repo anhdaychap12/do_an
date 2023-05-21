@@ -1,9 +1,9 @@
 <!-- #include file="connect.asp" -->
 <%
     On Error Resume Next
-    id = Request.QueryString("PromotionID")
-
-    if (isnull(id) OR trim(id)="" OR isnull(Session("email")) OR trim(Session("email"))="") then
+    id = Request.QueryString("id")
+    Response.write(id)
+    if (isnull(id) OR trim(id)="" OR isnull(Session("user")) OR trim(Session("user"))="") then
         Response.redirect("DBDiscount.asp")
         Response.End
     end if
@@ -16,6 +16,7 @@
     cmdPrep.parameters.Append cmdPrep.createParameter("PromotionID",3,1, ,id)
 
     cmdPrep.execute
+    ' connDB.execute("DELETE FROM Promotions WHERE PromotionID='"&PromotionID&"'")
     connDB.Close()
     If Err.Number = 0 Then
     Session("Success") = "Deleted"    

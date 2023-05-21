@@ -1,4 +1,6 @@
  <!-- #include file="connect.asp" -->
+<!-- #include file="checkLogin.asp" -->
+
 <%
     connDB.open()
     Set cmdPrep = Server.CreateObject("ADODB.Command")
@@ -21,6 +23,7 @@
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
         <!--#include file="menu.nav.asp"-->
@@ -101,7 +104,7 @@
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
-                                        <div class="dashboard-map"></div>
+                                        <canvas id="dashboard-map"></canvas>
                                     </div>
                                 </div>
                             </div>

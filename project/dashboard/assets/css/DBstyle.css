@@ -263,7 +263,7 @@
     overflow: hidden;
 }
 
-.dashboard-map {
+#dashboard-map {
     margin: 0 16px;
     background-color: #fff;
     padding: 16px;

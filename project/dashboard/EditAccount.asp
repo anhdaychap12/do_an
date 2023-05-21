@@ -17,40 +17,39 @@ End Sub
             connDB.Open()
             cmdPrep.ActiveConnection = connDB
             cmdPrep.CommandType = 1
-            cmdPrep.CommandText = "SELECT * FROM Promotions WHERE PromotionID=?"
+            cmdPrep.CommandText = "SELECT * FROM Accounts WHERE AccountID=? and Role = 'admin'"
             cmdPrep.Parameters(0)=id
             Set Result = cmdPrep.execute 
 
             If not Result.EOF then
-                PromotionName = Result("PromotionName")
-                DiscountRate = Result("DiscountRate")
-                StartDate = Result("StartDate")
-                EndDate = Result("EndDate")
+                Username = Result("Username")
+                Password = Result("Password")
+                Role = Result("Role")
             End If
 
             Result.Close()
         End If
     Else
         id = Request.QueryString("id")
-        PromotionName = Request.form("PromotionName")
-        DiscountRate = Request.form("DiscountRate")
-        StartDate = Request.form("StartDate")
-        EndDate = Request.form("EndDate")
+        Username = Request.form("Username")
+        Password = Request.form("Password")
+        Role = Request.form("Role")
+
 
 
         if (isnull (id) OR trim(id) = "") then id=0 end if
 
         if (cint(id)=0) then
-            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>"" and NOT isnull(Role) and Role<>"" ) then
                 Set cmdPrep = Server.CreateObject("ADODB.Command")
                 connDB.Open()  
-                sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
+                sql1 = "INSERT INTO Accounts(Username,Password,Role) VALUES('"&Username&"','"&Password&"','"&Role&"')"              
                 connDB.execute sql1 
                 ' Response.write sql1              
                 
                 If Err.Number = 0 Then  
-                    Session("Success") = "New Promotion added!"                    
-                    Response.redirect("DBDiscount.asp")  
+                    Session("Success") = "New Account added!"                    
+                    Response.redirect("DBAccount.asp")  
                 Else  
                     handleError(Err.Description)
                 End If
@@ -59,16 +58,16 @@ End Sub
                 Session("Error") = "You have to input enough info"                
             end if
         else
-            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>"" and NOT isnull(Role) and Role<>"" ) then
                 Set cmdPrep = Server.CreateObject("ADODB.Command")
                 connDB.Open()                
-                sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
+                sql = "UPDATE Accounts SET Username='"&Username&"',Password='"&Password&"',Role='"&Role&"' WHERE AccountID='"&id&"'"
                 connDB.execute sql
                 ' Response.write sql
                 
                 If Err.Number=0 Then
-                    Session("Success") = "The promotion was edited!"
-                    Response.redirect("DBDiscount.asp")
+                    Session("Success") = "The Account was edited!"
+                    Response.redirect("DBAccount.asp")
                 Else
                     handleError(Err.Description)
                 End If
@@ -81,6 +80,7 @@ End Sub
         end if
     End If    
 %>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,49 +97,42 @@ End Sub
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-            <!--#include file="menu.nav.asp"-->
+               <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
                             <div class="grid wide">
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form method="post">
-                                                <h4 class="add-text class="add-description"">Discount info</h4>
+                                            <form method="Post">
+                                                <h4 class="add-text">Discount info</h4>
                                                 <div class="row">
-                                                    <div class="col l-6 m-6 c-12">
+                                                    <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="PromotionName" name="PromotionName" placeholder="Discount name" value="<%=PromotionName%>" required>
+                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required>
                                                          </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">    
-                                                            <input type="text" id="DiscountRate" name="DiscountRate" placeholder="Promotion (0-100)" value="<%=DiscountRate%>" required>
+                                                            <input type="text" id="Password" name="Password" placeholder="Password" value="<%=Password%>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
-                                                            <p class="add-description">From</p>
-                                                            <input type="text" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col l-6 m-6 c-12">
-                                                        <div class="add-input">
-                                                            <p class="add-description">To</p>
-                                                            <input type="text" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
+                                                            <input type="text" id="Role" name="Role" placeholder="Role" value="<%=Role%>" required>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="add-setting">
-                                                   <button class="add-btn" type="submit">
+                                                    <button class="add-btn" type="submit">
                                                    <%
                                                         if (id=0) then
                                                             Response.write("Add")
                                                         else
                                                             Response.write("Edit")
                                                         end if
-                                                    %>       
+                                                    %>              
                                                    </button>
-                                                   <a href="DBDiscount.asp" class="add-btn cancel">Cancel</a>
+                                                   <a href="DBAccount.asp" class="add-btn cancel">Cancel</a>
                                                 </div>   
                                            </form>
                                         </div>

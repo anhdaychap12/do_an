@@ -33,7 +33,7 @@
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    cmdPrep.CommandText = "select COUNT(Promotions.PromotionID) as [count] from Promotions "
+    cmdPrep.CommandText = "select COUNT(Accounts.AccountID) as [count] from Accounts where Role = 'admin' "
     set rs = cmdPrep.execute()
     totalRows = Clng(rs("count"))
     rs.Close()
@@ -66,36 +66,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-        <!--#include file="menu.nav.asp"-->
+           <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
                             <div class="grid wide">
                                 <div class="row">
                                     <div class="col l-12 m-12 c-12">
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
-                                                <h4>Discount</h4>
-                                                <a href="EditDiscount.asp" class="dashboard-option-btn dashboard-create">Create</a>
+                                                <h4>Account</h4>
+                                                <a href="EditAccount.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
                                                 <table>
                                                     <thead>
                                                         <tr>
                                                             <th>ID</th>
-                                                            <th>Discount</th>
-                                                            <th>Promotion</th>
-                                                            <th>From</th>
-                                                            <th>To</th>
+                                                            <th>Username</th>
+                                                            <th>Password</th>
+                                                            <th>Role</th>
                                                             <th>Option</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <%
+                                                    <%
                                                             connDB.open()
                                                             Set cmdPrep = Server.CreateObject("ADODB.Command")
                                                             cmdPrep.ActiveConnection = connDB
                                                             cmdPrep.CommandType = 1
                                                             cmdPrep.Prepared = True
-                                                            cmdPrep.CommandText = "SELECT * FROM Promotions ORDER BY PromotionID offset ? rows fetch next ? rows only  "
+                                                            cmdPrep.CommandText = "SELECT * FROM Accounts where role ='admin' ORDER BY AccountID  offset ? rows fetch next ? rows only  "
                                                             cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
                                                             cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
 
@@ -103,22 +102,21 @@
                                                             do while not Result.EOF
                                                         %>
                                                         <tr>
-                                                            <td><%=Result("PromotionID")%></td>
-                                                            <td><%=Result("PromotionName")%></td>
-                                                            <td><%=Result("DiscountRate")%></td>
-                                                            <td><%=Result("StartDate")%></td>
-                                                            <td><%=Result("EndDate")%></td>
-                                                                    <td>
-                                                                        <div class="dashboard-option">
-                                                                            <a href="EditDisCount.asp?id=<%=Result("PromotionID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
-                                                                            <a data-href="deleteDiscount.asp?id=<%=Result("PromotionID")%>" class="dashboard-option-btn dashboard-delete" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <%
+                                                            <td><%=Result("AccountID")%></td>
+                                                            <td><%=Result("Username")%></td>
+                                                            <td><%=Result("Password")%></td>
+                                                            <td><%=Result("Role")%></td>
+                                                            <td>
+                                                                <div class="dashboard-option">
+                                                                    <a href="EditAccount.asp?id=<%=Result("AccountID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
+                                                                    <a data-href="deleteAccount.asp?id=<%=Result("AccountID")%>" class="dashboard-option-btn dashboard-delete" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <%
                                                                 Result.MoveNext
                                                                 loop
-                                                                %>
+                                                        %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -128,24 +126,23 @@
                                                         If (pages > 1) Then
                                                             If (Clng(page) >= 2) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBDiscount.asp?page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
                                                     <%
                                                             End If
 
                                                             for i = 1 to range
                                                     %>
-                                                                <li class="navigation-item "><a href="/dashboard/DBDiscount.asp?page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                                <li class="navigation-item "><a href="/dashboard/DBAccount.asp?page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
                                                     <%
                                                             Next
 
                                                             If (Clng(page) < pages) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBDiscount.asp?page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
                                                     <%      
                                                             End If  
                                                         End if
                                                     %>
-                                                    
                                                 </ul>
                                             </div>
                                         </div>                                
@@ -168,7 +165,7 @@
                 <p>Do you really want to delete these records ? This process cannot be undone.</p>
             </div>
             <div class="modal-option">
-                <a  class="modal-btn modal-btn-clear">Delete</a>
+                <a class="modal-btn modal-btn-clear">Delete</a>
                 <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -178,9 +175,9 @@
     <script type="text/javascript">
         // click menu
         $(document).ready(function(){
-            $(".dashboard-menu-item-link").click(function(){
-                $(this).next(".dashboard-menu-list-sub").slideToggle("");
-                $(this).find(".dashboard-menu-item-link-icon").toggleClass("rotate");
+            $('.dashboard-menu-item-link').click(function(){
+                $(this).next('.dashboard-menu-list-sub').slideToggle('');
+                $(this).find('.dashboard-menu-item-link-icon').toggleClass('rotate');
             })
         })
         const Open = document.querySelector(".js-btn");
@@ -200,8 +197,8 @@
         // alert modal
         $(function()
         {
-            $("#confirm-delete").on("show.bs.modal", function(e){
-                $(this).find(".modal-btn-clear").attr("href", $(e.relatedTarget).data("href"));
+            $('#confirm-delete').on('show.bs.modal', function(e){
+                $(this).find('.modal-btn-clear').attr('href', $(e.relatedTarget).data('href'));
             });
         });
     </script>

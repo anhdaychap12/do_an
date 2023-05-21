@@ -1,4 +1,91 @@
 <!-- #include file="connect.asp" -->
+<%
+On Error Resume Next
+Sub handleError(message)
+    Session("Error") = message
+End Sub
+    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
+        Response.redirect("../login.asp")
+    End If
+    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
+        id = Request.QueryString("id")
+        CateID = Request.QueryString("CateID")
+        If (isnull(id) OR trim(id) = "" OR isnull(CateID) OR trim(CateID) = "") then 
+            id=0 
+            CateID = 0
+        End if
+        If (cint(id)<>0 AND cint(CateID)<>0) Then
+            Set cmdPrep = Server.CreateObject("ADODB.Command")
+            connDB.Open()
+            cmdPrep.ActiveConnection = connDB
+            cmdPrep.CommandType = 1
+            cmdPrep.CommandText = "select Products.*, ProductDetails.*, ImagePrducts.* " &_
+            "from (Products inner join ProductDetails on Products.ProductID = ProductDetails.ProductID) inner join ImagePrducts on Products.ProductID = ImagePrducts.ProductID " &_
+            "where Products.ProductID = ? and Products.CategoryID = ?"
+            cmdPrep.Parameters(0)=id
+            cmdPrep.Parameters(0)=CateID
+            Set Result = cmdPrep.execute 
+
+            If not Result.EOF then
+                ProductName = Result("ProductName")
+                Price = Result("Price")
+                PromotionID = Result("PromotionID")
+                Quantity = Result("Quantity")
+            End If
+
+            Result.Close()
+        End If
+    Else
+        id = Request.QueryString("id")
+        PromotionName = Request.form("PromotionName")
+        DiscountRate = Request.form("DiscountRate")
+        StartDate = Request.form("StartDate")
+        EndDate = Request.form("EndDate")
+
+
+        if (isnull (id) OR trim(id) = "") then id=0 end if
+
+        if (cint(id)=0) then
+            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+                Set cmdPrep = Server.CreateObject("ADODB.Command")
+                connDB.Open()  
+                sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
+                connDB.execute sql1 
+                ' Response.write sql1              
+                
+                If Err.Number = 0 Then  
+                    Session("Success") = "New Promotion added!"                    
+                    Response.redirect("DBDiscount.asp")  
+                Else  
+                    handleError(Err.Description)
+                End If
+                On Error GoTo 0
+            else
+                Session("Error") = "You have to input enough info"                
+            end if
+        else
+            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+                Set cmdPrep = Server.CreateObject("ADODB.Command")
+                connDB.Open()                
+                sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
+                connDB.execute sql
+                ' Response.write sql
+                
+                If Err.Number=0 Then
+                    Session("Success") = "The promotion was edited!"
+                    Response.redirect("DBDiscount.asp")
+                Else
+                    handleError(Err.Description)
+                End If
+                On Error Goto 0
+            else
+                Session("Error") = "You have to input enough info"
+                    Response.write(Session("Error"))
+
+            end if
+        end if
+    End If    
+%>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">

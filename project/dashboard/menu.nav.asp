@@ -46,44 +46,38 @@
                             <ul class="dashboard-menu-list">
                                 <li class="dashboard-menu-item"><a href="Dashboard.asp" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
                                 <li class="dashboard-menu-item">
-                                    <a href="DBMen.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
+                                    <a  class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
                                     </a>
                                     <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        ' <%
-                                        '     Dim key
-                                        '     For each key in dictMEN.keys
-                                        ' %>
-                                        '         <li class="dashboard-menu-item-sub"><a href="DBMen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
-                                        ' <%    
-                                        '     Next
-                                        ' %>
+                                        <%
+                                            Dim key
+                                            For each key in dictMEN.keys
+                                        %>
+                                                <li class="dashboard-menu-item-sub"><a href="DBMen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
+                                        <%    
+                                            Next
+                                        %>
                                     </ul>
                                 </li>
                                 <li class="dashboard-menu-item">
-                                    <a href="DBWomen.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
+                                    <a  class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
                                     </a>
                                     <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    ' <%
+                                    <%
                                         
-                                    '     For each key in dictWOMEN.keys
-                                    ' %>
-                                    '         <li class="dashboard-menu-item-sub"><a href="DBWomen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictWOMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
-                                    ' <%    
-                                    '     Next
-                                    ' %>
+                                        For each key in dictWOMEN.keys
+                                    %>
+                                            <li class="dashboard-menu-item-sub"><a href="DBWomen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictWOMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
+                                    <%    
+                                        Next
+                                    %>
                                     </ul>
                                 </li>
                                 <li class="dashboard-menu-item"><a href="DBCustomer.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
                                 <li class="dashboard-menu-item"><a href="DBOrder.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
                                 <li class="dashboard-menu-item"><a href="DBDiscount.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
+                                <li class="dashboard-menu-item"><a href="DBAccount.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-user"></i> Account </p> <i class="fa-solid fa-angle-right"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -99,44 +93,38 @@
                         <ul class="dashboard-menu-list">
                             <li class="dashboard-menu-item"><a href="Dashboard.asp" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
                             <li class="dashboard-menu-item">
-                                <a href="DBMen.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
+                                <a  class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
                                 </a>
                                 <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    ' <%
-                                    '     Dim key
-                                    '     For each key in dictMEN.keys
-                                    ' %>
-                                    '         <li class="dashboard-menu-item-sub"><a href="DBMen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
-                                    ' <%    
-                                    '     Next
-                                    ' %>
+                                    <%
+                                        ' Dim key
+                                        For each key in dictMEN.keys
+                                    %>
+                                            <li class="dashboard-menu-item-sub"><a href="DBMen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
+                                    <%    
+                                        Next
+                                    %>
                                 </ul>
                             </li>
                             <li class="dashboard-menu-item">
-                                <a href="DBWomen.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
+                                <a  class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
                                 </a>
                                 <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    ' <%
+                                     <%
                                         
-                                    '     For each key in dictWOMEN.keys
-                                    ' %>
-                                    '         <li class="dashboard-menu-item-sub"><a href="DBWomen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictWOMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
-                                    ' <%    
-                                    '     Next
-                                    ' %>
+                                        For each key in dictWOMEN.keys
+                                    %>
+                                            <li class="dashboard-menu-item-sub"><a href="DBWomen.asp?CateID=<%=key%>" class="dashboard-menu-item-link-sub"><%=dictWOMEN(key)%><i class="sub-icon fa-solid fa-angle-right"></i></a></li>  
+                                    <%    
+                                        Next
+                                    %>
                                 </ul>
                             </li>
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
+                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Account </p> <i class="fa-solid fa-angle-right"></i></a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -151,14 +139,25 @@
                                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                             <div class="dashboard-main-header-login">
-                                <h4>Admin</h4>
+                            <%
+                                If Session("user") <> "" and trim(Session("user")) <> "" Then
+                            %>
+                                <h4>
+                                <%=session("user")%>
+                                </h4>
                                 <img src="./assets/img/admin.jpg" alt="" class="admin-avatar">
-                                <a href="./website/logout.asp" class="dashboard-main-header-login-link">
+                                <a href="../logout.asp" class="dashboard-main-header-login-link">
                                     <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
                                 </a>    
-                                <!-- <a href="./website/login.asp" class="dashboard-main-header-login-link">
+                            <%  
+                                Else
+                            %>
+                                <a href="../login.asp" class="dashboard-main-header-login-link">
                                     <i class="fa-solid fa-user"></i>
                                     Login
-                                </a> -->
+                                </a> 
+                            <%
+                                End if
+                            %>
                             </div>
                         </div>
