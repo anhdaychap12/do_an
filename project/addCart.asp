@@ -2,6 +2,12 @@
 <%
     Dim ID_productDetail
     ID_productDetail = Request.QueryString("ID_productDetail")
+
+    ''kiểm tra session(totalProduct) có tồn tại không, nếu không thì session(totalProduct) = 0
+    If IsEmpty(session("totalProduct")) Then
+        ' true
+        session("totalProduct") = 0
+    End if
     
     If not isnull(ID_productDetail) and ID_productDetail <> "" Then
         connDB.Open()

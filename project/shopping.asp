@@ -109,7 +109,6 @@
                                                 totalProduct = totalProduct + Clng(mycarts(i))
                                                 totalPrice = totalPrice + Clng(mycarts(i)) * Clng(rs("Price"))
                                             Next
-                                            session("totalProduct") = totalProduct
                                         %>
                                         
                                     </div>
@@ -148,6 +147,7 @@
                         totalProduct = 0
                         totalPrice = 0
                     End if
+                    session("totalProduct") = totalProduct
                 %>
             </div>
         </div>

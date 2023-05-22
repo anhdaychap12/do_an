@@ -119,7 +119,7 @@
                                                                 </a> 
                                                             </li>
                                                             <li class="product-setting-item">
-                                                                <a href="" class="product-setting-link">
+                                                                <a href="/addFavorite.asp?ID_product=<%=rs("ProductID")%>" class="product-setting-link">
                                                                     <i class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>

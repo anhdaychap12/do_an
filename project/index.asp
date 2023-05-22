@@ -752,7 +752,12 @@
         <!--#include file="layout/footer.asp"-->
     </div>
     <script src="main.js"></script>
-    
+    <script>
+        console.log(document.getElementById("notify_success").textContent);
+        if (document.getElementById("notify_success").textContent != "") {
+            showToast();
+        }
+    </script>
     
     
 </body>
