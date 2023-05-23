@@ -42,8 +42,7 @@
                     </div>
                 </div>
                 <%
-                    If check_cart = "" Then
-                    
+                    If check_cart = "" Then                   
                 %>
                 
                         <div class="row">
