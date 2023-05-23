@@ -115,6 +115,7 @@ End Sub
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">    
+
                                                             <input type="text" id="DiscountRate" name="DiscountRate" placeholder="Promotion (0-100)" value="<%=DiscountRate%>" required>
                                                         </div>
                                                     </div>

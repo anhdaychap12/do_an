@@ -10,32 +10,19 @@
         check_cart = "No products in your cart"
     Else
         check_cart = ""
-        set mycarts = session("mycarts")
+        set mycarts = session("mycarts")  
     End if
 
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Store</title>
-    <link rel="icon" type="image/png" href="./assets/img/favicon.jpg"/>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/responsove.css">
-    <link rel="stylesheet" href="./assets/css/Grid.css">
-    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
-    
-</head>
+
+<!--#include file="layout/header.asp"-->
 <body>
     <div class="main">
-        <!--#include file="layout/header.asp"-->
         <div class="shopping">
             <div class="grid wide">
                 <div class="row product-wrap">
                     <div class="product-title">
-                        <h2><span> Cart</span></h2>
+                        <h2><span>My Cart</span></h2>
                         <p>Bring called seed first of third give itself now ment</p>
                         <p id="test"></p>
                         <p><%=check_cart%></p>
@@ -56,7 +43,7 @@
                                                 <h4>My product</h4>
                                             </div>
                                             <div class="shopping-cart-item">
-                                                
+                                                <h4>1<span> </span> Porduct</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -70,13 +57,8 @@
                                                 If not rs.EOF Then
                                         %>
 
-                                                    <form action="" method="post">
+                                                    <form action="" method="post" class="product_js">
                                                         <div class="row">
-                                                            <!-- <div class="col l-12 m-12 c-12">
-                                                                <div class="shopping-no-cart">
-                                                                    <img src="./assets/img/no-cart.jpg.png" alt="">
-                                                                </div>
-                                                            </div> -->
                                                             <div class="col l-12 m-12 c-12">
                                                                 <div class="cart-content">
                                                                     <div class="row">
@@ -98,18 +80,21 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <button class="cart-item-btn prev">
+                                                                                <button type="button" class="cart-item-btn prev" id="btn-prev" onclick="prev(this, <%=i%>)">
                                                                                     <i class="fa-solid fa-minus"></i>
                                                                                 </button>
-                                                                                <input type="number" class="cart-item-number" value="<%=mycarts(i)%>"/>
-                                                                                <button class="cart-item-btn next">
+                                                                                <input type="number" min="1" class="cart-item-number quantity_pro" 
+                                                                                    value="<%=mycarts(i)%>" id="display-quantity"
+                                                                                />
+                                                                                <button type="button" class="cart-item-btn next" id="btn-next" onclick="next(this, <%=i%>)">
                                                                                     <i class="fa-solid fa-plus"></i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <h4>$<%=rs("Price")%></h4>
+                                                                                <h4>$</h4>
+                                                                                <h4 class="price_pro"><%=rs("Price")%></h4>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -124,7 +109,6 @@
                                                 totalProduct = totalProduct + Clng(mycarts(i))
                                                 totalPrice = totalPrice + Clng(mycarts(i)) * Clng(rs("Price"))
                                             Next
-                                            session("totalProduct") = totalProduct
                                         %>
                                         
                                     </div>
@@ -134,22 +118,19 @@
                                 <div class="shopping-cost">
                                     <h2>Invoice</h2>
                                     <div class="shopping-cost-info">
-                                        <h4><%=totalProduct%> Products</h4>
-                                        <h4>$<%=totalPrice%></h4>
+                                        <h4 id="display_quantity"></h4>
+                                        <h4 id="display_price"></h4>
                                     </div>
                                     <div class="shopping-cost-ship">
                                         <h4>Shipping:</h4>
                                         <select class="select">
-                                            <option value="1">Standard-Delivery- $5</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
-                                            <option value="0">Free</option>
+                                            <option value="1">Express</option>
+                                            <option value="2">Normal</option>
                                         </select>
                                     </div>
                                     <div class="shopping-cost-discount">
-                                        <label for="Discount"><h4>Discount code:</h4></label>
-                                        <input type="text" id="Discount" placeholder="Discount...">
+                                        <h4>Discount:</h4>
+                                        <h4>Black Friday</h4>
                                     </div>
                                     <div class="shopping-cost-total">
                                         <h4>Total:</h4>
@@ -166,6 +147,7 @@
                         totalProduct = 0
                         totalPrice = 0
                     End if
+                    session("totalProduct") = totalProduct
                 %>
             </div>
         </div>
@@ -185,7 +167,92 @@
                 <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>  
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script>
+        $(function()
+        {
+            $('#confirm-delete').on('show.bs.modal', function(e){
+                $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+        var btn_prev = $('#btn-prev')
+        var btn_next = $('#btn-next')
+        var display_quantity = $('#display-quantity')
+        function prev(e, i) {
+            e.parentNode.querySelector('input[type=number]').stepDown();
+            var data_prev = {
+                ID_product: i,
+                quantity: e.parentNode.querySelector('input[type=number]').value
+            };
+            $.ajax({
+                url: 'updateCart.asp',
+                data: data_prev,
+                dataType: 'json',
+                success: function (response) { 
+                    $('#sl_sp').html(response.total_quantity)
+                },
+                error: function() {
+                    alert('Lỗi AJAX');
+                } 
+            });
+            $('#display_quantity').html(totalProduct() + " products");
+            $('#display_price').html(totalPrice() + "$");
+
+        }
+
+        function next(e, i) {
+            e.parentNode.querySelector('input[type=number]').stepUp();
+            var data_next = {
+                ID_product: i,
+                quantity: e.parentNode.querySelector('input[type=number]').value
+            };
+            $.ajax({
+                url: 'updateCart.asp',
+                data: data_next,
+                dataType: 'json',
+                success: function (response) { 
+                    $('#sl_sp').html(response.total_quantity)
+                },
+                error: function() {
+                    alert('Lỗi AJAX');
+                } 
+            });
+            $('#display_quantity').html(totalProduct() + " products");
+            $('#display_price').html(totalPrice() + "$");
+
+        }
+
+        function totalProduct() {
+            var total_quantity = 0;
+
+            $('.product_js').each(function () {
+                var quantity_pro = parseInt($(this).find('.quantity_pro').val());
+                total_quantity += quantity_pro;
+            });
+
+            return total_quantity;
+
+        }
+
+        function totalPrice() {
+            var total_price = 0;
+
+            $('.product_js').each(function () {
+                var price_pro = parseInt($(this).find('.price_pro').html());
+                var quantity_pro = parseInt($(this).find('.quantity_pro').val());
+                total_price += price_pro * quantity_pro;
+            });
+
+            return total_price;
+
+        }
+
+        $('#display_quantity').html(totalProduct() + " products");
+        $('#display_price').html(totalPrice() + "$");
+        
+    </script> 
     <script src="main.js"></script>
 </body>
 </html>

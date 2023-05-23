@@ -395,11 +395,6 @@ table td {
     text-transform: uppercase;
  }
 
- .add-description {
-    font-size: 18px;
-    color: #2a2a2a;
- }
-
  .add-input {
     margin: 8px 16px;
  }
@@ -587,9 +582,14 @@ table td {
 	z-index: -1;
 }
 
+.modal-upload-btn:hover {
+    color: #71cd14;
+}
+
 .modal-upload-btn {
     padding: 8px 16px;
     color: #2a2a2a;
+    transition: 0.3s;
 }
 
 .modal-option {
