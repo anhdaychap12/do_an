@@ -104,7 +104,7 @@
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
-                                        <canvas id="dashboard-map"></canvas>
+                                        <canvas id="dashboard-map"> </canvas>
                                     </div>
                                 </div>
                             </div>
@@ -135,6 +135,45 @@
         nav.addEventListener("click",function(e){
             e.stopPropagation();
         })
+    </script>
+    <script> 
+            document.addEventListener("DOMContentLoaded", function() {
+            var ctx4 = document.getElementById("dashboard-map").getContext("2d");
+            var myChart4 = new Chart(ctx4, {
+                type: "bar",
+            data: {
+              labels: reportDateData,
+              datasets: [
+                {
+                  label: "",
+                  data: cfoData,
+                  backgroundColor: "#0161a6",
+                  stack : 1,
+                  barPercentage: 0.5, // Tinh chỉnh chiều rộng của các cột
+                  categoryPercentage: 0.8, // Tinh chỉnh khoảng cách giữa các cột
+                  pointStyle:'rect',
+                }
+              ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                      labels: {
+                        usePointStyle: true,
+                      }
+                    }
+                  },
+              scales: {
+                xAxes: [{
+                  stacked: true
+                }],
+                yAxes: [{
+                  stacked: true
+                }]
+              }
+            }
+          });
+        });
     </script>
 </body>
 </html>

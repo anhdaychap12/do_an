@@ -129,6 +129,11 @@ End Sub
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
+                                                                <input type="text" id="Price" name="Price" placeholder="Price">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col l-12 m-12 c-12">
+                                                            <div class="add-input">
                                                                 <input type="text" id="Description" name="Description" placeholder="Description">
                                                             </div>
                                                         </div>
@@ -156,11 +161,7 @@ End Sub
                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                              </div>
                                                         </div>
-                                                        <div class="col l-6 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <input type="text" id="Price" name="Price" placeholder="Price">
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>   
                                                </form>
                                             </div>

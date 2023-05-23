@@ -64,7 +64,7 @@ End Sub
                 connDB.Open()                
                 sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
                 connDB.execute sql
-                ' Response.write sql
+                Response.write sql
                 
                 If Err.Number=0 Then
                     Session("Success") = "The promotion was edited!"
@@ -95,6 +95,8 @@ End Sub
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 <body>
             <!--#include file="menu.nav.asp"-->
@@ -103,7 +105,7 @@ End Sub
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form method="post">
+                                            <form method="post"   onsubmit="return validateDiscountRate() && validateDate() && convertDates();">
                                                 <h4 class="add-text class="add-description"">Discount info</h4>
                                                 <div class="row">
                                                     <div class="col l-6 m-6 c-12">
@@ -119,13 +121,13 @@ End Sub
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">From</p>
-                                                            <input type="text" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
+                                                            <input type="date" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">To</p>
-                                                            <input type="text" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
+                                                            <input type="date" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -174,6 +176,37 @@ End Sub
         nav.addEventListener("click",function(e){
             e.stopPropagation();
         })
+    </script>
+    <script>
+        function validateDiscountRate() {
+        var discountRate = document.getElementById("DiscountRate").value;
+        if (discountRate < 0 || discountRate > 100) {
+            alert("Discount rate must be between 0 and 100!");
+            return false;
+        }
+        return true;
+        }
+
+        function validateDate() {
+        var startDate = new Date(document.getElementById("StartDate").value);
+        var endDate = new Date(document.getElementById("EndDate").value);
+        if (endDate <= startDate) {
+            alert("End date must be after start date!");
+            return false;
+        }
+        return true;
+        }
+        
+        function convertDates() {
+        var startDateInput = document.getElementById("StartDate");
+        var endDateInput = document.getElementById("EndDate");
+
+        var startDate = moment(startDateInput.value, "DD/MM/YYYY").format("YYYY/MM/DD");
+        var endDate = moment(endDateInput.value, "DD/MM/YYYY").format("YYYY/MM/DD");
+
+        startDateInput.value = startDate;
+        endDateInput.value = endDate;
+        }
     </script>
 </body>
 </html>

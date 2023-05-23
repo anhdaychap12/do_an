@@ -33,17 +33,14 @@ End Sub
         id = Request.QueryString("id")
         Username = Request.form("Username")
         Password = Request.form("Password")
-        Role = Request.form("Role")
-
 
 
         if (isnull (id) OR trim(id) = "") then id=0 end if
 
         if (cint(id)=0) then
-            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>"" and NOT isnull(Role) and Role<>"" ) then
-                Set cmdPrep = Server.CreateObject("ADODB.Command")
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>""  ) then
                 connDB.Open()  
-                sql1 = "INSERT INTO Accounts(Username,Password,Role) VALUES('"&Username&"','"&Password&"','"&Role&"')"              
+                sql1 = "INSERT INTO Accounts(Username,Password,Role) VALUES('"&Username&"','"&Password&"','admin')"              
                 connDB.execute sql1 
                 ' Response.write sql1              
                 
@@ -58,10 +55,9 @@ End Sub
                 Session("Error") = "You have to input enough info"                
             end if
         else
-            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>"" and NOT isnull(Role) and Role<>"" ) then
-                Set cmdPrep = Server.CreateObject("ADODB.Command")
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>""  ) then
                 connDB.Open()                
-                sql = "UPDATE Accounts SET Username='"&Username&"',Password='"&Password&"',Role='"&Role&"' WHERE AccountID='"&id&"'"
+                sql = "UPDATE Accounts SET Username='"&Username&"',Password='"&Password&"',Role='admin' WHERE AccountID='"&id&"'"
                 connDB.execute sql
                 ' Response.write sql
                 
@@ -103,24 +99,24 @@ End Sub
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form method="Post">
-                                                <h4 class="add-text">Discount info</h4>
+                                            <form method="Post" onsubmit="return validateRole();">
+                                                <h4 class="add-text">Account info</h4>
                                                 <div class="row">
                                                     <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
                                                             <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required>
                                                          </div>
                                                     </div>
-                                                    <div class="col l-6 m-6 c-12">
+                                                    <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">    
                                                             <input type="text" id="Password" name="Password" placeholder="Password" value="<%=Password%>" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col l-6 m-6 c-12">
+                                                    <!-- <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <input type="text" id="Role" name="Role" placeholder="Role" value="<%=Role%>" required>
                                                         </div>
-                                                    </div>
+                                                    </div>  -->
                                                 </div>
                                                 <div class="add-setting">
                                                     <button class="add-btn" type="submit">
@@ -167,6 +163,16 @@ End Sub
         nav.addEventListener("click",function(e){
             e.stopPropagation();
         })
+    </script>
+    <script>
+        function validateRole() {
+        var role = document.getElementById("Role").value;
+        if (role !== "admin") {
+            alert("Role must be admin!");
+            return false;
+        }
+        return true;
+        }
     </script>
 </body>
 </html>
