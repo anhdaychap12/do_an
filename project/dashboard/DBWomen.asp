@@ -1,3 +1,59 @@
+<!-- #include file="connect.asp" -->
+<%
+    Function Ceil(Number)
+        Ceil = Int(Number)
+        If Ceil<>Number Then
+            Ceil = ceil + 1
+        End if  
+    End Function
+
+    Function checkPage(con, ret)
+        If con = true Then
+            Response.Write ret
+        Else
+            Response.Write ""
+        End if
+    End function
+
+    page = Request.QueryString("page")
+    limit = 5
+
+    If (trim(page) = "") or (isnull(page)) Then
+        page = 1
+    End if
+
+    offset = (Clng(page) * Clng(limit)) - Clng(limit)
+
+    CateID = Request.QueryString("CateID")
+    
+    If (trim(CateID) = "") or (isnull(CateID)) Then
+        CateID = 5
+    End if
+
+    set cmdPrep = Server.CreateObject("ADODB.Command")
+    connDB.Open()
+    cmdPrep.ActiveConnection = connDB
+    cmdPrep.CommandType = 1
+    cmdPrep.Prepared = true
+    cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ?"
+    cmdPrep.parameters(0) = CateID
+    set rs = cmdPrep.execute()
+    totalRows = Clng(rs("count"))
+    rs.Close()
+    connDB.Close()
+    set rs = Nothing
+    
+    'lấy về tổng số trang
+    pages = Ceil(totalRows/limit)
+    'giới hạn tổng số trang là 4
+    Dim range
+    If (pages <= 4) Then
+        range = pages
+    Else
+        range = 4
+    End if
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,104 +69,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-    <div class="main">
-        <div class="dashboard">
-            <div class="row no-gutters">
-                <div class="col l-2 m-0 c-0">
-                    <div class="dashboard-nav">
-                        <div class="dashboard-logo">
-                            <img src="./assets/img/logo.jpg" alt="">
-                        </div>
-                        <div class="dashboard-menu">
-                            <ul class="dashboard-menu-list">
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Account</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-nav dashboard-nav-mobile js-nav">
-                    <button class="dashboard-close-mobile js-close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <div class="dashboard-logo">
-                        <img src="./assets/img/logo.jpg" alt="">
-                    </div>
-                    <div class="dashboard-menu">
-                        <ul class="dashboard-menu-list">
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Account</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col l-10 m-12 c-12">
-                    <div class="dashboard-main">
-                        <div class="dashboard-main-header">
-                            <button class="dashboard-main-mobile js-btn">
-                                <i class="nav-icon fa fa-bars"></i>
-                            </button>
-                            <div class="dashboard-main-header-search hide-on-mobile-tablet">
-                                <input type="text" placeholder="Search...">
-                                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                            <div class="dashboard-main-header-login">
-                                <h4>Admin</h4>
-                                <img src="./assets/img/admin.jpg" alt="" class="admin-avatar">
-                                <a href="./website/logout.asp" class="dashboard-main-header-login-link">
-                                    <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-                                </a>    
-                                <!-- <a href="./website/login.asp" class="dashboard-main-header-login-link">
-                                    <i class="fa-solid fa-user"></i>
-                                    Login
-                                </a> -->
-                            </div>
-                        </div>
+    <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
                             <div class="grid wide">
                                 <div class="row">
@@ -118,7 +77,7 @@
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
                                                 <h4>Women</h4>
-                                                <a href="" class="dashboard-option-btn dashboard-create">Create</a>
+                                                <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
                                                 <table>
@@ -128,33 +87,69 @@
                                                             <th>Name</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
+                                                            <th>Promotion ID</th>
                                                             <th>Option</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <%
+                                                                set cmdPrep = Server.CreateObject("ADODB.Command")
+                                                                connDB.Open()
+                                                                cmdPrep.ActiveConnection = connDB
+                                                                cmdPrep.CommandType = 1
+                                                                cmdPrep.Prepared = true
+                                                                cmdPrep.CommandText = "select * from Products  where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
+                                                                cmdPrep.parameters.Append cmdPrep.createParameter("CateID", 3, 1, ,CateID)
+                                                                cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
+                                                                cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
+
+                                                                Set Result = cmdPrep.execute
+
+                                                                do While not Result.EOF
+                                                        %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Jeans Cowboy</td>
-                                                            <td>Eiser</td>
-                                                            <td>100000</td>
+                                                            <td><%=Result("ProductID")%></td>
+                                                            <td><%=Result("ProcductName")%></td>
+                                                            <td><%=Result("Description")%></td>
+                                                            <td><%=Result("Price")%></td>
+                                                            <td><%=Result("PromotionID")%></td>
                                                             <td>
                                                                 <div class="dashboard-option">
-                                                                    <a href="" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
+                                                                    <a href="EditProduct.asp?id=<%=Result("ProductID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
                                                                     <a href="" class="dashboard-option-btn dashboard-delete"><i class="fa-solid fa-trash-can"></i></a>
                                                                 </div>
                                                             </td>
+                                                            <%
+                                                                Result.MoveNext
+                                                                loop
+                                                            %>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="page">
                                                 <ul class="navigation">
-                                                    <li class="navigation-item"><a href="#" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">1</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">2</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">3</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link">4</a></li>
-                                                    <li class="navigation-item"><a href="#" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                    <%
+                                                    If (pages > 1) Then
+                                                        If (Clng(page) >= 2) Then
+                                                %>
+                                                            <li class="navigation-item"><a href="/dashboard/DBWomen.asp?CateID=<%=CateID%>&page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                <%
+                                                        End If
+
+                                                        for i = 1 to range
+                                                %>
+                                                            <li class="navigation-item "><a href="/dashboard/DBWomen.asp?CateID=<%=CateID%>&page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                <%
+                                                        Next
+
+                                                        If (Clng(page) < pages) Then
+                                                %>
+                                                            <li class="navigation-item"><a href="/dashboard/DBWomen.asp?CateID=<%=CateID%>&page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                <%      
+                                                        End If  
+                                                    End if
+                                                %>
                                                 </ul>
                                             </div>
                                         </div>                                
