@@ -23,55 +23,90 @@
                         <p>Bring called seed first of third give itself now ment</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col l-12 m-12 c-12">
-                        <div class="shopping-cart">
-                            <a href="" class="shopping-cart-exit"><i class="fa-solid fa-arrow-left"></i></a>
-                            <div class="shopping-cart-item">
-                                <h4>My Favorite</h4>
-                            </div>
-                            <div class="shopping-cart-item">
-                                <h4>1 Cart</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-12 m-12 c-12">
-                        <form action="" method="post">
-                            <div class="row">
-                                <div class="col l-3 m-4 c-12">
-                                    <div class="cart-content">
-                                        <div class="row">
-                                            <a href="" class="cart-item-delete delete-favorite">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </a>
-                                            <div class="col l-12 m-12 c-12">
-                                                <div class="cart-item">
-                                                    <img src="./assets/img/product.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col l-12 m-12 c-12">
-                                                <div class="cart-item">
-                                                    <h4>LATEST MEN’S SNEAKER</h4>
-                                                    <p>Eiser</p>
-                                                </div>
-                                            </div>
-                                            <div class="col l-12 m-12 c-12">
-                                                <div class="cart-item">
-                                                    <h4>$25.00</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col l-12 m-12 c-12">
-                                                <div class="cart-item">
-                                                    <a href="#" class="details-buy" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
-                                                </div>
-                                            </div>
-                                        </div>
+                
+                <%
+                    Dim dsyt
+                    ''1.Kiểm tra dsyt có tồn tại hay không
+                    If not isEmpty(session("fav")) Then
+                    ''1.2. Dsyt tồn tại
+                %>
+                        <div class="row">
+                            <div class="col l-12 m-12 c-12">
+                                <div class="shopping-cart">
+                                    <a href="" class="shopping-cart-exit"><i class="fa-solid fa-arrow-left"></i></a>
+                                    <div class="shopping-cart-item">
+                                        <h4>My Favorite</h4>
+                                    </div>
+                                    <div class="shopping-cart-item">
+                                        <h4>1 Cart</h4>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
+                            <div class="col l-12 m-12 c-12">
+                <%
+                                    set dsyt = session("fav")
+                                    dim o
+                                    for each o in dsyt.keys
+                %>
+                                <form action="" method="post">
+                                            <div class="row">
+                <%
+                                        connDB.Open()
+                                        set rs = connDB.execute("select * from Products inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where Products.ProductID = '"&o&"'")
+                                        Do While not rs.EOF
+                %>
+                                                <div class="col l-3 m-4 c-12">
+                                                    <div class="cart-content">
+                                                        <div class="row">
+                                                            <a href="" class="cart-item-delete delete-favorite">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </a>
+                                                            <div class="col l-12 m-12 c-12">
+                                                                <div class="cart-item">
+                                                                    <img src="<%=rs("Image1")%>" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col l-12 m-12 c-12">
+                                                                <div class="cart-item">
+                                                                    <h4><%=rs("ProcductName")%></h4>
+                                                                    <p>Eiser</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col l-12 m-12 c-12">
+                                                                <div class="cart-item">
+                                                                    <h4><%=rs("Price")%></h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col l-12 m-12 c-12">
+                                                                <div class="cart-item">
+                                                                    <a href="#" class="details-buy" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                <%
+                                        rs.MoveNext()
+                                        Loop
+                                        rs.Close()
+                                        connDB.Close
+                %>                                        
+                                            
+                                            </div>
+                    
+                                </form>
+                <%
+                                    next
+                %>
+                            </div>
+                        </div>
+                <%   
+                    Else
+                        Response.Write "Ds rong"
+                    End if
+                %>
+                
+                
             </div>
         </div>
         <!-- #include file="layout/footer.asp" -->
