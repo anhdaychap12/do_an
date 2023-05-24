@@ -104,7 +104,7 @@ End Sub
                                                 <div class="row">
                                                     <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required>
+                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required >
                                                          </div>
                                                     </div>
                                                     <div class="col l-12 m-12 c-12">

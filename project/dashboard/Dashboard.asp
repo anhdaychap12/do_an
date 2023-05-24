@@ -137,7 +137,6 @@
             e.stopPropagation();
         })
     </script>
-<<<<<<< HEAD
     <script> 
             document.addEventListener("DOMContentLoaded", function() {
             var ctx4 = document.getElementById("dashboard-map").getContext("2d");

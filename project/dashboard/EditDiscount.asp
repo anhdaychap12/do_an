@@ -122,13 +122,13 @@ End Sub
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">From</p>
-                                                            <input type="date" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
+                                                            <input type="text" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <p class="add-description">To</p>
-                                                            <input type="date" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
+                                                            <input type="text" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
                                                         </div>
                                                     </div>
                                                 </div>
