@@ -1,4 +1,82 @@
 <!-- #include file="connect.asp" -->
+<%
+On Error Resume Next
+Sub handleError(message)
+    Session("Error") = message
+End Sub
+    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
+        Response.redirect("../login.asp")
+    End If
+    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
+        id = Request.QueryString("id")
+        If (isnull(id) OR trim(id) = "") then 
+            id=0 
+        End if
+        If (cint(id)<>0) Then
+            Set cmdPrep = Server.CreateObject("ADODB.Command")
+            connDB.Open()
+            cmdPrep.ActiveConnection = connDB
+            cmdPrep.CommandType = 1
+            cmdPrep.CommandText = "SELECT * FROM Accounts WHERE AccountID=? and Role = 'admin'"
+            cmdPrep.Parameters(0)=id
+            Set Result = cmdPrep.execute 
+
+            If not Result.EOF then
+                Username = Result("Username")
+                Password = Result("Password")
+                Role = Result("Role")
+            End If
+
+            Result.Close()
+        End If
+    Else
+        id = Request.QueryString("id")
+        Username = Request.form("Username")
+        Password = Request.form("Password")
+
+
+        if (isnull (id) OR trim(id) = "") then id=0 end if
+
+        if (cint(id)=0) then
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>""  ) then
+                connDB.Open()  
+                sql1 = "INSERT INTO Accounts(Username,Password,Role) VALUES('"&Username&"','"&Password&"','admin')"              
+                connDB.execute sql1 
+                ' Response.write sql1              
+                
+                If Err.Number = 0 Then  
+                    Session("Success") = "New Account added!"                    
+                    Response.redirect("DBAccount.asp")  
+                Else  
+                    handleError(Err.Description)
+                End If
+                On Error GoTo 0
+            else
+                Session("Error") = "You have to input enough info"                
+            end if
+        else
+            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>""  ) then
+                connDB.Open()                
+                sql = "UPDATE Accounts SET Username='"&Username&"',Password='"&Password&"',Role='admin' WHERE AccountID='"&id&"'"
+                connDB.execute sql
+                ' Response.write sql
+                
+                If Err.Number=0 Then
+                    Session("Success") = "The Account was edited!"
+                    Response.redirect("DBAccount.asp")
+                Else
+                    handleError(Err.Description)
+                End If
+                On Error Goto 0
+            else
+                Session("Error") = "You have to input enough info"
+                    Response.write(Session("Error"))
+
+            end if
+        end if
+    End If    
+%>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,132 +93,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-    <div class="main">
-        <div class="dashboard">
-            <div class="row no-gutters">
-                <div class="col l-2 m-0 c-0">
-                    <div class="dashboard-nav">
-                        <div class="dashboard-logo">
-                            <img src="./assets/img/logo.jpg" alt="">
-                        </div>
-                        <div class="dashboard-menu">
-                            <ul class="dashboard-menu-list">
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item">
-                                    <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                    </a>
-                                    <ul class="dashboard-menu-list-sub">
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                        <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Account</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                                <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-nav dashboard-nav-mobile js-nav">
-                    <button class="dashboard-close-mobile js-close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <div class="dashboard-logo">
-                        <img src="./assets/img/logo.jpg" alt="">
-                    </div>
-                    <div class="dashboard-menu">
-                        <ul class="dashboard-menu-list">
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link active"><p><i class="fa-solid fa-house"></i> Home</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Men Product</p> <i id="icon" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Polo <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item">
-                                <a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-box-open"></i> Women Product</p> <i id="icon1" class="dashboard-menu-item-link-icon fa-solid fa-angle-right"></i>
-                                </a>
-                                <ul class="dashboard-menu-list-sub">
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Jeans <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">T-Shirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Skirt <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                    <li class="dashboard-menu-item-sub"><a href="#" class="dashboard-menu-item-link-sub">Underwear <i class="sub-icon fa-solid fa-angle-right"></i></a></li>
-                                </ul>
-                            </li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Customer</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-users"></i> Account</p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col l-10 m-12 c-12">
-                    <div class="dashboard-main">
-                        <div class="dashboard-main-header">
-                            <button class="dashboard-main-mobile js-btn">
-                                <i class="nav-icon fa fa-bars"></i>
-                            </button>
-                            <div class="dashboard-main-header-search hide-on-mobile-tablet">
-                                <input type="text" placeholder="Search...">
-                                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                            <div class="dashboard-main-header-login">
-                                <h4>Admin</h4>
-                                <img src="./assets/img/admin.jpg" alt="" class="admin-avatar">
-                                <a href="./website/logout.asp" class="dashboard-main-header-login-link">
-                                    <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-                                </a>    
-                                <!-- <a href="./website/login.asp" class="dashboard-main-header-login-link">
-                                    <i class="fa-solid fa-user"></i>
-                                    Login
-                                </a> -->
-                            </div>
-                        </div>
+               <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
                             <div class="grid wide">
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form action="Post">
-                                                <h4 class="add-text">Discount info</h4>
+                                            <form method="Post" onsubmit="return validateRole();">
+                                                <h4 class="add-text">Account info</h4>
                                                 <div class="row">
                                                     <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="AccountName" name="AccountName" placeholder="Username">
+                                                            <label for="Username"><p class="add-description">Username:</p></label>
+                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required>
                                                          </div>
                                                     </div>
-                                                    <div class="col l-6 m-6 c-12">
-                                                        <div class="add-input">    
-                                                            <input type="text" id="PassWord" name="PassWorld" placeholder="Password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col l-6 m-6 c-12">
+                                                    <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="role" name="role" placeholder="Role">
+                                                            <label for="Password"><p class="add-description">Password:</p></label>
+                                                            <input type="text" id="Password" name="Password" placeholder="Password" value="<%=Password%>" required>
                                                         </div>
                                                     </div>
+                                                    <!-- <div class="col l-6 m-6 c-12">
+                                                        <div class="add-input">
+                                                            <input type="text" id="Role" name="Role" placeholder="Role" value="<%=Role%>" required>
+                                                        </div>
+                                                    </div>  -->
                                                 </div>
                                                 <div class="add-setting">
-                                                   <button class="add-btn" type="submit">Submit       
+                                                    <button class="add-btn" type="submit">
+                                                   <%
+                                                        if (id=0) then
+                                                            Response.write("Add")
+                                                        else
+                                                            Response.write("Edit")
+                                                        end if
+                                                    %>              
                                                    </button>
-                                                   <a href="database.asp" class="add-btn cancel">Cancel</a>
+                                                   <a href="DBAccount.asp" class="add-btn cancel">Cancel</a>
                                                 </div>   
                                            </form>
                                         </div>
@@ -175,6 +165,16 @@
         nav.addEventListener("click",function(e){
             e.stopPropagation();
         })
+    </script>
+    <script>
+        function validateRole() {
+        var role = document.getElementById("Role").value;
+        if (role !== "admin") {
+            alert("Role must be admin!");
+            return false;
+        }
+        return true;
+        }
     </script>
 </body>
 </html>
