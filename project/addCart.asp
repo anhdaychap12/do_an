@@ -2,6 +2,12 @@
 <%
     Dim ID_productDetail
     ID_productDetail = Request.QueryString("ID_productDetail")
+
+    ''kiểm tra session(totalProduct) có tồn tại không, nếu không thì session(totalProduct) = 0
+    If IsEmpty(session("totalProduct")) Then
+        ' true
+        session("totalProduct") = 0
+    End if
     
     If not isnull(ID_productDetail) and ID_productDetail <> "" Then
         connDB.Open()
@@ -25,10 +31,11 @@
                 End if
                 set Session("mycarts") = curCarts
             End if
-            
-            Response.Write session("totalProduct")
+            Response.ContentType = "application/json"
+            Response.Write "{""messenger"": ""Product has been added to your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
         Else
-            Response.Write "Product is not exists, please try again."
+            Response.ContentType = "application/json"
+            Response.Write "{""messenger"": ""Product is not exists your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
         End if
         rs.Close()
         set rs = nothing

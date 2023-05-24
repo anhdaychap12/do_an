@@ -2,7 +2,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa;Password=ducanh"
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-85SJOGH\SQLASP;Database=WEB_BQA1;User Id=sa ;Password=123"
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -34,6 +34,22 @@
 
     
 %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Store</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.jpg"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/responsove.css">
+    <link rel="stylesheet" href="./assets/css/Grid.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    
+</head>
 <div id="header" class="header">
     <div class="header-top hide-on-mobile">
         <div class="grid wide">
@@ -105,6 +121,7 @@
                 <div class="nav-right hide-on-mobile-tablet">
                     <div class="nav-right-section">
                         <ul class="section-right-list">
+
                             <li class="section-right-item">
                                 <a class="section-right-item-link">
                                     <div class="search-section">
@@ -216,3 +233,7 @@
         </div>
     </div>
 </div>
+<div id="toast" class="toast">
+    <p id="notify_success"><%=session("success")%></p>
+</div>
+

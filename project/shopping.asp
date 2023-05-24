@@ -14,23 +14,10 @@
     End if
 
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Store</title>
-    <link rel="icon" type="image/png" href="./assets/img/favicon.jpg"/>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/responsove.css">
-    <link rel="stylesheet" href="./assets/css/Grid.css">
-    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
-    
-</head>
+
+<!--#include file="layout/header.asp"-->
 <body>
     <div class="main">
-        <!--#include file="layout/header.asp"-->
         <div class="shopping">
             <div class="grid wide">
                 <div class="row product-wrap">
@@ -69,7 +56,7 @@
                                                 If not rs.EOF Then
                                         %>
 
-                                                    <form action="" method="post">
+                                                    <form action="" method="post" class="product_js">
                                                         <div class="row">
                                                             <div class="col l-12 m-12 c-12">
                                                                 <div class="cart-content">
@@ -92,20 +79,21 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <button class="cart-item-btn prev" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                                                <button type="button" class="cart-item-btn prev" id="btn-prev" onclick="prev(this, <%=i%>)">
                                                                                     <i class="fa-solid fa-minus"></i>
                                                                                 </button>
-                                                                                <input type="number" min="0" class="cart-item-number" 
-                                                                                    value="<%=mycarts(i)%>"
+                                                                                <input type="number" min="1" class="cart-item-number quantity_pro" 
+                                                                                    value="<%=mycarts(i)%>" id="display-quantity"
                                                                                 />
-                                                                                <button class="cart-item-btn next" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                                                <button type="button" class="cart-item-btn next" id="btn-next" onclick="next(this, <%=i%>)">
                                                                                     <i class="fa-solid fa-plus"></i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <h4>$<%=rs("Price")%></h4>
+                                                                                <h4>$</h4>
+                                                                                <h4 class="price_pro"><%=rs("Price")%></h4>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -120,7 +108,6 @@
                                                 totalProduct = totalProduct + Clng(mycarts(i))
                                                 totalPrice = totalPrice + Clng(mycarts(i)) * Clng(rs("Price"))
                                             Next
-                                            session("totalProduct") = totalProduct
                                         %>
                                         
                                     </div>
@@ -130,8 +117,8 @@
                                 <div class="shopping-cost">
                                     <h2>Invoice</h2>
                                     <div class="shopping-cost-info">
-                                        <h4><%=totalProduct%> Products</h4>
-                                        <h4>$<%=totalPrice%></h4>
+                                        <h4 id="display_quantity"></h4>
+                                        <h4 id="display_price"></h4>
                                     </div>
                                     <div class="shopping-cost-ship">
                                         <h4>Shipping:</h4>
@@ -159,6 +146,7 @@
                         totalProduct = 0
                         totalPrice = 0
                     End if
+                    session("totalProduct") = totalProduct
                 %>
             </div>
         </div>
@@ -188,6 +176,81 @@
                 $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
             });
         });
+        var btn_prev = $('#btn-prev')
+        var btn_next = $('#btn-next')
+        var display_quantity = $('#display-quantity')
+        function prev(e, i) {
+            e.parentNode.querySelector('input[type=number]').stepDown();
+            var data_prev = {
+                ID_product: i,
+                quantity: e.parentNode.querySelector('input[type=number]').value
+            };
+            $.ajax({
+                url: 'updateCart.asp',
+                data: data_prev,
+                dataType: 'json',
+                success: function (response) { 
+                    $('#sl_sp').html(response.total_quantity)
+                },
+                error: function() {
+                    alert('Lỗi AJAX');
+                } 
+            });
+            $('#display_quantity').html(totalProduct() + " products");
+            $('#display_price').html(totalPrice() + "$");
+
+        }
+
+        function next(e, i) {
+            e.parentNode.querySelector('input[type=number]').stepUp();
+            var data_next = {
+                ID_product: i,
+                quantity: e.parentNode.querySelector('input[type=number]').value
+            };
+            $.ajax({
+                url: 'updateCart.asp',
+                data: data_next,
+                dataType: 'json',
+                success: function (response) { 
+                    $('#sl_sp').html(response.total_quantity)
+                },
+                error: function() {
+                    alert('Lỗi AJAX');
+                } 
+            });
+            $('#display_quantity').html(totalProduct() + " products");
+            $('#display_price').html(totalPrice() + "$");
+
+        }
+
+        function totalProduct() {
+            var total_quantity = 0;
+
+            $('.product_js').each(function () {
+                var quantity_pro = parseInt($(this).find('.quantity_pro').val());
+                total_quantity += quantity_pro;
+            });
+
+            return total_quantity;
+
+        }
+
+        function totalPrice() {
+            var total_price = 0;
+
+            $('.product_js').each(function () {
+                var price_pro = parseInt($(this).find('.price_pro').html());
+                var quantity_pro = parseInt($(this).find('.quantity_pro').val());
+                total_price += price_pro * quantity_pro;
+            });
+
+            return total_price;
+
+        }
+
+        $('#display_quantity').html(totalProduct() + " products");
+        $('#display_price').html(totalPrice() + "$");
+        
     </script> 
     <script src="main.js"></script>
 </body>

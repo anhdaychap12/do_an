@@ -14,7 +14,7 @@
             If Result("Role") <> "admin" then
                 Response.redirect("index.asp")
             Else
-                Response.redirect("dashboard/Dashboard.html")
+                Response.redirect("dashboard/Dashboard.asp")
             end If
         Else
             Session("error") = "Wrong username or password"
