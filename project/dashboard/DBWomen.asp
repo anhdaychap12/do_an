@@ -76,7 +76,7 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
-                                                <h4>Women</h4>
+                                                <h4>Women <%=dictWOMEN(int(CateID))%></h4>
                                                 <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
@@ -110,7 +110,7 @@
                                                         <tr>
                                                             <td><%=Result("ProductID")%></td>
                                                             <td><%=Result("ProcductName")%></td>
-                                                            <td><%=Result("Description")%></td>
+                                                            <td><p><%=Result("Description")%></p></td>
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
                                                             <td>

@@ -125,12 +125,14 @@ End Sub
                                                             </div>
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
-                                                            <div class="add-input">   
+                                                            <div class="add-input">
+                                                                <label for="PromotionID"><p class="add-description">PromotionID:</p></label>   
                                                                 <input type="text" id="PromotionID" name="PromotionID" placeholder="PromotionID ">
                                                             </div>
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
+                                                                <label for="Price"><p class="add-description">Price:</p></label>
                                                                 <input type="text" id="Price" name="Price" placeholder="Price">
                                                             </div>
                                                         </div>
@@ -161,19 +163,12 @@ End Sub
                                                                 <input type="text" id="Color" name="Color" placeholder="Color">
                                                             </div>
                                                         </div>
-                                                        <div class="col l-6 m-6 c-12">
+                                                        <div class="col l-12 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                              </div>
                                                         </div>
-                                                        <div class="col l-6 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" id="Price" name="Price" placeholder="Price">
-                                                            </div>
-                                                        </div>
-
                                                     </div>   
                                                </form>
                                             </div>
