@@ -106,29 +106,30 @@ End Sub
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
                                             <form method="post"   onsubmit="return validateDiscountRate() && validateDate() && convertDates();">
-                                                <h4 class="add-text class="add-description"">Discount info</h4>
+                                                <h4 class="add-text">Discount info</h4>
                                                 <div class="row">
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
+                                                            <label for="PromotionName"><p class="add-description">Promotion name:</p></label>
                                                             <input type="text" id="PromotionName" name="PromotionName" placeholder="Discount name" value="<%=PromotionName%>" required>
                                                          </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">    
-
+                                                            <label for="DiscountRate"><p class="add-description">Promotion:</p></label>
                                                             <input type="text" id="DiscountRate" name="DiscountRate" placeholder="Promotion (0-100)" value="<%=DiscountRate%>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
-                                                            <p class="add-description">From</p>
-                                                            <input type="text" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
+                                                            <label for="StartDate"><p class="add-description">From:</p></label>
+                                                            <input type="date" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
-                                                            <p class="add-description">To</p>
-                                                            <input type="text" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
+                                                            <label for="EndDate"><p class="add-description">To:</p></label>
+                                                            <input type="date" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
                                                         </div>
                                                     </div>
                                                 </div>

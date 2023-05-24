@@ -104,11 +104,15 @@ End Sub
                                                 <div class="row">
                                                     <div class="col l-12 m-12 c-12">
                                                         <div class="add-input">
-                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required >
+
+                                                            <label for="Username"><p class="add-description">Username:</p></label>
+                                                            <input type="text" id="Username" name="Username" placeholder="Username" value="<%=Username%>" required>
+
                                                          </div>
                                                     </div>
                                                     <div class="col l-12 m-12 c-12">
-                                                        <div class="add-input">    
+                                                        <div class="add-input">
+                                                            <label for="Password"><p class="add-description">Password:</p></label>
                                                             <input type="text" id="Password" name="Password" placeholder="Password" value="<%=Password%>" required>
                                                         </div>
                                                     </div>
