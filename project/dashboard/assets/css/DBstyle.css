@@ -135,6 +135,7 @@
 .dashboard-menu-item:hover .dashboard-menu-item-link {
     background-color: #2a2a2a;
     color: #fff;
+    cursor: pointer;
 }
 
 .active {
@@ -358,17 +359,16 @@ table th {
     border-right: 1px solid #eee;
 }
 
-table td:last-child,
-table th:last-child {
-    border: none;
-}
-
 table td {
     padding: 8px 16px;
     text-align: center;
     background-color: #ccc;
     color: #2a2a2a;
-    border-right: 1px solid #eee;
+    border: 1px solid #eee;
+}
+
+table td div {
+    text-align: left !important;
 }
 
 .page {
