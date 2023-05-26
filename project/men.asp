@@ -193,6 +193,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $('#notify_success').html(response.messenger);
+                    $('#sl_fav').html(response.sl_fav);
                     console.log(response.messenger);
                     showToast();
                 },

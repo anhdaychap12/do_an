@@ -22,7 +22,7 @@
                     ''2.1.1.1 Sản phẩm đã có trong dsyt->xóa khỏi danh sách yt
                     
                     Response.ContentType = "application/json"
-                    Response.Write "{""messenger"": ""Sản phẩm đã có trong danh sách yêu thích.""}"
+                    Response.Write "{""messenger"": ""Sản phẩm đã có trong danh sách yêu thích."", ""sl_fav"":"""&cur_fav.Count&"""}"
                 Else
                     ' false
                     ''2.1.1.2 Sản phẩm chưa có trong danh sách yt->thêm vào dsyt
@@ -30,7 +30,7 @@
                     cur_fav.add ID_product, name
                     session("sl_fav") = Clng(session("sl_fav")) + 1
                     Response.ContentType = "application/json"
-                    Response.Write "{""messenger"": ""Thêm sản phẩm vào danh sách yêu thích.""}"
+                    Response.Write "{""messenger"": ""Thêm sản phẩm vào danh sách yêu thích."", ""sl_fav"":"""&cur_fav.Count&"""}"
                 End if
                 set session("fav") = cur_fav
             Else
@@ -38,10 +38,10 @@
                 set my_fav = Server.CreateObject("Scripting.Dictionary")
                 
                 my_fav.add ID_product, name
+                Response.ContentType = "application/json"
+                Response.Write "{""messenger"": ""Thêm sản phẩm vào danh sách yêu thích."", ""sl_fav"":"""&my_fav.Count&"""}"
                 set session("fav") = my_fav
                 set my_fav = nothing
-                Response.ContentType = "application/json"
-                Response.Write "{""messenger"": ""Thêm sản phẩm vào danh sách yêu thích.""}"
                 ' false
             End if
             

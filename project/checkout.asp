@@ -19,7 +19,7 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Name"><p class="add-description">Full name:</p></label>
-                                            <input type="text" id="Name" name="Name" placeholder="Full name">
+                                            <input type="text" id="Name" name="Name" placeholder="Lê Đức Chó">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
@@ -31,19 +31,19 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Email"><p class="add-description">Email:</p></label>
-                                            <input type="email" id="Email" name="Email" placeholder="Email">
+                                            <input type="email" id="Email" name="Email" placeholder="cho123@gmail.com">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Phone"><p class="add-description">Phone:</p></label>
-                                            <input type="text" id="Phone" name="Phone" placeholder="Phone">
+                                            <input type="text" id="Phone" name="Phone" placeholder="0965228545">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Address"><p class="add-description">Address:</p></label>
-                                            <input type="text" id="Address" name="Address" placeholder="Address">
+                                            <input type="text" id="Address" name="Address" placeholder="69 Tam Trinh">
                                          </div>
                                     </div>
                                 </div>

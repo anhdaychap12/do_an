@@ -136,7 +136,7 @@
                                         <h4>$<%=totalPrice%></h4>
                                     </div>
                                     <div class="shopping-cost-btn">
-                                        <button type="button">Pay</button>
+                                        <button type="button" ><a href="checkout.asp">Pay</a></button>
                                     </div>
                                 </div>
                             </div>
