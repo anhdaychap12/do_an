@@ -110,11 +110,7 @@
                                                         <tr>
                                                             <td><%=Result("ProductID")%></td>
                                                             <td><%=Result("ProcductName")%></td>
-<<<<<<< HEAD
                                                             <td><div><%=Result("Description")%></div></td>
-=======
-                                                            <td><p><%=Result("Description")%></p></td>
->>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
                                                             <td>

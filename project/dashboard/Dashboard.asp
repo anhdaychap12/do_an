@@ -50,7 +50,7 @@
                                         %>
                                     </div>
                                 <%
-                                        cmdPrep.CommandText = "SELECT COUNT(ProductID) AS countProdet FROM OrderDetails  "
+                                        cmdPrep.CommandText = "SELECT COUNT(ProductDetailID) AS countProdet FROM OrderDetails  "
                                     Set Result2 = cmdPrep.execute
                                     do while not Result2.EOF
                                 %>

@@ -367,15 +367,10 @@ table td {
     border: 1px solid #eee;
 }
 
-<<<<<<< HEAD
 table td div {
     text-align: left !important;
-=======
-table td p {
-    text-align: left;
->>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
 }
-
+    
 .page {
     margin-top: 15px;
 }
@@ -402,6 +397,14 @@ table td p {
 
  .add-input {
     margin: 8px 16px;
+ }
+
+ .Add-list {
+    display: none;
+ }
+
+ .add-block {
+    display: block;
  }
 
  .add-input select,
