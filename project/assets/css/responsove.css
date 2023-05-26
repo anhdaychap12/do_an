@@ -39,6 +39,14 @@
         line-height: 24px;
         margin-bottom: 30px;
     }
+    /* checkout */
+    .checkout .row:nth-child(2) {
+        flex-direction: column-reverse;
+    }
+
+    .checkout-info {
+        margin-top: 15px;
+    }
 
     /* dashboard */
     .dashboard-main-mobile {
