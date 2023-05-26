@@ -1,8 +1,21 @@
+<%
+    dim so_luong_sp_fav, ds_fav
+    If not IsEmpty(session("fav")) Then
+        set ds_fav = session("fav")
+        so_luong_sp_fav = ds_fav.Count
+    Else
+        so_luong_sp_fav = 0
+    End if
+%>
 <%  
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
+<<<<<<< HEAD
     strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
+=======
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=PHUC\SQLEXPRESS;Database=WEB_BQA1;User Id=sa ;Password=01052002"
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -133,7 +146,7 @@
                                 </a>
                             </li>
                             <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id ="sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
-                            <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
+                            <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"><span class="quantity"><p id ="sl_fav"><%=so_luong_sp_fav%></p></span></i></a></li>
                             
                             <%
                                 If Session("user") <> "" and trim(Session("user")) <> "" Then

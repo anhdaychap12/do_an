@@ -23,6 +23,13 @@
                         <p>Bring called seed first of third give itself now ment</p>
                     </div>
                 </div>
+                <%
+                    ''1. Kiểm tra dsyt có tồn tại hay không
+                    Dim dsyt
+                    If not IsEmpty(session("fav")) Then
+                    ''1.1 Dsyt tồn tại -> hiển thị danh sách
+                        set dsyt = session("fav")
+                %>
                 <div class="row">
                     <div class="col l-12 m-12 c-12">
                         <div class="shopping-cart">
@@ -31,33 +38,41 @@
                                 <h4>My Favorite</h4>
                             </div>
                             <div class="shopping-cart-item">
-                                <h4>1 Cart</h4>
+                                <h4><%=dsyt.Count%> Cart</h4>
                             </div>
                         </div>
                     </div>
                     <div class="col l-12 m-12 c-12">
                         <form action="" method="post">
                             <div class="row">
+                                <%
+                                    dim o
+                                    connDB.Open()
+                                    for each o in dsyt.keys
+                                        set rs = connDB.execute("select * from Products inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where Products.ProductID = '"&o&"'")
+                                        If not rs.EOF Then
+                                            ' true
+                                %>
                                 <div class="col l-3 m-4 c-12">
                                     <div class="cart-content">
                                         <div class="row">
-                                            <a href="" class="cart-item-delete delete-favorite">
+                                            <a href="removeFav.asp?ID_product=<%=o%>" class="cart-item-delete delete-favorite">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </a>
                                             <div class="col l-12 m-12 c-12">
                                                 <div class="cart-item">
-                                                    <img src="./assets/img/product.jpg" alt="">
+                                                    <img src="<%=rs("Image1")%>" alt="">
                                                 </div>
                                             </div>
                                             <div class="col l-12 m-12 c-12">
                                                 <div class="cart-item">
-                                                    <h4>LATEST MEN’S SNEAKER</h4>
-                                                    <p>Eiser</p>
+                                                    <h4><%=rs("ProcductName")%></h4>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col l-12 m-12 c-12">
                                                 <div class="cart-item">
-                                                    <h4>$25.00</h4>
+                                                    <h4><%=rs("Price")%>$</h4>
                                                 </div>
                                             </div>
                                             <div class="col l-12 m-12 c-12">
@@ -68,10 +83,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%
+                                        End if
+                                        rs.Close()
+                                        set rs = nothing
+                                    next
+                                    connDB.Close()
+                                %>
+                                
                             </div>
                         </form>
                     </div>
                 </div>
+                <%
+                    Else
+                        Response.Write ("<h3>Chưa có sản phẩm nào trong danh sách yêu thích của bạn</h3>")
+                    End if                
+                %>
             </div>
         </div>
         <!-- #include file="layout/footer.asp" -->

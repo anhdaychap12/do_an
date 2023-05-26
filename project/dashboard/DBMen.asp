@@ -74,7 +74,11 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
+<<<<<<< HEAD
                                                 <h4>Men <%=dictMEN(int(CateID))%> </h4>
+=======
+                                                <h4>Men <%=dictMEN(int(CateID))%></h4>
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                 <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
@@ -108,7 +112,11 @@
                                                         <tr>
                                                             <td><%=Result("ProductID")%></td>
                                                             <td><%=Result("ProcductName")%></td>
+<<<<<<< HEAD
                                                             <td><div><%=Result("Description")%></div></td>
+=======
+                                                            <td><p><%=Result("Description")%></p></td>
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
                                                             <td>

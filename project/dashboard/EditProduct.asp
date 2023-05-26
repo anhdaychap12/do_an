@@ -120,13 +120,22 @@ End Sub
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
+<<<<<<< HEAD
                                                                 <label for="CategoryName"><p class="add-description">Category name:</p></label>
                                                                 <input type="text" id="CategoryName" name="CategoryName" placeholder="Category name">
+=======
+                                                                <label for="CategoryName"><p class="add-description">Category:</p></label>   
+                                                                <input type="text" id="CategoryName" name="CategoryName" placeholder="Category Name">
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                             </div>
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
+<<<<<<< HEAD
                                                                 <label for="PromotionID"><p class="add-description">PromotionID:</p></label>
+=======
+                                                                <label for="PromotionID"><p class="add-description">PromotionID:</p></label>   
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                                 <input type="text" id="PromotionID" name="PromotionID" placeholder="PromotionID ">
                                                             </div>
                                                         </div>
@@ -151,24 +160,53 @@ End Sub
                                                 <form action="Post">
                                                     <h4 class="add-text">Product Details</h4>
                                                     <div class="row">
+<<<<<<< HEAD
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Size"><p class="add-description">Size:</p></label>
                                                                 <input type="text" id="Size" name="Size" placeholder="Size">
+=======
+                                                        <div class="col l-12 m-12 c-12">
+                                                            <div class="add-input">
+                                                                <label for="Color"><p class="add-description">Color:</p></label>
+                                                                <select name="Color" id="Color">
+                                                                    <option value="0">Choose color</option>
+                                                                    <option value="Green">Green</option>
+                                                                    <option value="Blue">Blue</option>
+                                                                    <option value="Black">Black</option>
+                                                                    <option value="Grey">Grey</option>
+                                                                </select>
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                             </div>
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
+<<<<<<< HEAD
                                                                 <label for="Color"><p class="add-description">Color:</p></label>
                                                                 <input type="text" id="Color" name="Color" placeholder="Color">
+=======
+                                                                <label for="Size"><p class="add-description">Size:</p></label>
+                                                                <select name="Size" id="Size">
+                                                                    <option value="0">Choose size</option>
+                                                                    <option value="2XL">2XL</option>
+                                                                    <option value="3XL">3XL</option>
+                                                                    <option value="X">X</option>
+                                                                    <option value="XL">XL</option>
+                                                                </select>
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                             </div>
                                                         </div>
                                                         <div class="col l-12 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+<<<<<<< HEAD
                                                             </div>
                                                         </div>                                                       
+=======
+                                                             </div>
+                                                        </div>
+>>>>>>> 13b71924e1713ea9675e642e4618b2633815543f
                                                     </div>   
                                                </form>
                                             </div>
@@ -179,52 +217,40 @@ End Sub
                                                     <h4 class="add-text">Product Imagine</h4>
                                                     <div class="row">
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
-                                                            <div class="add-img">
-                                                                <ul class="add-img-menu">
-                                                                    <li><a href="" class="add-img-btn"><i class="fa-solid fa-plus"></i></a></li>
-                                                                    <li><a href="" class="remove-img-btn"><i class="fa-solid fa-trash-can"></i></a></li>
-                                                                </ul>
-                                                            </div>
+                                                            <div class="add-input">
+                                                                <label for="image"><p class="add-description">Image:</p></label>
+                                                                <input type="file" id="image" name="image">
+                                                             </div>
                                                         </div>
                                                     </div>   
                                                </form>
@@ -242,25 +268,6 @@ End Sub
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal delete-box" tabindex="-1" id="confirm-delete">
-        <div class="modal-dialog modal-form">
-            <div class="modal-heading upload">
-                <h3 class="">Upload file</h3>
-            </div>
-            <div class="modal-content">
-                <form action="Post">
-                    <div class="modal-upload">
-                        <input type="file" id="file" name="file">
-                        <label for="file" class="modal-upload-btn">Choose a file</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-option">
-                <a class="modal-btn modal-btn-clear">Insert</a>
-                <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -29,8 +29,7 @@
                     </div>
                 </div>
                 <%
-                    If check_cart = "" Then
-                    
+                    If check_cart = "" Then                   
                 %>
                 
                         <div class="row">
@@ -43,7 +42,7 @@
                                                 <h4>My product</h4>
                                             </div>
                                             <div class="shopping-cart-item">
-                                                <h4>1<span> </span> Porduct</h4>
+                                                <h4><span> </span></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -53,7 +52,7 @@
                                             Dim i
                                             connDB.Open()
                                             For each i in mycarts.keys
-                                                set rs = connDB.execute("select Products.ProcductName, Sizes.Size, Colors.Color, ImagePrducts.Image1,  Products.Price from ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID inner join Sizes on ProductDetails.SizeID = Sizes.SizeID inner join Colors on Colors.ColorID = ProductDetails.ColorID inner join ImagePrducts on ProductDetails.ProductID = ImagePrducts.ProductID where ProductDetailID = '"&i&"'")
+                                                set rs = connDB.execute("select Products.ProductID, Products.ProcductName, Sizes.Size, Colors.Color, ImagePrducts.Image1,  Products.Price from ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID inner join Sizes on ProductDetails.SizeID = Sizes.SizeID inner join Colors on Colors.ColorID = ProductDetails.ColorID inner join ImagePrducts on ProductDetails.ProductID = ImagePrducts.ProductID where ProductDetailID = '"&i&"'")
                                                 If not rs.EOF Then
                                         %>
 
@@ -72,7 +71,7 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <h4><%=rs("ProcductName")%></h4>
+                                                                                <h4><a href="/details.asp?productID=<%=rs("ProductID")%>" class=""><%=rs("ProcductName")%></a></h4>
                                                                                 <p><%=rs("Size")%></p>
                                                                                 
                                                                                 <p><%=rs("Color")%></p>
@@ -137,7 +136,7 @@
                                         <h4>$<%=totalPrice%></h4>
                                     </div>
                                     <div class="shopping-cost-btn">
-                                        <button type="button">Pay</button>
+                                        <button type="button" ><a href="checkout.asp">Pay</a></button>
                                     </div>
                                 </div>
                             </div>
