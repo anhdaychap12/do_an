@@ -118,8 +118,8 @@
                                                                     <i class="fa-solid fa-eye"></i>
                                                                 </a> 
                                                             </li>
-                                                            <li class="product-setting-item">
-                                                                <a href="/addFavorite.asp?ID_product=<%=rs("ProductID")%>" class="product-setting-link">
+                                                            <li class="product-setting-item" onclick="addFav(<%=rs("ProductID")%>)">
+                                                                <a  class="product-setting-link">
                                                                     <i class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>
@@ -185,5 +185,22 @@
         
     </div>    
     <script src="main.js"></script>
+    <script>
+        function addFav(id) {
+            $.ajax({
+                url: 'addFavorite.asp',
+                data: {ID_product: id},
+                dataType: 'json',
+                success: function (response) {
+                    $('#notify_success').html(response.messenger);
+                    console.log(response.messenger);
+                    showToast();
+                },
+                error: function () {
+                    alert('Lỗi AJAX');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
