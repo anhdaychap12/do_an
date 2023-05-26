@@ -68,6 +68,96 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col l-3 m-4 c-12">
+                                    <div class="cart-content">
+                                        <div class="row">
+                                            <a href="" class="cart-item-delete delete-favorite">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </a>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <img src="./assets/img/product.jpg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>LATEST MEN’S SNEAKER</h4>
+                                                    <p>Eiser</p>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>$25.00</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <a href="#" class="details-buy" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-3 m-4 c-12">
+                                    <div class="cart-content">
+                                        <div class="row">
+                                            <a href="" class="cart-item-delete delete-favorite">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </a>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <img src="./assets/img/product.jpg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>LATEST MEN’S SNEAKER</h4>
+                                                    <p>Eiser</p>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>$25.00</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <a href="#" class="details-buy" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-3 m-4 c-12">
+                                    <div class="cart-content">
+                                        <div class="row">
+                                            <a href="" class="cart-item-delete delete-favorite">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </a>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <img src="./assets/img/product.jpg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>LATEST MEN’S SNEAKER</h4>
+                                                    <p>Eiser</p>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <h4>$25.00</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col l-12 m-12 c-12">
+                                                <div class="cart-item">
+                                                    <a href="#" class="details-buy" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
