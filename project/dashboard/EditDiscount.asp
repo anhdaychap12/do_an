@@ -105,31 +105,35 @@ End Sub
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form method="post"   onsubmit="return validateDiscountRate() && validateDate() && convertDates();">
+                                            <form method="post"   onsubmit="return validateDiscountRate() && validateDate() && validateDateFormat1() && validateDateFormat() && convertDates();">
                                                 <h4 class="add-text">Discount info</h4>
                                                 <div class="row">
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <label for="PromotionName"><p class="add-description">Promotion name:</p></label>
                                                             <input type="text" id="PromotionName" name="PromotionName" placeholder="Discount name" value="<%=PromotionName%>" required>
+                                                            <small id="error_name"></small>
                                                          </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">    
                                                             <label for="DiscountRate"><p class="add-description">Promotion:</p></label>
-                                                            <input type="text" id="DiscountRate" name="DiscountRate" placeholder="Promotion (0-100)" value="<%=DiscountRate%>" required>
+                                                            <input type="number" id="DiscountRate" name="DiscountRate" placeholder="Promotion (0-100)"  value="<%=DiscountRate%>" required>
+                                                            <small id="error_discount"></small>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <label for="StartDate"><p class="add-description">From:</p></label>
-                                                            <input type="date" id="StartDate" name="StartDate"placeholder="yyyy/mm/dd" value="<%=StartDate%>" required>
+                                                            <input type="date" id="StartDate" name="StartDate"placeholder="mm/dd/yyyy" value="<%=StartDate%>" required>
+                                                            <small id="error_startdate"></small>
                                                         </div>
                                                     </div>
                                                     <div class="col l-6 m-6 c-12">
                                                         <div class="add-input">
                                                             <label for="EndDate"><p class="add-description">To:</p></label>
-                                                            <input type="date" id="EndDate" name="EndDate" placeholder="yyyy/mm/dd"value="<%=EndDate%>" required>
+                                                            <input type="date" id="EndDate" name="EndDate" placeholder="mm/dd/yyyy"value="<%=EndDate%>" required>
+                                                            <small id="error_enddate"></small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,28 +187,36 @@ End Sub
         function validateDiscountRate() {
         var discountRate = document.getElementById("DiscountRate").value;
         if (discountRate < 0 || discountRate > 100) {
-            alert("Discount rate must be between 0 and 100!");
+            document.getElementById("error_discount").innerHTML ="Discount rate must be between 0 and 100!";
+            document.getElementById("error_discount").style.color = "red";
             return false;
         }
-        return true;
+        else{
+            document.getElementById("error_discount").innerHTML ="";
+            return true;
+        }
         }
 
         function validateDate() {
         var startDate = new Date(document.getElementById("StartDate").value);
         var endDate = new Date(document.getElementById("EndDate").value);
         if (endDate <= startDate) {
-            alert("End date must be after start date!");
+            document.getElementById("error_enddate").innerHTML ="End date must be after start date!";
+            document.getElementById("error_enddate").style.color = "red";
             return false;
         }
-        return true;
+        else{
+            document.getElementById("error_enddate").innerHTML ="";
+            return true;
+        }
         }
         
         function convertDates() {
         var startDateInput = document.getElementById("StartDate");
         var endDateInput = document.getElementById("EndDate");
 
-        var startDate = moment(startDateInput.value, "DD/MM/YYYY").format("YYYY/MM/DD");
-        var endDate = moment(endDateInput.value, "DD/MM/YYYY").format("YYYY/MM/DD");
+        var startDate = moment(startDateInput.value, "MM/DD/YYYY").format("MM/DD/YYYY");
+        var endDate = moment(endDateInput.value, "MM/DD/YYYY").format("MM/DD/YYYY");
 
         startDateInput.value = startDate;
         endDateInput.value = endDate;
