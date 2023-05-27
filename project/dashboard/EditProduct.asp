@@ -151,6 +151,12 @@ End Sub
                                                 <form action="Post">
                                                     <h4 class="add-text">Product Details</h4>
                                                     <div class="row">
+                                                    <div class="col l-12 m-12 c-12">
+                                                            <div class="add-input">
+                                                                <label for="Color"><p class="add-description">Color:</p></label>
+                                                                <input type="text" id="Color" name="Color" placeholder="Color">
+                                                            </div>
+                                                        </div>
                                                         <div class="col l-6 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Size"><p class="add-description">Size:</p></label>
@@ -158,12 +164,6 @@ End Sub
                                                             </div>
                                                         </div>
                                                         <div class="col l-6 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="Color"><p class="add-description">Color:</p></label>
-                                                                <input type="text" id="Color" name="Color" placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col l-12 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">

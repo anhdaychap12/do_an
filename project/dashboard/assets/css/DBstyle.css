@@ -639,3 +639,26 @@ table td p {
     color: #dc3545;
     cursor: pointer;
 }
+
+/* chart */
+
+.chart-title{
+    height: 70px;
+    background-color: #28a745;
+    margin: 0 16px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.chart-content{
+    color: #eee;
+    font-size: 20px;
+    padding: 0 16px;
+    line-height: 70px;
+    
+}
+
+#dashboard-map{
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
