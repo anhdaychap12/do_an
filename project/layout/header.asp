@@ -1,3 +1,12 @@
+<%
+    dim so_luong_sp_fav, ds_fav
+    If not IsEmpty(session("fav")) Then
+        set ds_fav = session("fav")
+        so_luong_sp_fav = ds_fav.Count
+    Else
+        so_luong_sp_fav = 0
+    End if
+%>
 <%  
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
@@ -133,7 +142,7 @@
                                 </a>
                             </li>
                             <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id ="sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
-                            <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"></i></a></li>
+                            <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"><span class="quantity"><p id ="sl_fav"><%=so_luong_sp_fav%></p></span></i></a></li>
                             
                             <%
                                 If Session("user") <> "" and trim(Session("user")) <> "" Then

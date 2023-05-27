@@ -135,6 +135,7 @@
 .dashboard-menu-item:hover .dashboard-menu-item-link {
     background-color: #2a2a2a;
     color: #fff;
+    cursor: pointer;
 }
 
 .active {
@@ -366,10 +367,10 @@ table td {
     border: 1px solid #eee;
 }
 
-table td p {
-    text-align: left;
+table td div {
+    text-align: left !important;
 }
-
+    
 .page {
     margin-top: 15px;
 }
@@ -398,6 +399,15 @@ table td p {
     margin: 8px 16px;
  }
 
+ .Add-list {
+    display: none;
+ }
+
+ .add-block {
+    display: block;
+ }
+
+ .add-input select,
  .add-input input {
     width: 100%;
     padding: 8px 16px;
@@ -409,57 +419,10 @@ table td p {
     color: #2a2a2a;
  }
 
- .add-img {
-    border: 1px solid #ccc;
-    height: 200px;
-    width: 200px;
-    margin: 0 auto 16px;
-    position: relative;
- }
-
- .add-img:hover .add-img-menu{
-    opacity: 1;
-    bottom: 0;
-    transition: all 0.3s;
- }
-
- .add-img-menu {
-    position: absolute;
-    bottom: -10px;
-    opacity: 0;
-    list-style: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
- }
-
- .add-img-btn {
-    display: block;
-    padding: 8px 16px;
-    color: #2a2a2a;
-    text-align: center;
-    font-size: 30px;
-    transition: all 0.3s;
-    cursor: pointer;
- }
-
- .remove-img-btn {
-    display: block;
-    padding: 8px 16px;
-    color: #2a2a2a;
-    text-align: center;
-    font-size: 30px;
-    transition: all 0.3s;
- }
-
- .add-img-btn:hover {
-    color: #71cd14;
- }
-
- .remove-img-btn:hover {
-    color: #dc3545;
+ input[type=number]::-webkit-inner-spin-button,
+ input[type=number]::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
  }
 
  .add-setting {
@@ -534,20 +497,10 @@ table td p {
     position: relative;
 }
 
-.modal-heading.upload {
-    background-color: #71cd14;
-}
-
 .modal-heading i {
     font-size: 30px;
     color: #fff;
     margin: 15px;
-}
-
-.modal-heading h3 {
-    font-size: 25px;
-    color: #fff;
-    padding: 8px 16px;
 }
 
 .modal-content {
@@ -564,31 +517,6 @@ table td p {
     font-size: 11px;
     color: #797979;
     margin: 0 15px;
-}
-
-.modal-upload {
-    border: 2px dashed #71cd14;
-    margin: 15px 8px;
-    padding: 25px 16px;
-}
-
-#file {
-    width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-
-.modal-upload-btn:hover {
-    color: #71cd14;
-}
-
-.modal-upload-btn {
-    padding: 8px 16px;
-    color: #2a2a2a;
-    transition: 0.3s;
 }
 
 .modal-option {
