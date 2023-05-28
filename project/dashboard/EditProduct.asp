@@ -149,134 +149,158 @@ End Sub
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
-                                                <form action="Post">
-                                                    <h4 class="add-text">Product Details</h4>
-                                                    <div class="row">
-                                                        <div class="col l-12 m-12 c-12">
-                                                            <div class="add-input">
-                                                                <label for="Size"><p class="add-description">Size:</p></label>
-                                                                <select name="Size" id="Size" onclick="showAdd()">
-                                                                    <option value="">Choose size</option>
-                                                                    <option value="3XL">3XL</option>
-                                                                    <option value="2XL">2XL</option>
-                                                                    <option value="XL">XL</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col l-12 c-12 m-12">
-                                                            <div id="list-add" class="Add-list">
-                                                                <div class="row no-gutters">
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Color"><p class="add-description">Color:</p></label>
-                                                                            <select name="Color" id="Color">
-                                                                                <option value="0">Choose color</option>
-                                                                                <option value="Green">Green</option>
-                                                                                <option value="Blue">Blue</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Grey">Grey</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col l-6 m-6 c-12">
-                                                                        <div class="add-input">
-                                                                            <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                            <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                        </div>
-                                                                    </div> 
+                                                <form action="Post" class="form-detail">
+                                                    <h4 class="add-text detail">Product Details</h4>
+                                                    <a href="#" class="add-option-btn more"><i class="fa-solid fa-plus"></i></a>
+                                                    <div id="detail" class="add-detail">
+                                                        <div class="row">
+                                                            <div class="col l-11 m-10 c-9">
+                                                                <div class="add-input">
+                                                                    <label for="Color"><p class="add-description">Color:</p></label>
+                                                                    <select name="Color" id="Add-color" onclick="showAdd()">
+                                                                        <option value="0">Choose color</option>
+                                                                        <option value="Blue">Blue</option>
+                                                                        <option value="Black">Black</option>
+                                                                        <option value="White">White</option>
+                                                                        <option value="Green">Green</option>
+                                                                        <option value="Navy">Navy</option>
+                                                                        <option value="Gray">Gray</option>
+                                                                        <option value="Red">Red</option>
+                                                                        <option value="Off white">Off white</option>
+                                                                        <option value="Pink">Pink</option>
+                                                                        <option value="Light blue">Light blue</option>
+                                                                        <option value="Brown">Brown</option>
+                                                                        <option value="Natural">Natural</option>
+                                                                        <option value="Beige">Beige</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                        </div>                                                      
+                                                            <div class="col l-1 m-2 c-3">
+                                                                <div class="add-input detail-remove">
+                                                                    <a href="#" class="add-option-btn del"><i class="fa-solid fa-minus"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col l-12 c-12 m-12">
+                                                                <div id="list-add" class="Add-list">
+                                                                    <div class="row no-gutters">
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <p class="add-description">Size:</p>
+                                                                                <ul class="size-list">
+                                                                                    <li><a href="" class="size-link">S</a></li>
+                                                                                    <li><a href="" class="active-size size-link">M</a></li>
+                                                                                    <li><a href="" class="size-link">L</a></li>
+                                                                                    <li><a href="" class="size-link">XL</a></li>
+                                                                                    <li><a href="" class="size-link">2XL</a></li>
+                                                                                    <li><a href="" class="size-link">3XL</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col l-6 m-6 c-12">
+                                                                            <div class="add-input">
+                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                            </div>
+                                                                        </div>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                     
+                                                        </div> 
                                                     </div>   
                                                </form>
                                             </div>
@@ -364,14 +388,27 @@ End Sub
         })
 
         function showAdd() {
-            var x = document.getElementById("Size").value
-            if (x == "XL" || x == "2XL" || x == "3XL") {
+            var x = document.getElementById("Add-color").value
+            if (x != "0") {
                 document.getElementById("list-add").classList.add("add-block")
             }
+
             else {
                 document.getElementById("list-add").classList.remove("add-block")
             }
         }
+
+        $(document).ready(function(){
+            
+            $(".add-option-btn.more").click(function(){
+                $(".form-detail .add-detail:last-child").clone().appendTo(".form-detail")   
+            });
+            $(document).on("click",".add-option-btn.del",function(){
+                if($(".form-detail .add-detail").length > 1) {
+                    $(this).parents(".add-detail").remove(); 
+                }
+            });
+        });
     </script>
 </body>
 </html>
