@@ -379,7 +379,50 @@ table td div {
  .add-content {
     background-color: #fff;
     padding: 8px;
-    margin: 16px 16px 0 16px; 
+    margin: 16px 16px 0 16px;
+    position: relative;
+ }
+
+ .add-option-btn {
+    color: #fff;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+    border-radius: 5px;
+    margin-right: 8px;
+    padding: 8px 16px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+ }
+
+ .add-option-btn.more {
+    background-color: #71cd14;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 4px;
+    margin: 8px 16px;
+ }
+
+ .add-option-btn.del {
+    background-color: #dc3545;
+ }
+
+
+ .add-option-btn.del:hover {
+    color: #dc3545;
+    border-color: #dc3545;
+    background-color: transparent;
+ }
+
+ .add-option-btn.more:hover {
+    color: #71cd14;
+    background-color: transparent;
+    border-color: #71cd14;
+ }
+
+ .add-detail > .row {
+    margin-top: 8px;
  }
 
  .add-content.last {
@@ -395,8 +438,44 @@ table td div {
     text-transform: uppercase;
  }
 
+.add-text.detail {
+    margin-bottom: 0 !important;
+}
+
+ /* Edit product detail */
+ .size-list {
+    list-style: none;
+    padding: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+
+ .size-link {
+    text-decoration: none;
+    display: block;
+    margin: 8px 0;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    color: #2a2a2a;
+    transition: all 0.3s;
+    border-radius: 5px;
+ }
+
+ .active-size,
+ .size-link:hover {
+    border-color: #71cd14;
+    color: #71cd14;
+ }
+
  .add-input {
     margin: 8px 16px;
+ }
+
+ .add-input.detail-remove {
+    display: flex;
+    align-items: center;
+    margin-top: 33px;
  }
 
  .Add-list {
@@ -404,7 +483,17 @@ table td div {
  }
 
  .add-block {
-    display: block;
+    display: block !important;
+ }
+
+ .add-remove:first-child {
+    display: none;
+ }
+
+ .add-input.detail-remove {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
  }
 
  .add-input select,
