@@ -1,5 +1,5 @@
 /* Moblie and Tablet */
-@media (max-width:1024px) {
+@media (max-width:1023px) {
     .hide-on-mobile-tablet {
         display: none;
     }
@@ -31,8 +31,15 @@
     }
 }
 
+@media (min-width:1024px) and (max-width:1239px) {
+    .add-list > .row.no-gutters {
+        margin-right: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+ 
 /* Tablet */
-@media (min-width: 740px) and (max-width:1024px) {
+@media (min-width: 740px) and (max-width:1023px) {
     /* dashboard */
     .dashboard-nav-mobile {
         width: 500px !important;
