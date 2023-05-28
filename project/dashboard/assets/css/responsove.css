@@ -45,4 +45,9 @@
     .dashboard-nav-mobile {
         width: 250px !important;
     }
+
+    /* Edit product */
+    .size-link {
+        padding: 8px;
+    }
 }
