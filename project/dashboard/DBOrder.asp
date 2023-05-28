@@ -1,5 +1,5 @@
  <!-- #include file="connect.asp" -->
-
+<!-- #include file="checkLogin.asp" -->
  <%
     ''check
     

@@ -1,4 +1,5 @@
 <!-- #include file="connect.asp" -->
+<!-- #include file="checkLogin.asp" -->
 <%
     Function Ceil(Number)
         Ceil = Int(Number)

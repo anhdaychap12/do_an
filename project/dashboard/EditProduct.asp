@@ -1,4 +1,5 @@
 <!-- #include file="connect.asp" -->
+<!-- #include file="checkLogin.asp" -->
 <%
 On Error Resume Next
 Sub handleError(message)
