@@ -443,30 +443,17 @@ table td div {
 }
 
  /* Edit product detail */
- .size-list {
-    list-style: none;
-    padding: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
- }
-
- .size-link {
+.size-item {
+    display: inline-block;
+    text-align: center;
     text-decoration: none;
-    display: block;
-    margin: 8px 0;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    color: #2a2a2a;
-    transition: all 0.3s;
-    border-radius: 5px;
- }
-
- .active-size,
- .size-link:hover {
-    border-color: #71cd14;
     color: #71cd14;
- }
+    padding: 8px 16px;
+    border: 1px solid #71cd14;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
 
  .add-input {
     margin: 8px 16px;

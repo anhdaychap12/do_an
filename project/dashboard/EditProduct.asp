@@ -183,115 +183,73 @@ End Sub
                                                             <div class="col l-12 c-12 m-12">
                                                                 <div id="list-add" class="Add-list">
                                                                     <div class="row no-gutters">
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">S</div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">M</div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">L</div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">XL</div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">2XL</div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <ul class="size-list">
-                                                                                    <li><a href="" class="size-link">S</a></li>
-                                                                                    <li><a href="" class="active-size size-link">M</a></li>
-                                                                                    <li><a href="" class="size-link">L</a></li>
-                                                                                    <li><a href="" class="size-link">XL</a></li>
-                                                                                    <li><a href="" class="size-link">2XL</a></li>
-                                                                                    <li><a href="" class="size-link">3XL</a></li>
-                                                                                </ul>
+                                                                                <div class="size-item">3XL</div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col l-6 m-6 c-12">
+                                                                        </div> 
+                                                                        <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
