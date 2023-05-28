@@ -1,5 +1,5 @@
 <%
-    If isnull(session("user")) and trim(session("user")) = "" Then
+    If isnull(session("user")) or session("Role") <> "admin" Then
         Response.redirect("../login.asp")
     End if
 %>
