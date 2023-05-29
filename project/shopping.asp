@@ -140,7 +140,7 @@
                         totalProduct = 0
                         totalPrice = 0
                     End if
-                    session("totalProduct") = totalProduct
+                    
                 %>
             </div>
         </div>

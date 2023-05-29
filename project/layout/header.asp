@@ -7,6 +7,21 @@
         so_luong_sp_fav = 0
     End if
 %>
+<%
+    dim so_luong_sp_cart, ds_cart
+    If not IsEmpty(session("mycarts")) Then
+        ' true
+        set ds_cart = session("mycarts")
+        dim sl
+        so_luong_sp_cart = 0
+        for each sl in ds_cart.keys
+            so_luong_sp_cart = so_luong_sp_cart + Clng(ds_cart(sl))
+        Next
+    Else
+        so_luong_sp_cart = 0
+    End if
+    
+%>
 <%  
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
@@ -141,7 +156,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id ="sl_sp"><%=session("totalProduct")%></p></span></i></a></li>
+                            <li class="section-right-item"><a href="shopping.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-cart-shopping"><span class="quantity"><p id ="sl_sp"><%=so_luong_sp_cart%></p></span></i></a></li>
                             <li class="section-right-item"><a href="favorite.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-heart"><span class="quantity"><p id ="sl_fav"><%=so_luong_sp_fav%></p></span></i></a></li>
                             
                             <%

@@ -1,5 +1,6 @@
- <!-- #include file="connect.asp" -->
+<!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
+
 
 <%
     connDB.open()
@@ -106,7 +107,7 @@
                                     
                                     <div class="col l-12 m-12 c-12 ">
                                         <div class="chart-title">
-                                            <h3 class="chart-content">Total sales revenue</h3>
+                                            <h3 class="chart-content">Total sales revenue (monthly)</h3>
                                         </div>
                                         <div class="chart-total">
                                             <canvas id="dashboard-map"> </canvas>

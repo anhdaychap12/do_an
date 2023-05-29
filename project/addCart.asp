@@ -2,12 +2,6 @@
 <%
     Dim ID_productDetail
     ID_productDetail = Request.QueryString("ID_productDetail")
-
-    ''kiểm tra session(totalProduct) có tồn tại không, nếu không thì session(totalProduct) = 0
-    If IsEmpty(session("totalProduct")) Then
-        ' true
-        session("totalProduct") = 0
-    End if
     
     If not isnull(ID_productDetail) and ID_productDetail <> "" Then
         connDB.Open()
@@ -20,6 +14,8 @@
                 mycarts.add ID_productDetail, 1
                 set Session("mycarts") = mycarts
                 set mycarts = nothing
+                Response.ContentType = "application/json"
+                Response.Write "{""messenger"": ""Product has been added to your cart."", ""totalProduct"": ""1""}"
             Else
                 set curCarts = session("mycarts")
                 If curCarts.Exists(ID_productDetail) Then
@@ -29,13 +25,20 @@
                 Else
                     curCarts.add ID_productDetail, 1
                 End if
+                ''tính lại tổng sl sp
+                dim quan, total_quan
+                total_quan = Clng(0)
+                for each quan in curCarts.keys
+                    total_quan = total_quan + Clng(curCarts(quan))
+                Next
+                Response.ContentType = "application/json"
+                Response.Write "{""messenger"": ""Product has been added to your cart."", ""totalProduct"": """&total_quan&"""}"
                 set Session("mycarts") = curCarts
             End if
-            Response.ContentType = "application/json"
-            Response.Write "{""messenger"": ""Product has been added to your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
+            
         Else
             Response.ContentType = "application/json"
-            Response.Write "{""messenger"": ""Product is not exists your cart."", ""totalProduct"": """&session("totalProduct")&"""}"
+            Response.Write "{""messenger"": ""Product is not exists your cart.""}"
         End if
         rs.Close()
         set rs = nothing
