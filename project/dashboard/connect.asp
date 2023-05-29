@@ -7,3 +7,4 @@ Dim strConnection
 strConnection = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
 connDB.ConnectionString = strConnection
 %>
+
