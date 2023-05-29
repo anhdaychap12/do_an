@@ -97,7 +97,7 @@
                 </div>
                 <%
                     Else
-                        Response.Write ("<h3>Chưa có sản phẩm nào trong danh sách yêu thích của bạn</h3>")
+                        Response.Write ("<h3>Your favorite is empty!</h3>")
                     End if                
                 %>
             </div>
