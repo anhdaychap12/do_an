@@ -1,5 +1,6 @@
- <!-- #include file="connect.asp" -->
+<!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
+
 
 <%
     connDB.open()

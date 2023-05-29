@@ -4,7 +4,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-85SJOGH\SQLASP;Database=WEB_BQA1;User Id=sa ;Password=123"
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -78,6 +78,7 @@
                                 <li class="dashboard-menu-item"><a href="DBOrder.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
                                 <li class="dashboard-menu-item"><a href="DBDiscount.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
                                 <li class="dashboard-menu-item"><a href="DBAccount.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-user"></i> Account </p> <i class="fa-solid fa-angle-right"></i></a></li>
+                                <li class="dashboard-menu-item"><a href="DBCategory.asp" class="dashboard-menu-item-link"><p><i class="fa-solid fa-list"></i> Category </p> <i class="fa-solid fa-angle-right"></i></a></li>
 
                             </ul>
                         </div>
@@ -125,6 +126,7 @@
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-bag-shopping"></i> Order </p> <i class="fa-solid fa-angle-right"></i></a></li>
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Discount </p> <i class="fa-solid fa-angle-right"></i></a></li>
                             <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Account </p> <i class="fa-solid fa-angle-right"></i></a></li>
+                            <li class="dashboard-menu-item"><a href="#" class="dashboard-menu-item-link"><p><i class="fa-solid fa-tag"></i> Category </p> <i class="fa-solid fa-angle-right"></i></a></li>
 
                         </ul>
                     </div>

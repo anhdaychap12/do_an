@@ -71,7 +71,7 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <h4><a href="/details.asp?productID=<%=rs("ProductID")%>" class=""><%=rs("ProcductName")%></a></h4>
+                                                                                <a href="/details.asp?productID=<%=rs("ProductID")%>"><%=rs("ProcductName")%></a>
                                                                                 <p><%=rs("Size")%></p>
                                                                                 
                                                                                 <p><%=rs("Color")%></p>
@@ -92,8 +92,9 @@
                                                                         </div>
                                                                         <div class="col l-3 m-3 c-12">
                                                                             <div class="cart-item">
-                                                                                <h4>$</h4>
-                                                                                <h4 class="price_pro"><%=rs("Price")%></h4>
+                                                                                <div class="price">
+                                                                                    <h4 class="price_pro"><%=rs("Price")%></h4><span>$</span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -120,13 +121,6 @@
                                         <h4 id="display_quantity"></h4>
                                         <h4 id="display_price"></h4>
                                     </div>
-                                    <div class="shopping-cost-ship">
-                                        <h4>Shipping:</h4>
-                                        <select class="select">
-                                            <option value="1">Express</option>
-                                            <option value="2">Normal</option>
-                                        </select>
-                                    </div>
                                     <div class="shopping-cost-discount">
                                         <h4>Discount:</h4>
                                         <h4>Black Friday</h4>
@@ -136,7 +130,7 @@
                                         <h4>$<%=totalPrice%></h4>
                                     </div>
                                     <div class="shopping-cost-btn">
-                                        <button type="button" ><a href="checkout.asp">Pay</a></button>
+                                        <a href="checkout.asp">Pay</a>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +140,7 @@
                         totalProduct = 0
                         totalPrice = 0
                     End if
-                    session("totalProduct") = totalProduct
+                    
                 %>
             </div>
         </div>

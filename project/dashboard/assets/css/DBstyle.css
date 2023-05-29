@@ -443,30 +443,30 @@ table td div {
 }
 
  /* Edit product detail */
- .size-list {
-    list-style: none;
-    padding: none;
+.size-item {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #71cd14;
+    padding: 8px 16px;
+    border: 1px solid #71cd14;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.add-img {
+    margin: 8px 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
- }
+    justify-content: center;
+}
 
- .size-link {
-    text-decoration: none;
+.add-img > img {
+    width: 100%;
     display: block;
-    margin: 8px 0;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    color: #2a2a2a;
-    transition: all 0.3s;
-    border-radius: 5px;
- }
-
- .active-size,
- .size-link:hover {
-    border-color: #71cd14;
-    color: #71cd14;
- }
+    max-width: 250px;
+    max-height: 250px;
+}
 
  .add-input {
     margin: 8px 16px;
@@ -503,9 +503,13 @@ table td div {
     border: 1px solid #ccc;
     margin: 8px 0;
     background-color: transparent;
-    outline: none;
     font-size: 18px;
     color: #2a2a2a;
+ }
+
+ .add-input input:focus {
+    outline: 1px solid #71cd14;
+    border-radius: 3px;
  }
 
  input[type=number]::-webkit-inner-spin-button,
