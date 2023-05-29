@@ -178,6 +178,10 @@
         text-align: center;
     }
 
+    .price {
+        justify-content: center;
+    }
+
     /* dashboard */
     .dashboard-nav-mobile {
         width: 250px;

@@ -270,36 +270,42 @@ End Sub
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 1:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 2:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 3:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 4:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 5:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 6:</p></label>
+                                                                <div class="add-img"><img src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>

@@ -80,9 +80,12 @@
                                     <h4>Price</h4>
                                 </div>
                             </div>
-                            <div class="checkout-cart-shipping">
-                                <p>Normal/Express</p>
-                                <h4>-$5</h4>
+                            <div class="shopping-cost-ship">
+                                <h4>Shipping:</h4>
+                                <select class="select">
+                                    <option value="1">Express</option>
+                                    <option value="2">Normal</option>
+                                </select>
                             </div>
                             <div class="checkout-cart-total">
                                 <h4>Total:</h4>

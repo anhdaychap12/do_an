@@ -1494,7 +1494,9 @@
     width: 100%;
 }
 
-.cart-item > h4 {
+.cart-item > a {
+    text-decoration: none;
+    color: #2a2a2a;
     text-align: left;
     color: #2a2a2a;
     margin: 15px;
@@ -1504,9 +1506,12 @@
     overflow: hidden;
 }
 
-.cart-item > h4 > a {
-    text-decoration: none;
+.price {
+    display: flex;
+    align-items: center;
     color: #2a2a2a;
+    padding: 8px 16px;
+    margin: 8px 0;
 }
 
 .cart-item > p {
@@ -1634,7 +1639,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .shopping-cost-ship {
-    margin: 30px 16px;
+    padding: 30px 16px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1692,7 +1699,9 @@ input[type=number]::-webkit-outer-spin-button {
     color: #71cd14;
 }
 
-.shopping-cost-btn > button {
+.shopping-cost-btn > a {
+    text-decoration: none;
+    color: #fff;
     background-color: #71cd14;
     padding: 8px 16px;
     border: none;
@@ -1702,14 +1711,11 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff;
     transition: all 0.3s;
     cursor: pointer;
+    display: block;
+    text-align: center;
 }
 
-.shopping-cost-btn > button > a {
-    text-decoration: none;
-    color: #fff;
-}
-
-.shopping-cost-btn > button:hover {
+.shopping-cost-btn > a:hover {
     opacity: 0.6;
 }
 
@@ -1876,6 +1882,11 @@ input[type=number]::-webkit-outer-spin-button {
     outline: none;
     font-size: 18px;
     color: #2a2a2a;
+}
+
+.check-input input:focus {
+    outline: 1px solid #71cd14;
+    border-radius: 3px;
 }
 
 .checkout-btn {
