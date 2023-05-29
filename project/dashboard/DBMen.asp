@@ -1,4 +1,5 @@
 <!-- #include file="connect.asp" -->
+<!-- #include file="checkLogin.asp" -->
 <%
     Function Ceil(Number)
         Ceil = Int(Number)
@@ -74,7 +75,7 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
-                                                <h4>Men <%=dictMEN(int(CateID))%></h4>
+                                                <h4>Men <%=dictMEN(int(CateID))%> </h4>
                                                 <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
@@ -108,7 +109,7 @@
                                                         <tr>
                                                             <td><%=Result("ProductID")%></td>
                                                             <td><%=Result("ProcductName")%></td>
-                                                            <td><p><%=Result("Description")%></p></td>
+                                                            <td><div><%=Result("Description")%></div></td>
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
                                                             <td>

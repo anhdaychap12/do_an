@@ -1,4 +1,5 @@
 <!-- #include file="connect.asp" -->
+<!-- #include file="checkLogin.asp" -->
 <%
     Function Ceil(Number)
         Ceil = Int(Number)
@@ -110,7 +111,7 @@
                                                         <tr>
                                                             <td><%=Result("ProductID")%></td>
                                                             <td><%=Result("ProcductName")%></td>
-                                                            <td><p><%=Result("Description")%></p></td>
+                                                            <td><div><%=Result("Description")%></div></td>
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
                                                             <td>

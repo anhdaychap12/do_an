@@ -105,8 +105,13 @@
                                         %>
                                     </div>
                                     
-                                    <div class="col l-12 m-12 c-12">
-                                        <canvas id="dashboard-map"> </canvas>
+                                    <div class="col l-12 m-12 c-12 ">
+                                        <div class="chart-title">
+                                            <h3 class="chart-content">Total sales revenue (monthly)</h3>
+                                        </div>
+                                        <div class="chart-total">
+                                            <canvas id="dashboard-map"> </canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -138,45 +143,62 @@
             e.stopPropagation();
         })
     </script>
-<<<<<<< HEAD
-    <script> 
-            document.addEventListener("DOMContentLoaded", function() {
-            var ctx4 = document.getElementById("dashboard-map").getContext("2d");
-            var myChart4 = new Chart(ctx4, {
-                type: "bar",
-            data: {
-              labels: reportDateData,
-              datasets: [
-                {
-                  label: "",
-                  data: cfoData,
-                  backgroundColor: "#0161a6",
-                  stack : 1,
-                  barPercentage: 0.5, // Tinh chỉnh chiều rộng của các cột
-                  categoryPercentage: 0.8, // Tinh chỉnh khoảng cách giữa các cột
-                  pointStyle:'rect',
-                }
-              ]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                      labels: {
-                        usePointStyle: true,
-                      }
-                    }
-                  },
-              scales: {
-                xAxes: [{
-                  stacked: true
-                }],
+    <%
+        cmdPrep.CommandText = "SELECT MONTH(StartDate) AS month, SUM(DiscountRate) AS sum1 FROM Promotions WHERE YEAR(StartDate) = 2023 GROUP BY MONTH(StartDate);"
+        Set Result5 = cmdPrep.execute
+        
+        Dim dataJSON
+        dataJSON = "["
+        
+        do while not Result5.EOF
+            dataJSON = dataJSON & "{"
+            dataJSON = dataJSON & """month"": """ & Result5("month") & ""","
+            dataJSON = dataJSON & """sum1"": """ & Result5("sum1") & """"
+            dataJSON = dataJSON & "},"
+            
+            Result5.MoveNext
+        loop
+        
+        ' Xóa dấu phẩy cuối cùng
+        dataJSON = Left(dataJSON, Len(dataJSON) - 1)
+        dataJSON = dataJSON & "]"
+    %>
+
+    <script>
+    var data = JSON.parse('<%= dataJSON %>');
+
+    var labels = [];
+    var values = [];
+
+    for (var i = 0; i < data.length; i++) {
+        labels.push(data[i].month);
+        values.push(data[i].sum1);
+    }
+
+    var ctx = document.getElementById('dashboard-map').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:labels ,
+            datasets: [{
+                label: 'Total revenue',
+                data: values,
+                backgroundColor: '#4f98c3',
+                borderColor: '#4f98c3',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
                 yAxes: [{
-                  stacked: true
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }]
-              }
             }
-          });
-        });
-    </script>
+        }
+    });
+</script>
+
 </body>
 </html>

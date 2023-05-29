@@ -135,6 +135,7 @@
 .dashboard-menu-item:hover .dashboard-menu-item-link {
     background-color: #2a2a2a;
     color: #fff;
+    cursor: pointer;
 }
 
 .active {
@@ -366,10 +367,10 @@ table td {
     border: 1px solid #eee;
 }
 
-table td p {
-    text-align: left;
+table td div {
+    text-align: left !important;
 }
-
+    
 .page {
     margin-top: 15px;
 }
@@ -378,7 +379,50 @@ table td p {
  .add-content {
     background-color: #fff;
     padding: 8px;
-    margin: 16px 16px 0 16px; 
+    margin: 16px 16px 0 16px;
+    position: relative;
+ }
+
+ .add-option-btn {
+    color: #fff;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+    border-radius: 5px;
+    margin-right: 8px;
+    padding: 8px 16px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+ }
+
+ .add-option-btn.more {
+    background-color: #71cd14;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 4px;
+    margin: 8px 16px;
+ }
+
+ .add-option-btn.del {
+    background-color: #dc3545;
+ }
+
+
+ .add-option-btn.del:hover {
+    color: #dc3545;
+    border-color: #dc3545;
+    background-color: transparent;
+ }
+
+ .add-option-btn.more:hover {
+    color: #71cd14;
+    background-color: transparent;
+    border-color: #71cd14;
+ }
+
+ .add-detail > .row {
+    margin-top: 8px;
  }
 
  .add-content.last {
@@ -394,8 +438,49 @@ table td p {
     text-transform: uppercase;
  }
 
+.add-text.detail {
+    margin-bottom: 0 !important;
+}
+
+ /* Edit product detail */
+.size-item {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #71cd14;
+    padding: 8px 16px;
+    border: 1px solid #71cd14;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+
  .add-input {
     margin: 8px 16px;
+ }
+
+ .add-input.detail-remove {
+    display: flex;
+    align-items: center;
+    margin-top: 33px;
+ }
+
+ .Add-list {
+    display: none;
+ }
+
+ .add-block {
+    display: block !important;
+ }
+
+ .add-remove:first-child {
+    display: none;
+ }
+
+ .add-input.detail-remove {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
  }
 
  .add-input select,
@@ -557,4 +642,27 @@ table td p {
     border-color: #dc3545;
     color: #dc3545;
     cursor: pointer;
+}
+
+/* chart */
+
+.chart-title{
+    height: 70px;
+    background-color: #28a745;
+    margin: 0 16px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.chart-content{
+    color: #eee;
+    font-size: 20px;
+    padding: 0 16px;
+    line-height: 70px;
+    
+}
+
+#dashboard-map{
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }

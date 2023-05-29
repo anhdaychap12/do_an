@@ -12,5 +12,4 @@
         End if
         Response.redirect("shopping.asp")
     End if
-
 %>
