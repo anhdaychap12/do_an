@@ -204,9 +204,15 @@
                                 %>
                                 
                             </div>
-                            <div class="checkout-cart-shipping">
+
+                            <div class="shopping-cost-ship">
                                 <p id="ship_name">Normal</p>
-                                <h4 id="ship">-$5</h4>
+                                <h4>Shipping:</h4>
+                                <select class="select">
+                                    <option value="1">Express</option>
+                                    <option value="2">Normal</option>
+                                </select>
+
                             </div>
                             <div class="checkout-cart-total">
                                 <h4>Total:</h4>
