@@ -26,7 +26,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=phuc\SQLEXPRESS;Database=WEB_BQA1;User Id=sa ;Password=01052002"
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -66,13 +66,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Store</title>
     <link rel="icon" type="image/png" href="./assets/img/favicon.jpg"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/responsove.css">
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
 <div id="header" class="header">
     <div class="header-top hide-on-mobile">

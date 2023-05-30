@@ -88,7 +88,16 @@
                         <div class="row">
                             <div class="col l-4 m-12 c-12">
                                 <div class="details-img">
-                                    <img src="<%=rs("Image1")%>" alt="">
+                                    <!-- Swiper -->
+                                    <div class="swiper mySwiper">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide"><img src="<%=rs("Image1")%>" onerror="this.src='/assets/img/replace.jpg'"></div>
+                                            <div class="swiper-slide"><img src="<%=rs("Image2")%>" onerror="this.src='/assets/img/replace.jpg'"></div>
+                                        </div>
+                                        <div class="swiper-button-next my-slide"></div>
+                                        <div class="swiper-button-prev my-slide"></div>
+                                        <div class="swiper-pagination slide"></div>
+                                    </div>  
                                 </div>
                             </div>
                             <div class="col l-8 m-12 c-12">
@@ -162,7 +171,25 @@
         </div>
     </div> 
     <script src="main.js"></script>
-    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script>
         function LoadData(){
