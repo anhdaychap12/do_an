@@ -191,4 +191,26 @@
     .info-img {
         margin-bottom: 16px;
     }
+
+    /* confirm order */
+    .confirm-item {
+        text-align: center;
+    }
+
+    .confirm-cart-cost {
+        margin: 0 auto;
+    }
+
+    .confirm-cart {
+        display: block;
+        text-align: center;
+    }
+
+    .confirm-cart > .confirm-cart-item:first-child {
+        display: block;
+    }
+
+    .cart-item-footer {
+        text-align: center;
+    }
 }
