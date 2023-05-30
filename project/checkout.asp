@@ -36,45 +36,45 @@
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="FullName"><p class="add-description">Full name:</p></label>
-                                            <input type="text" id="FullName" name="FullName" placeholder="Vui lòng nhập họ và tên !">
+                                            <input type="text" id="FullName" name="FullName" placeholder="Please fill fullname!">
                                          </div>
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Email"><p class="add-description">Email:</p></label>
-                                            <input type="email" id="Email" name="Email" placeholder="cho123@gmail.com">
+                                            <input type="email" id="Email" name="Email" placeholder="Please fill email">
                                          </div>
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
-                                            <label for="Tinh"><p class="add-description">Tỉnh/Thành Phố:</p></label>
-                                            <input type="text" id="Tinh" name="Tinh" placeholder="Vui lòng nhập địa chỉ!">
+                                            <label for="Tinh"><p class="add-description">Province/City:</p></label>
+                                            <input type="text" id="Tinh" name="Tinh" placeholder="Please fill address!">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
-                                            <label for="Quan"><p class="add-description">Quận/Huyện:</p></label>
-                                            <input type="text" id="Quan" name="Quan" placeholder="Vui lòng nhập địa chỉ!">
+                                            <label for="Quan"><p class="add-description">District/County:</p></label>
+                                            <input type="text" id="Quan" name="Quan" placeholder="Please fill address!">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
-                                            <label for="Phuong"><p class="add-description">Phường/Xã:</p></label>
-                                            <input type="text" id="Phuong" name="Phuong" placeholder="Vui lòng nhập địa chỉ!">
+                                            <label for="Phuong"><p class="add-description">Ward/Commune:</p></label>
+                                            <input type="text" id="Phuong" name="Phuong" placeholder="Please fill address!">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
-                                            <label for="AddressDetails"><p class="add-description">Chi tiết địa chỉ:</p></label>
-                                            <input type="text" id="AddressDetails" name="AddressDetails" placeholder="Vui lòng ghi rõ số nhà!">
+                                            <label for="AddressDetails"><p class="add-description">Detail address:</p></label>
+                                            <input type="text" id="AddressDetails" name="AddressDetails" placeholder="Please fill house number!">
                                          </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Phone"><p class="add-description">Phone:</p></label>
-                                            <input type="text" id="Phone" name="Phone" placeholder="Vui lòng nhập số điện thoại!">
+                                            <input type="text" id="Phone" name="Phone" placeholder="Please fill phonenumber!">
                                          </div>
                                     </div>
                                 </div>
