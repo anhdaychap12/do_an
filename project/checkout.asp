@@ -70,8 +70,8 @@
         sql = ""
         ''Tạo đơn hàng mới
         
-        sql = "insert into Orders(OrderDate, TotalAmount, CustomerID, ShippingFreeID, [Address], Email, Phone)"
-        sql = sql & "values(GETDATE(),'"&totalAmount&"', '"&id_cus&"', '"&ShippingFreeID&"', '"&address&"', '"&email&"', '"&sdt&"')"
+        sql = "insert into Orders(OrderDate, TotalAmount, CustomerID, ShippingFreeID, [Address], Email, Phone, Fullname)"
+        sql = sql & "values(GETDATE(),'"&totalAmount&"', '"&id_cus&"', '"&ShippingFreeID&"', '"&address&"', '"&email&"', '"&sdt&"', '"&fullname&"')"
         Response.Write sql
         connDB.execute(sql)
 
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="totalAmount" id="totalAmount">
-                                <input type="hidden" name="ShippingFree" id="ShippingFree">
+                                <input type="hidden" name="ShippingFree" id="ShippingFree" value="Normal">
                                 <button type="submit" class="checkout-btn">Continute Checkout</button>
                            </form>
                         </div>
@@ -206,17 +206,17 @@
                             </div>
 
                             <div class="shopping-cost-ship">
-                                <p id="ship_name">Normal</p>
+                                
                                 <h4>Shipping:</h4>
-                                <select class="select">
-                                    <option value="1">Express</option>
-                                    <option value="2">Normal</option>
+                                <select class="select" id="Select_Free">
+                                    <option >Normal</option>
+                                    <option >Express</option>
                                 </select>
-
+                                <h4 id="ship">$5</h4>
                             </div>
                             <div class="checkout-cart-total">
                                 <h4>Total:</h4>
-                                <h4 id="tong_gia" name="tong_gia">$400</h4>
+                                <h4 id="tong_gia" name="tong_gia"></h4>
                             </div>
                         </div>
                     </div>
@@ -243,12 +243,31 @@
 
             return kq;
         }
-        var ship = $('#ship').html()
-        var tong_gia_tien = tong_gia_tien_noship() - parseInt(ship.replace("-$", ""))
-        console.log(tong_gia_tien);
-        $('#tong_gia').html("$" + tong_gia_tien)
+        var ship, ship_name;
+        $('#Select_Free').change(function () {
+            ship_name = $(this).val();
+            $('#ShippingFree').val(ship_name);
+            if (ship_name == "Normal") {
+                
+                $('#ship').html('$'+'5')
+                tong_gia_tien = tong_gia_tien_noship() + 5;
+                $('#totalAmount').val(tong_gia_tien)
+                $("#tong_gia").html('$'+tong_gia_tien)
+            }
+            else{
+                
+                $('#ship').html('$'+'10');
+                tong_gia_tien = tong_gia_tien_noship() + 10;
+                $('#totalAmount').val(tong_gia_tien)
+                $("#tong_gia").html('$'+tong_gia_tien)
+            }
+        });
+
+        var str = $('#ship').html();
+        var rs_str = str.split("$");
+        var tong_gia_tien = tong_gia_tien_noship() + parseInt(rs_str[1])
         $('#totalAmount').val(tong_gia_tien)
-        console.log($('#totalAmount').val());
-        $('#ShippingFree').val($('#ship_name').html())
+        
+        $("#tong_gia").html('$'+tong_gia_tien)
     </script>
 </body>
