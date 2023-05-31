@@ -70,8 +70,8 @@
         sql = ""
         ''Tạo đơn hàng mới
         
-        sql = "insert into Orders(OrderDate, TotalAmount, CustomerID, ShippingFreeID, [Address], Email, Phone)"
-        sql = sql & "values(GETDATE(),'"&totalAmount&"', '"&id_cus&"', '"&ShippingFreeID&"', '"&address&"', '"&email&"', '"&sdt&"')"
+        sql = "insert into Orders(OrderDate, TotalAmount, CustomerID, ShippingFreeID, [Address], Email, Phone, Fullname)"
+        sql = sql & "values(GETDATE(),'"&totalAmount&"', '"&id_cus&"', '"&ShippingFreeID&"', '"&address&"', '"&email&"', '"&sdt&"', '"&fullname&"')"
         Response.Write sql
         connDB.execute(sql)
 
