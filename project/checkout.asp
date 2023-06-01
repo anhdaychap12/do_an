@@ -113,52 +113,59 @@
                 <div class="row">
                     <div class="col l-8 m-12 c-12">
                         <div class="checkout-info">
-                            <form method="post" action="">
+                            <form method="post" onsubmit="return Check_Validate()" action="">
                                 <h4>Checkout info</h4>
                                 <div class="row">
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="FullName"><p class="add-description">Full name:</p></label>
                                             <input type="text" id="FullName" name="FullName" placeholder="Vui lòng nhập họ và tên !" value="<%=fullname%>">
-                                         </div>
+                                            <small id="error_name"></small>
+                                        </div>
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Email"><p class="add-description">Email:</p></label>
                                             <input type="email" id="Email" name="Email" placeholder="cho123@gmail.com" value="<%=email%>">
-                                         </div>
+                                            <small id="error_email"></small>
+                                        </div>
                                     </div>
                                     
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Tinh"><p class="add-description">Tỉnh/Thành Phố:</p></label>
                                             <input type="text" id="Tinh" name="Tinh" placeholder="Vui lòng nhập địa chỉ!" value="<%=tinh%>">
-                                         </div>
+                                            <small id="error_Tinh"></small>
+                                        </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Quan"><p class="add-description">Quận/Huyện:</p></label>
                                             <input type="text" id="Quan" name="Huyen" placeholder="Vui lòng nhập địa chỉ!" value="<%=huyen%>">
-                                         </div>
+                                            <small id="error_Quan"></small>
+                                        </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Phuong"><p class="add-description">Phường/Xã:</p></label>
                                             <input type="text" id="Phuong" name="Xa" placeholder="Vui lòng nhập địa chỉ!" value="<%=xa%>">
-                                         </div>
+                                            <small id="error_Phuong"></small>
+                                        </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="AddressDetails"><p class="add-description">Chi tiết địa chỉ:</p></label>
                                             <input type="text" id="AddressDetails" name="AddressDetails" placeholder="Vui lòng ghi rõ số nhà!" value="<%=so_nha%>">
-                                         </div>
+                                            <small id="error_Address"></small>
+                                        </div>
                                     </div>
                                     <div class="col l-12 m-12 c-12">
                                         <div class="check-input">
                                             <label for="Phone"><p class="add-description">Phone:</p></label>
-                                            <input type="text" id="Phone" name="Phone" placeholder="Vui lòng nhập số điện thoại!" value="<%=sdt%>">
-                                         </div>
+                                            <input type="number" id="Phone" name="Phone" placeholder="Vui lòng nhập số điện thoại!" value="<%=sdt%>">
+                                            <small id="error_Phone"></small>
+                                        </div>
                                     </div>
                                 </div>
                                 <input type="hidden" name="totalAmount" id="totalAmount">
@@ -250,5 +257,95 @@
         $('#totalAmount').val(tong_gia_tien)
         console.log($('#totalAmount').val());
         $('#ShippingFree').val($('#ship_name').html())
+        
+        // Validate
+        var input_Fullname = document.getElementById("FullName").value
+        var input_Email = document.getElementById("Email").value
+        var input_Tinh = document.getElementById("Tinh").value
+        var input_Quan = document.getElementById("Quan").value
+        var input_Phuong = document.getElementById("Phuong").value
+        var input_Address = document.getElementById("AddressDetails").value 
+        function Check_Validate() {
+            let check_Value = false
+            if (input_Fullname.length === 0) {
+                document.getElementById("error_name").innerHTML = "Name is not valid!"
+                document.getElementById("error_name").style.color = "red"
+                document.getElementById("FullName").style.border = "1px solid red"
+                check_Value = true
+            }
+
+            else if (input_Fullname.length < 8) {
+                document.getElementById("error_name").innerHTML = "Name must be at least 8 characters"
+                document.getElementById("error_name").style.color = "red"
+                document.getElementById("FullName").style.border = "1px solid red"
+                check_Value = true
+            }
+            else {
+                document.getElementById("error_name").innerHTML = ""
+                document.getElementById("FullName").style.border = "none"
+            }
+
+            if (input_Email.length === 0) {
+                document.getElementById("error_email").innerHTML = "Email is not valid!"
+                document.getElementById("error_email").style.color = "red"
+                document.getElementById("Email").style.border = "1px solid red"
+                check_Value = true
+            }
+
+            else {
+                let Regex_Email = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+                if(!Regex_Email.test(check_Value)) {
+                    document.getElementById("error_email").innerHTML = "It is wrong email!"
+                    document.getElementById("error_email").style.color = "red"
+                    document.getElementById("Email").style.border = "1px solid red"
+                    check_Value = true
+                }
+                else {
+                    document.getElementById("error_email").innerHTML = ""
+                    document.getElementById("Email").style.border = "none"
+                }
+            }
+
+            if (input_Tinh.length === 0) {
+                document.getElementById("error_Tinh").innerHTML = "Tinh is not valid!"
+                document.getElementById("error_Tinh").style.color = "red"
+                document.getElementById("Tinh").style.border = "1px solid red"
+                check_Value = true
+            }
+            else {
+                document.getElementById("error_Tinh").innerHTML = ""
+                document.getElementById("Tinh").style.border = "none"
+            }
+            if (input_Phuong.length === 0) {
+                document.getElementById("error_Phuong").innerHTML = "Phuong is not valid!"
+                document.getElementById("error_Phuong").style.color = "red"
+                document.getElementById("Phuong").style.border = "1px solid red"
+                check_Value = true
+            }
+            else {
+                document.getElementById("error_Phuong").innerHTML = ""
+                document.getElementById("Phuong").style.border = "none"
+            }
+            if (input_AddressDetails.length === 0) {
+                document.getElementById("error_AddressDetails").innerHTML = "AddressDetails is not valid!"
+                document.getElementById("error_AddressDetails").style.color = "red"
+                document.getElementById("AddressDetails").style.border = "1px solid red"
+                check_Value = true
+            }
+            else {
+                document.getElementById("error_AddressDetails").innerHTML = ""
+                document.getElementById("AddressDetails").style.border = "none"
+            }
+            if (input_Phone.length === 0) {
+                document.getElementById("error_Phone").innerHTML = "Phone is not valid!"
+                document.getElementById("error_Phone").style.color = "red"
+                document.getElementById("Phone").style.border = "1px solid red"
+                check_Value = true
+            }
+            else {
+                document.getElementById("error_Phone").innerHTML = ""
+                document.getElementById("Phone").style.border = "none"
+            }
+        } 
     </script>
 </body>

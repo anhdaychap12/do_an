@@ -149,7 +149,7 @@
                             <li class="section-right-item">
                                 <a class="section-right-item-link">
                                     <div class="search-section">
-                                        <input type="text" class="search-text" placeholder="Search...">
+                                        <input id="Search" onkeydown="showResult(event)" type="text" class="search-text" placeholder="Search...">
                                         <div class="search-icon js-click">
                                             <i class="nav-icon fa-solid fa-magnifying-glass"></i>
                                         </div>
@@ -181,6 +181,48 @@
                             %>
                         </ul>
                     </div>
+                    <div id="search" class="search-modal">
+                        <div class="search-box">
+                            <div class="item-box">
+                                <div class="item-img">
+                                    <img src="../assets/img/replace.jpg" alt="">
+                                </div>
+                                <div class="item-text">
+                                    <a href=""><h4>Jeans Baggy</h4></a>
+                                    <p>400$</p>
+                                </div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-img">
+                                    <img src="../assets/img/replace.jpg" alt="">
+                                </div>
+                                <div class="item-text">
+                                    <a href=""><h4>Jeans Baggy</h4></a>
+                                    <p>400$</p>
+                                </div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-img">
+                                    <img src="../assets/img/replace.jpg" alt="">
+                                </div>
+                                <div class="item-text">
+                                    <a href=""><h4>Jeans Baggy</h4></a>
+                                    <p>400$</p>
+                                </div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-img">
+                                    <img src="../assets/img/replace.jpg" alt="">
+                                </div>
+                                <div class="item-text">
+                                    <a href=""><h4>Jeans Baggy</h4></a>
+                                    <p>400$</p>
+                                </div>
+                            </div>
+                            <p class="title-search">No more result!</p>
+                        <button class="close-box js-shut">Close</button>
+                        </div>
+                    </div>
                 </div>
                 <div id="mobile-menu" class="nav-mobile">
                     <label for="mobile-input">
@@ -199,10 +241,52 @@
                 <ul class="section-center-list">
                     <li class="section-center-item">
                         <div class="search-mobile">
-                            <input type="text" class="search-mobile-text" placeholder="Search...">
-                            <button class="search-mobile-btn">
+                            <input id="SearchM" type="text" class="search-mobile-text" placeholder="Search...">
+                            <button id="btnM" type="button" class="search-mobile-btn">
                                 <i class="nav-icon fa-solid fa-magnifying-glass"></i>
                             </button>
+                            <div id="searchM" class="search-modal">
+                                <div class="search-box">
+                                    <div class="item-box">
+                                        <div class="item-img">
+                                            <img src="../assets/img/replace.jpg" alt="">
+                                        </div>
+                                        <div class="item-text">
+                                            <a href=""><h4>Jeans Baggy</h4></a>
+                                            <p>400$</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-box">
+                                        <div class="item-img">
+                                            <img src="../assets/img/replace.jpg" alt="">
+                                        </div>
+                                        <div class="item-text">
+                                            <a href=""><h4>Jeans Baggy</h4></a>
+                                            <p>400$</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-box">
+                                        <div class="item-img">
+                                            <img src="../assets/img/replace.jpg" alt="">
+                                        </div>
+                                        <div class="item-text">
+                                            <a href=""><h4>Jeans Baggy</h4></a>
+                                            <p>400$</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-box">
+                                        <div class="item-img">
+                                            <img src="../assets/img/replace.jpg" alt="">
+                                        </div>
+                                        <div class="item-text">
+                                            <a href=""><h4>Jeans Baggy</h4></a>
+                                            <p>400$</p>
+                                        </div>
+                                    </div>
+                                    <p class="title-search">No more result!</p>
+                                <button class="close-box js-shutM">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li class="section-center-item">
@@ -260,4 +344,49 @@
 <div id="toast" class="toast">
     <p id="notify_success"><%=session("success")%></p>
 </div>
+<script>
+    // search modal PC
+    var result = document.getElementById("search")
+    var shut = document.querySelector(".js-shut")
 
+    function showResult(event) {
+        if(event.keyCode === 13) {
+            result.classList.add("open-search")
+        }
+    }
+
+    window.addEventListener("click", hideResult)
+
+    result.addEventListener('click', function (event) {
+            event.stopPropagation()
+    })
+
+    function hideResult() {
+        result.classList.remove("open-search")
+    } 
+
+    shut.addEventListener("click", hideResult)
+
+    // Tablet and mobile
+    var btnM = document.getElementById("btnM")
+    var resultM = document.getElementById("searchM")
+    var shutM = document.querySelector(".js-shutM")
+
+    btnM.addEventListener("click", function() {
+        resultM.classList.add("open-search")
+    })
+
+    document.getElementById("SearchM").addEventListener("keypress", function(event){
+    if (event.keyCode === 13) { 
+       resultM.classList.add("open-search") 
+    }
+    });
+
+    function hideResultM() {
+        resultM.classList.remove("open-search")
+    }
+    shutM.addEventListener("click",hideResultM)
+    resultM.addEventListener('click', function (event) {
+            event.stopPropagation()
+    })
+</script>

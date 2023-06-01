@@ -13,6 +13,11 @@
         display: block;
     }
 
+    .search-modal {
+        top: 44px;
+        right: 0;
+    }
+
     .offer {
         background: none;
         background-color: #f6f6f6;

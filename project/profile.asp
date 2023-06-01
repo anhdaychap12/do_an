@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="info-form-item">
                                     <p>Phone:</p>
-                                    <input type="text" placeholder="Phone">
+                                    <input type="number" placeholder="Phone">
                                     <i class="btn-edit fa-solid fa-pen"></i>
                                 </div>
                                 <div class="info-form-item">
@@ -91,7 +91,7 @@
                 $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
             });
         });
-    </script> 
+    </script>
     <script src="main.js"></script>
 </body>
 </html>
