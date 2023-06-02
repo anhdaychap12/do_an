@@ -37,7 +37,7 @@ End Sub
         if (isnull (id) OR trim(id) = "") then id=0 end if
 
         if (cint(id)=0) then
-            if (NOT isnull(Username) and Username<>"" and NOT isnull(Password) and Password<>""  ) then
+            if (NOT isnull(CategoryName) and Categoryname<>"" and NOT isnull(Description) and Description<>""  ) then
                 connDB.Open()  
                 sql1 = "INSERT INTO Categories(CategoryName,Description) VALUES('"&CategoryName&"','"&Description&"')"              
                 connDB.execute sql1 
@@ -98,7 +98,7 @@ End Sub
                                 <div class="row">
                                     <div class="col l-12 c-12 c-12">
                                         <div class="add-content">
-                                            <form method="Post" onsubmit="return validateRole();">
+                                            <form method="Post" onsubmit="return checkCategory()">
                                                 <h4 class="add-text">Category info</h4>
                                                 <div class="row">
                                                     <div class="col l-12 m-12 c-12">
@@ -106,7 +106,7 @@ End Sub
 
                                                             <label for="CategoryName"><p class="add-description">Category:</p></label>
                                                             <input type="text" id="CategoryName" name="CategoryName" placeholder="Category name" value="<%=CategoryName%>" required>
-
+                                                            <small id="Error"></small>
                                                          </div>
                                                     </div>
                                                     <div class="col l-12 m-12 c-12">
@@ -115,11 +115,6 @@ End Sub
                                                             <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>" required>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col l-6 m-6 c-12">
-                                                        <div class="add-input">
-                                                            <input type="text" id="Role" name="Role" placeholder="Role" value="<%=Role%>" required>
-                                                        </div>
-                                                    </div>  -->
                                                 </div>
                                                 <div class="add-setting">
                                                     <button class="add-btn" type="submit">
@@ -166,6 +161,21 @@ End Sub
         nav.addEventListener("click",function(e){
             e.stopPropagation();
         })
+
+        function checkCategory() {
+            var check_Category = document.getElementById("CategoryName").value
+            if (check_Category !== "Men" || check_Category !== "Women") {
+                document.getElementById("Error").innerHTML = "Please fill Men or Women!"
+                document.getElementById("CategoryName").style.border= "red  1px solid"
+                document.getElementById("Error").style.color = "red"
+                return false
+            }
+            else {
+                document.getElementById("Error").innerHTML = ""
+                document.getElementById("CategoryName").style.border= "none"
+                return true
+            }    
+        }
     </script>
 </body>
 </html>

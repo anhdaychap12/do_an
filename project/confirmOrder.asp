@@ -42,60 +42,96 @@
                         </div>
                     </div>
                     <div class="col l-12 m-12 c-12">
-                        <div class="confirm-cart">
-                            <div class="confirm-cart-item">
-                                <img src="./assets/img/product.jpg" alt="">
-                                <div class="confirm-text">
-                                    <h4>Jeans baggy</h4>
-                                    <p>Quanity: <span>1</span></p>
-                                    <p>Size: <span>XL</span></p>
-                                    <p>Color: <span>Navy</span></p>
+                        <div class="confirm-list">
+                            <div class="confirm-cart">
+                                <div class="confirm-cart-item">
+                                    <img src="./assets/img/product.jpg" alt="">
+                                    <div class="confirm-text">
+                                        <h4>Jeans baggy</h4>
+                                        <p>Quanity: <span>1</span></p>
+                                        <p>Size: <span>XL</span></p>
+                                        <p>Color: <span>Navy</span></p>
+                                    </div>
+                                </div>
+                                <div class="confirm-cart-item">
+                                    <p>Price: <span>400$</span></p>
                                 </div>
                             </div>
-                            <div class="confirm-cart-item">
-                                <p>Price: <span>400$</span></p>
-                            </div>
-                        </div>
-                        <div class="confirm-cart">
-                            <div class="confirm-cart-item">
-                                <img src="./assets/img/product.jpg" alt="">
-                                <div class="confirm-text">
-                                    <h4>Jeans baggy</h4>
-                                    <p>Quanity: <span>1</span></p>
-                                    <p>Size: <span>XL</span></p>
-                                    <p>Color: <span>Navy</span></p>
+                            <div class="confirm-cart">
+                                <div class="confirm-cart-item">
+                                    <img src="./assets/img/product.jpg" alt="">
+                                    <div class="confirm-text">
+                                        <h4>Jeans baggy</h4>
+                                        <p>Quanity: <span>1</span></p>
+                                        <p>Size: <span>XL</span></p>
+                                        <p>Color: <span>Navy</span></p>
+                                    </div>
+                                </div>
+                                <div class="confirm-cart-item">
+                                    <p>Price: <span>400$</span></p>
                                 </div>
                             </div>
-                            <div class="confirm-cart-item">
-                                <p>Price: <span>400$</span></p>
+                            <div class="confirm-cart">
+                                <div class="confirm-cart-item">
+                                    <img src="./assets/img/product.jpg" alt="">
+                                    <div class="confirm-text">
+                                        <h4>Jeans baggy</h4>
+                                        <p>Quanity: <span>1</span></p>
+                                        <p>Size: <span>XL</span></p>
+                                        <p>Color: <span>Navy</span></p>
+                                    </div>
+                                </div>
+                                <div class="confirm-cart-item">
+                                    <p>Price: <span>400$</span></p>
+                                </div>
+                            </div>
+                            <div class="confirm-cart">
+                                <div class="confirm-cart-item">
+                                    <img src="./assets/img/product.jpg" alt="">
+                                    <div class="confirm-text">
+                                        <h4>Jeans baggy</h4>
+                                        <p>Quanity: <span>1</span></p>
+                                        <p>Size: <span>XL</span></p>
+                                        <p>Color: <span>Navy</span></p>
+                                    </div>
+                                </div>
+                                <div class="confirm-cart-item">
+                                    <p>Price: <span>400$</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col l-12 m-12 c-12">
-                        <div class="confirm-cart-cost">
-                            <div class="confirm-cart-item-price">
-                                <p>Subtotal:</p>
-                                <h4>800$</h4>
+                        <div class="confirm-box">
+                            <div class="row">
+                                <div class="col l-3 m-12 c-12">
+                                    <div class="confirm-cart-cost">
+                                        <div class="confirm-cart-item-price">
+                                            <p>Subtotal:</p>
+                                            <h4>800$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <p>Shipping fee:</p>
+                                            <h4>+ 5$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <p>Discount:</p>
+                                            <h4>- 100$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <h4>Total:</h4>
+                                            <h3>705$</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-9 m-12 c-12">
+                                    <div class="cart-item-footer">
+                                        <p>We will be sending a shipping confirmmation email when the items shipped successfully.</p>
+                                        <h4>Thank you for shopping with us!</h4>
+                                        <h2>Esser Team</h2>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="confirm-cart-item-price">
-                                <p>Shipping fee:</p>
-                                <h4>+ 5$</h4>
-                            </div>
-                            <div class="confirm-cart-item-price">
-                                <p>Discount:</p>
-                                <h4>- 100$</h4>
-                            </div>
-                            <div class="confirm-cart-item-price">
-                                <h4>Total:</h4>
-                                <h3>705$</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-12 m-12 c-12">
-                        <div class="cart-item-footer">
-                            <p>We will be sending a shipping confirmmation email when the items shipped successfully.</p>
-                            <h4>Thank you for shopping with us!</h4>
-                            <h2>Esser Team</h2>
                         </div>
                     </div>
                 </div>

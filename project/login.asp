@@ -79,7 +79,7 @@
                     </form>
                     <div class="login__foot">
                         Not a member
-                        <a href="" class="login__link">Sign Up</a>
+                        <a href="SignUp.asp" class="login__link">Sign Up</a>
                     </div>
                 </div>
             </div>

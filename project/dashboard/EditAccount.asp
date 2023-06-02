@@ -117,11 +117,6 @@ End Sub
                                                             <input type="text" id="Password" name="Password" placeholder="Password" value="<%=Password%>" required>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col l-6 m-6 c-12">
-                                                        <div class="add-input">
-                                                            <input type="text" id="Role" name="Role" placeholder="Role" value="<%=Role%>" required>
-                                                        </div>
-                                                    </div>  -->
                                                 </div>
                                                 <div class="add-setting">
                                                     <button class="add-btn" type="submit">
