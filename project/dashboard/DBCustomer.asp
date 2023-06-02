@@ -84,8 +84,8 @@
                                                             <th>ID</th>
                                                             <th>Name</th>
                                                             <th>Phone</th>
+                                                            <th> Address</th>
                                                             <th>Email</th>
-                                                            <th>Address</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

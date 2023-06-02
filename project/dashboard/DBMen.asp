@@ -76,7 +76,7 @@
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
                                                 <h4>Men <%=dictMEN(int(CateID))%> </h4>
-                                                <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
+                                                <a href="AddProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
                                                 <table>
@@ -86,7 +86,8 @@
                                                             <th>Name</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                            <th>Promotion ID</th>
+                                                            <th>Discount ID</th>
+                                                            <th>Create At</th>
                                                             <th>Option</th>
                                                         </tr>
                                                     </thead>
@@ -112,9 +113,10 @@
                                                             <td><div><%=Result("Description")%></div></td>
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
+                                                            <td><%=Result("createdAt")%></td>
                                                             <td>
                                                                 <div class="dashboard-option">
-                                                                    <a href="EditProduct.asp?id=<%=Result("ProductID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
+                                                                    <a href="EditProduct.asp?id=<%=Result("ProductID")%>&CateID=<%=CateID%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
                                                                     <a href="" class="dashboard-option-btn dashboard-delete"><i class="fa-solid fa-trash-can"></i></a>
                                                                 </div>
                                                             </td>

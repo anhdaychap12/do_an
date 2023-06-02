@@ -1,103 +1,159 @@
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-On Error Resume Next
-Sub handleError(message)
-    Session("Error") = message
-End Sub
-    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
-        Response.redirect("../login.asp")
-    End If
-    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
-        id = Request.QueryString("id")
-        If (isnull(id) OR trim(id) = "" ) then 
-            id=0 
-        End if
-        If (cint(id)<>0 ) Then
-            Set cmdPrep = Server.CreateObject("ADODB.Command")
+Set cmdPrep = Server.CreateObject("ADODB.Command")
             connDB.Open()
             cmdPrep.ActiveConnection = connDB
             cmdPrep.CommandType = 1
-            cmdPrep.CommandText = "select Products.*, ProductDetails.*, ImagePrducts.*,Sizes.*,Colors.* " &_
-            "from (((Products inner join ProductDetails on Products.ProductID = ProductDetails.ProductID) inner join ImagePrducts on Products.ProductID = ImagePrducts.ProductID) inner join Sizes on ProductDetails.SizeID = Sizes.SizeID) inner join Colors on ProductDetails.ColorID = Colors.ColorID " &_
-            "where Products.ProductID = ? "
-            cmdPrep.Parameters(0)=id
+            cmdPrep.CommandText = " select  Colors.* from   Colors " &" select Sizes.* from  sizes"
             Set Result = cmdPrep.execute 
+            'in ra color
+            Dim dictColor
+            set dictColor = CreateObject("Scripting.Dictionary")
+            ' set dictSize = CreateObject("Scripting.Dictionary")
+        
+            Do while not Result.EOF
+                    Dim x3,y3
+                        x3 = Result("ColorID")
+                        y3 = Result("Color")
+                        dictColor.add x3, y3
 
-            If not Result.EOF then
-                ProductName = Result("ProcductName")
-                Price = Result("Price")
-                PromotionID = Result("PromotionID")
-                Description = Result("Description")
-                Quantity = Result("Quantity")
-                Image1 = Result("Image1")
-                Image2 = Result("Image2")
-                Image3 = Result("Image3")
-                Image4 = Result("Image4")
-                Image5 = Result("Image5")
-                Image6 = Result("Image6")
+                    ' Dim x4, y4
+                    '     x4 = Result("SizeID")
+                    '     y4 = Result("Size")
+                    '     dictSize.add x4, y4
+                    
+                    Result.MoveNext
+            Loop
+cmdPrep.CommandText = " select Sizes.* from  sizes"
+            Set Result = cmdPrep.execute 
+            'in ra color
+            Dim  dictSize
+            ' set dictColor = CreateObject("Scripting.Dictionary")
+            set dictSize = CreateObject("Scripting.Dictionary")
+        
+            Do while not Result.EOF
+                    ' Dim x3,y3
+                    '     x3 = Result("ColorID")
+                    '     y3 = Result("Color")
+                    '     dictColor.add x3, y3
 
-            End If
+                    Dim x4, y4
+                        x4 = Result("SizeID")
+                        y4 = Result("Size")
+                        dictSize.add x4, y4
+                    
+                    Result.MoveNext
+            Loop
+
 
             Result.Close()
-        End If
-    Else
-        id = Request.QueryString("id")
-        ProductName = Request.form("ProcductName")
-        Price = Request.form("Price")
-        PromotionID = Request.form("PromotionID")
-        Description = Request.form("Description")
-        Image1 = Request.form("Image1")
-        Image2 = Request.form("Image2")
-        Image3 = Request.form("Image3")
-        Image4 = Request.form("Image4")
-        Image5 = Request.form("Image5")
-        Image6 = Request.form("Image6")
+        
+        ' for each key3 in dictColor.keys 
+        ' Response.write key3 &":"& dictColor(key3) & "<br>"
+        ' next
+' On Error Resume Next
+' Sub handleError(message)
+'     Session("Error") = message
+' End Sub
+'     If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
+'         Response.redirect("../login.asp")
+'     End If
+'     If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
+'         id = Request.QueryString("id")
+'         If (isnull(id) OR trim(id) = "" ) then 
+'             id=0 
+'         End if
+'         If (cint(id)<>0 ) Then
+'             Set cmdPrep = Server.CreateObject("ADODB.Command")
+'             connDB.Open()
+'             cmdPrep.ActiveConnection = connDB
+'             cmdPrep.CommandType = 1
+'             cmdPrep.CommandText = " select Colors.* from  Colors "
+'             Set Result = cmdPrep.execute 
+'             'in ra color
+'             Dim dictColor, dictSize
+'             set dictColor = CreateObject("Scripting.Dictionary")
+'             ' set dictSize = CreateObject("Scripting.Dictionary")
+        
+'             Do while not Result.EOF
+'                     Dim x3,y3
+'                         x3 = Result("ColorID")
+'                         y3 = Result("Color")
+'                         dictColor.add x3, y3
+
+'                     ' Dim x4, y4
+'                     '     x4 = Result("Sizes.SizeID")
+'                     '     y4 = Result("Sizes.Size")
+'                     '     dictSize.add x4, y4
+                    
+'                     Result.MoveNext
+'             Loop
+
+'             Result.Close()
+'         End If
+
+'         for each key3 in dictColor.keys 
+'         Response.write key3 &":"& dictColor(key3) & "<br>"
+'         next
+
+'     Else
+'         id = Request.QueryString("id")
+'         ProductName = Request.form("ProcductName")
+'         Price = Request.form("Price")
+'         PromotionID = Request.form("PromotionID")
+'         Description = Request.form("Description")
+'         Image1 = Request.form("Image1")
+'         Image2 = Request.form("Image2")
+'         Image3 = Request.form("Image3")
+'         Image4 = Request.form("Image4")
+'         Image5 = Request.form("Image5")
+'         Image6 = Request.form("Image6")
 
 
 
-        if (isnull (id) OR trim(id) = "") then id=0 end if
+'         if (isnull (id) OR trim(id) = "") then id=0 end if
 
-        if (cint(id)=0) then
-            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-                Set cmdPrep = Server.CreateObject("ADODB.Command")
-                connDB.Open()  
-                sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
-                connDB.execute sql1 
-                ' Response.write sql1              
+'         if (cint(id)=0) then
+'             if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+'                 Set cmdPrep = Server.CreateObject("ADODB.Command")
+'                 connDB.Open()  
+'                 sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
+'                 connDB.execute sql1 
+'                 ' Response.write sql1              
                 
-                If Err.Number = 0 Then  
-                    Session("Success") = "New Promotion added!"                    
-                    Response.redirect("DBDiscount.asp")  
-                Else  
-                    handleError(Err.Description)
-                End If
-                On Error GoTo 0
-            else
-                Session("Error") = "You have to input enough info"                
-            end if
-        else
-            if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-                Set cmdPrep = Server.CreateObject("ADODB.Command")
-                connDB.Open()                
-                sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
-                connDB.execute sql
-                ' Response.write sql
+'                 If Err.Number = 0 Then  
+'                     Session("Success") = "New Promotion added!"                    
+'                     Response.redirect("DBDiscount.asp")  
+'                 Else  
+'                     handleError(Err.Description)
+'                 End If
+'                 On Error GoTo 0
+'             else
+'                 Session("Error") = "You have to input enough info"                
+'             end if
+'         else
+'             if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+'                 Set cmdPrep = Server.CreateObject("ADODB.Command")
+'                 connDB.Open()                
+'                 sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
+'                 connDB.execute sql
+'                 ' Response.write sql
                 
-                If Err.Number=0 Then
-                    Session("Success") = "The promotion was edited!"
-                    Response.redirect("DBDiscount.asp")
-                Else
-                    handleError(Err.Description)
-                End If
-                On Error Goto 0
-            else
-                Session("Error") = "You have to input enough info"
-                    Response.write(Session("Error"))
+'                 If Err.Number=0 Then
+'                     Session("Success") = "The promotion was edited!"
+'                     Response.redirect("DBDiscount.asp")
+'                 Else
+'                     handleError(Err.Description)
+'                 End If
+'                 On Error Goto 0
+'             else
+'                 Session("Error") = "You have to input enough info"
+'                     Response.write(Session("Error"))
 
-            end if
-        end if
-    End If    
+'             end if
+'         end if
+'     End If    
 %>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -128,7 +184,7 @@ End Sub
                                                         <div class="col l-4 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="ProductName"><p class="add-description">Product name:</p></label>
-                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>">
+                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="">
                                                              </div>
                                                         </div>
                                                         <!-- <div class="col l-6 m-6 c-12">
@@ -140,19 +196,19 @@ End Sub
                                                         <div class="col l-4 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="PromotionID"><p class="add-description">Discount ID:</p></label>
-                                                                <input type="text" id="PromotionID" name="PromotionID" placeholder="Enter Number" value="<%=PromotionID%>">
+                                                                <input type="text" id="PromotionID" name="PromotionID" placeholder="Enter Number" value="">
                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
+                                                                <input type="text" id="Price" name="Price" placeholder="Price" value="">
                                                             </div>
                                                         </div>
                                                         <div class="col l-12 m-12 c-12">
                                                             <div class="add-input">
                                                                 <label for="Description"><p class="add-description">Description:</p></label>
-                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>">
+                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="">
                                                             </div>
                                                         </div>
                                                     </div>  
@@ -171,20 +227,15 @@ End Sub
                                                                     <label for="Color"><p class="add-description">Color:</p></label>
                                                                     <select name="Color" id="Add-color" onclick="showAdd()">
                                                                         <option value="0">Choose color</option>
-                                                                        <option value="1">BLUE</option>
-                                                                        <option value="2">BLACK</option>
-                                                                        <option value="3">WHITE</option>
-                                                                        <option value="4">GREEN</option>
-                                                                        <option value="5">NAVY</option>
-                                                                        <option value="6">GRAY</option>
-                                                                        <option value="7">RED</option>
-                                                                        <option value="8">ORANGE</option>
-                                                                        <option value="9">OFF WHITE</option>
-                                                                        <option value="10">PINK</option>
-                                                                        <option value="11">LIGHT BLUE</option>
-                                                                        <option value="12">BROWN</option>
-                                                                        <option value="13">NATURAL</option>
-                                                                        <option value="14">BEIGE</option>
+                                                                        <%
+                                                                            Dim key3
+                                                                            For each key3 in dictColor.keys
+
+                                                                        %>
+                                                                        <option value=<%=key3%>><%=dictColor(key3)%></option>
+                                                                        <%    
+                                                                            Next
+                                                                        %>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -196,19 +247,26 @@ End Sub
                                                             <div class="col l-12 c-12 m-12">
                                                                 <div id="list-add" class="Add-list">
                                                                     <div class="row no-gutters">
+                                                                    <%
+                                                                            Dim key4
+                                                                            For each key4 in dictSize.keys
+                                                                        %>
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">S</div>
+                                                                                <div class="size-item"><%=dictSize(key4)%></div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity" value="">
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col l-1 m-3 c-4">
+                                                                        <%    
+                                                                            Next
+                                                                        %>
+                                                                        <!-- <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
                                                                                 <div class="size-item">M</div>
@@ -267,7 +325,7 @@ End Sub
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
                                                                                 <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
-                                                                        </div>  
+                                                                        </div>  -->
                                                                     </div>
                                                                 </div>
                                                             </div>                                                     
@@ -389,3 +447,9 @@ End Sub
     </script>
 </body>
 </html>
+
+' <%
+'     for each key3 in dictColor.keys 
+'     Response.write key3 &":"& dictColor(key3) & "<br>"
+'     next
+' %>
