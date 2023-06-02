@@ -99,7 +99,7 @@
                                 <img src="<%=rs("Image1")%>" alt="">
                                 <div class="confirm-text">
                                     <h4><%=rs("ProcductName")%></h4>
-                                    <p>Quanity: <span><%=dictProc(key)%></span></p>
+                                    <p>Quanity: <span class="quan"><%=dictProc(key)%></span></p>
                                     <p>Size: <span><%=rs("Size")%></span></p>
                                     <p>Color: <span><%=rs("Color")%></span></p>
                                 </div>
@@ -156,8 +156,9 @@
             var kq = 0;
             $('.confirm-cart').each(function () {
                 var str_price = $(this).find('.price').html();
+                var quan =parseInt($(this).find('.quan').html()) ;
                 var price = parseInt(str_price.replace("$", ""));
-                kq += price;
+                kq += price * quan;
             });
             return kq;
         }
