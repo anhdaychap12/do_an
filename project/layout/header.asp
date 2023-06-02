@@ -26,7 +26,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=phuc\SQLEXPRESS;Database=WEB_BQA1;User Id=sa ;Password=01052002"
+    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
@@ -169,6 +169,7 @@
                                         <li class="section-right-item-sub"><a href="profile.asp" class="section-right-item-link-sub"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
                                         <li class="section-right-item-sub"><a href="shopping.asp" class="section-right-item-link-sub"><i class="fa-solid fa-cart-shopping"></i> My cart</a></li>
                                         <li class="section-right-item-sub"><a href="favorite.asp" class="section-right-item-link-sub"><i class="fa-solid fa-heart"></i> My favorite</a></li>
+                                        <li class="section-right-item-sub"><a href="history.asp" class="section-right-item-link-sub"><i class="fa-solid fa-clock-rotate-left"></i> My history</a></li>
                                         <li class="section-right-item-sub"><a href="logout.asp" class="section-right-item-link-sub"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
                                     </ul>
                                 </li>
@@ -290,15 +291,25 @@
                         </div>
                     </li>
                     <li class="section-center-item">
+                    <%
+                        If Session("user") <> "" and trim(Session("user")) <> "" Then
+                    %>  
                         <img src="../assets/img/customer.jpg" alt="" class="avatar avatar-mobile">
                         <ul class="mobile sub-center">
-                            <li class="sub-center-item"><p>AnhCus</p></li>
-                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
-                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-cart-shopping"></i> My cart</a></li>
-                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-heart"></i> My Favorite</a></li>
-                            <li class="sub-center-item"><a href="#" class="sub-center-item-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+                            <li class="sub-center-item"><p><%=Session("user")%></p></li>
+                            <li class="sub-center-item"><a href="profile.asp" class="sub-center-item-link"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
+                            <li class="sub-center-item"><a href="shopping.asp" class="sub-center-item-link"><i class="fa-solid fa-cart-shopping"></i> My cart</a></li>
+                            <li class="sub-center-item"><a href="favorite.asp" class="sub-center-item-link"><i class="fa-solid fa-heart"></i> My Favorite</a></li>
+                            <li class="sub-center-item"><a href="history.asp" class="sub-center-item-link"><i class="fa-solid fa-clock-rotate-left"></i> My history</a></li>
+                            <li class="sub-center-item"><a href="logout.asp" class="sub-center-item-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
                         </ul>
-                        <!-- <a href="#" class="section-center-item-link"><i class="nav-icon fa-solid fa-user"></i></a> -->
+                    <%
+                        else
+                    %>    
+                        <a href="login.asp" class="section-center-item-link"><i class="nav-icon fa-solid fa-user"></i></a>
+                    <%
+                        end if
+                    %>    
                     </li>
                     <li class="section-center-item"><a href="/index.asp" class="section-center-item-link">HOME</a></li>
                     <li class="section-center-item">

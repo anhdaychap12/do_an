@@ -106,6 +106,10 @@
     .details-size-list {
         flex-wrap: wrap;
     }
+    /* history */
+    .history-info {
+        text-align: center;
+    }
 }
 
 /* Tablet */
@@ -135,6 +139,15 @@
     /* dashboard */
     .dashboard-nav-mobile {
         width: 500px;
+    }
+
+    /* history */
+    .history-content.fake {
+        text-align: right;
+    }
+
+    .history-content {
+        text-align: left;
     }
 }
 
@@ -216,6 +229,14 @@
     }
 
     .cart-item-footer {
+        text-align: center;
+    }
+    /* history */
+    .history-content {
+        text-align: center;
+    }
+
+    .history-content.origin {
         text-align: center;
     }
 }

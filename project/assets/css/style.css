@@ -2246,6 +2246,65 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 15px 0;
 }
 
+/* history */
+.history {
+    border-top: 1px solid #eee;
+    padding: 70px 0;
+}
+
+.history-order {
+    padding: 32px 0;
+    border-bottom: 2px solid #71cd14;
+}
+
+.history-content {
+    text-align: right;
+}
+
+.history-content.origin {
+    text-align: left;
+}
+
+.history-content > p {
+    color: #797979;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.history-content > p > span {
+    color: #2a2a2a;
+    text-transform: uppercase;
+}
+
+.history-content > h4 {
+    font-size: 25px;
+    color: #2a2a2a;
+    margin: 16px 0;
+}
+
+.history-content.origin > h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.history-title {
+    color: #71cd14 !important;
+}
+
+.history-info {
+    text-align: right;
+    margin-top: 32px;
+    color: #797979;
+    font-size: 20px;
+}
+
+.history-info span {
+    color: #2a2a2a;
+}
+
+
 /* Swiper carousel */
 .swiper {
     width: 100%;
