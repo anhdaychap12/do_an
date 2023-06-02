@@ -120,39 +120,36 @@ End Sub
                             <form>
                                 <div class="grid wide">
                                     <div class="row">
+                                        <div class="col l-12 m-12 c-12">
+                                            <h4 class="title">Men Jeans</h4>
+                                        </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
                                                 <form action="Post">
                                                     <h4 class="add-text">Product info</h4>
                                                     <div class="row">
-                                                        <div class="col l-4 m-12 c-12">
+                                                        <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="ProductName"><p class="add-description">Product name:</p></label>
                                                                 <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>">
                                                              </div>
                                                         </div>
-                                                        <!-- <div class="col l-6 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="CategoryName"><p class="add-description">Category name:</p></label>
-                                                                <input type="text" id="CategoryName" name="CategoryName" placeholder="Category name">
-                                                            </div>
-                                                        </div> -->
-                                                        <div class="col l-4 m-12 c-12">
+                                                        <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="PromotionID"><p class="add-description">Discount ID:</p></label>
                                                                 <input type="text" id="PromotionID" name="PromotionID" placeholder="Enter Number" value="<%=PromotionID%>">
                                                             </div>
                                                         </div>
-                                                        <div class="col l-4 m-12 c-12">
-                                                            <div class="add-input">
-                                                                <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col l-12 m-12 c-12">
+                                                        <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Description"><p class="add-description">Description:</p></label>
                                                                 <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col l-4 m-6 c-12">
+                                                            <div class="add-input">
+                                                                <label for="Price"><p class="add-description">Price:</p></label>
+                                                                <input type="text" min="0" id="Price" name="Price" placeholder="Price">
                                                             </div>
                                                         </div>
                                                     </div>  
@@ -199,73 +196,73 @@ End Sub
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">S</div>
+                                                                                <a href="#" class="size-item">S</a>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">M</div>
+                                                                                <a href="#" class="size-item">M</a>
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">L</div>
+                                                                                <a href="#" class="size-item">L</a>
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">XL</div>
+                                                                                <a href="#" class="size-item">XL</a>
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">2XL</div>
+                                                                                <a href="#" class="size-item">2XL</a>
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-1 m-3 c-4">
                                                                             <div class="add-input">
                                                                                 <p class="add-description">Size:</p>
-                                                                                <div class="size-item">3XL</div>
+                                                                                <a href="#" class="size-item">3XL</a>
                                                                             </div>
                                                                         </div> 
                                                                         <div class="col l-11 m-9 c-8">
                                                                             <div class="add-input">
                                                                                 <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
+                                                                                <input type="number" min="0" id="Quantity" name="Quantity" placeholder="Quantity">
                                                                             </div>
                                                                         </div>  
                                                                     </div>
@@ -284,42 +281,42 @@ End Sub
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 1:</p></label>
-                                                                <div class="add-img"><img src="<%=Image1%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div> 
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 2:</p></label>
-                                                                <div class="add-img"><img src="<%=Image2%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 3:</p></label>
-                                                                <div class="add-img"><img src="<%=Image3%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 4:</p></label>
-                                                                <div class="add-img"><img src="<%=Image4%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 5:</p></label>
-                                                                <div class="add-img"><img src="<%=Image5%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 6:</p></label>
-                                                                <div class="add-img"><img src="<%=Image6%>" onerorr="this.src='/assets/img/logo.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="../assets/img/product.jpg" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
