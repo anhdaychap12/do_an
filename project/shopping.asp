@@ -7,7 +7,7 @@
     totalPrice = 0
     totalProduct = 0
     If IsEmpty(session("mycarts")) Then
-        check_cart = "No products in your cart"
+        check_cart = "No products in your cart!"
     Else
         check_cart = ""
         set mycarts = session("mycarts")  
@@ -25,9 +25,9 @@
                         <h2><span>My Cart</span></h2>
                         <p>Bring called seed first of third give itself now ment</p>
                         <p id="test"></p>
-                        <p><%=check_cart%></p>
                     </div>
                 </div>
+                <h3><%=check_cart%></h3>
                 <%
                     If check_cart = "" Then                   
                 %>

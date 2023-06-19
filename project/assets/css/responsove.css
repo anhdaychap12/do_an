@@ -239,4 +239,8 @@
     .history-content.origin {
         text-align: center;
     }
+
+    .info-form-setting {
+        justify-content: space-evenly;
+    }
 }
