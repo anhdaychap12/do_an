@@ -5,9 +5,9 @@
     Dim id_cus, sql, fullname, email, address, tinh, huyen, xa, so_nha, sdt, totalAmount, ShippingFree, ShippingFreeID, mycarts, cart_key, OrderID
     If not IsEmpty(session("user")) Then   
         connDB.Open()
-        set rs = connDB.execute("select * from Accounts where Username = '"&session("user")&"'")
+        set rs = connDB.execute("select * from Accounts inner join Customers on Customers.AccountID = Accounts.AccountID  where Username = '"&session("user")&"'")
         If not rs.EOF Then
-            id_cus = rs("AccountID")
+            id_cus = rs("CustomerID")
         End if
         rs.Close()
         set rs = nothing
