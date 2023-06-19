@@ -81,7 +81,8 @@
                         </div>
                     </div>
                     <div class="col l-12 m-12 c-12">
-                            <%
+                        <div class="confirm-list">
+                                <%
                             ''Hiển thị danh sách sản phẩm
                             connDB.Open()
                             for each key in dictProc.keys
@@ -116,33 +117,39 @@
                             next
                             connDB.Close()
                             %>
-                        
-                    </div>
-                    <div class="col l-12 m-12 c-12">
-                        <div class="confirm-cart-cost">
-                            <div class="confirm-cart-item-price">
-                                <p>Subtotal:</p>
-                                <h4><span id="rs_priceTotal"></span>$</h4>
-                            </div>
-                            <div class="confirm-cart-item-price">
-                                <p>Shipping fee:</p>
-                                <h4>+ <%=ship%>$</h4>
-                            </div>
-                            <div class="confirm-cart-item-price">
-                                <p>Discount:</p>
-                                <h4>- 0$</h4>
-                            </div>
-                            <div class="confirm-cart-item-price">
-                                <h4>Total:</h4>
-                                <h3><%=subTotal%>$</h3>
-                            </div>
                         </div>
                     </div>
                     <div class="col l-12 m-12 c-12">
-                        <div class="cart-item-footer">
-                            <p>We will be sending a shipping confirmmation email when the items shipped successfully.</p>
-                            <h4>Thank you for shopping with us!</h4>
-                            <h2>Esser Team</h2>
+                        <div class="confirm-box">
+                            <div class="row">
+                                <div class="col l-3 m-12 c-12">
+                                    <div class="confirm-cart-cost">
+                                        <div class="confirm-cart-item-price">
+                                            <p>Subtotal:</p>
+                                            <h4><span id="rs_priceTotal">$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <p>Shipping fee:</p>
+                                            <h4>+ <%=ship%>$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <p>Discount:</p>
+                                            <h4>- 0$</h4>
+                                        </div>
+                                        <div class="confirm-cart-item-price">
+                                            <h4>Total:</h4>
+                                            <h3><%=subTotal%>$</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-9 m-12 c-12">
+                                    <div class="cart-item-footer">
+                                        <p>We will be sending a shipping confirmmation email when the items shipped successfully.</p>
+                                        <h4>Thank you for shopping with us!</h4>
+                                        <h2>Esser Team</h2>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
