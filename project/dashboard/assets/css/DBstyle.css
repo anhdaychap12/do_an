@@ -482,6 +482,13 @@ table td div {
 
  .add-input {
     margin: 8px 16px;
+    position: relative;
+ }
+
+ small {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
  }
 
  .add-input.detail-remove {

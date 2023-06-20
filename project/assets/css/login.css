@@ -131,6 +131,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .login__group{
     margin: 0 0 24px;
+    position: relative;
+}
+
+.login__group.register input {
+    margin-bottom: 8px;
 }
 
 .login--error input{
@@ -139,6 +144,12 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .login--error small{
     color: red;
+}
+
+small {
+    position: absolute;
+    top: 72px;
+    left: 0px;
 }
 
 .login__label{

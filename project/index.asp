@@ -1,3 +1,4 @@
+<!--#include file="connect.asp"-->
 <!-- #include file="checkLogin.asp" -->
 
 <!--#include file="layout/header.asp"-->
@@ -70,24 +71,33 @@
             <div class="grid wide">
                 <div class="row product-wrap">
                     <div class="product-title">
-                        <h2><span>Featured Product</span></h2>
+                        <h2><span>Men Product</span></h2>
                         <p>Bring called seed first of third give itself now ment</p>
                     </div>
                 </div>
                 <div class="row">
+                    <%
+                        connDB.Open()
+                        sql = "select Top 3 * from Products"
+                        sql = sql & " inner join Categories on Categories.CategoryID = Products.CategoryID"
+                        sql = sql & " inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID"
+                        sql = sql & " where Categories.CategoryName = 'Men'"
+                        set rs = connDB.execute(sql)
+                        Do While not rs.EOF
+                    %>
                     <div class="col l-4 m-6 c-12">
                         <div class="product-container">
                             <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
+                                <img src="<%=rs("Image1")%>" alt="" class="product-img">
                                 <div class="product-setting">
                                     <ul class="product-setting-list">
                                         <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
+                                            <a href="/details.asp?productID=<%=rs("ProductID")%>" class="product-setting-link">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a> 
                                         </li>
                                         <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
+                                            <a class="product-setting-link" onclick="addFav(<%=rs("ProductID")%>)">
                                                 <i class="fa-solid fa-heart"></i>
                                             </a>
                                         </li>
@@ -101,85 +111,24 @@
                             </div>
                             <div class="product-text">
                                 <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
+                                    <h4><%=rs("ProcductName")%></h4>
                                 </a>
                                 <div class="product-description">
-                                    <span>$25.00</span>
+                                    <span>$<%=rs("Price")%></span>
                                     <del>$35.00</del>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col l-4 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-4 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+                            rs.MoveNext()
+                        Loop
+                        rs.Close()
+                        set rs = nothing
+                        connDB.Close()
+                    %>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -219,19 +168,27 @@
                     </div>
                     <div class="col l-6 ">
                         <div class="row">
+                        <%
+                            connDB.open()
+                            sql = "select top 4 * from Products"
+                            sql = sql & " inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID"
+                            sql = sql & " order by Products.createdAt desc"
+                            set rs = connDB.execute(sql)
+                            Do While not rs.EOF
+                        %>
                             <div class="col l-6 m-6 c-12">
                                 <div class="product-container">
                                     <div class="product-picture">
-                                        <img src="./assets/img/product.jpg" alt="" class="product-img">
+                                        <img src="<%=rs("Image1")%>" alt="" class="product-img">
                                         <div class="product-setting">
                                             <ul class="product-setting-list">
                                                 <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
+                                                    <a href="/details.asp?productID=<%=rs("ProductID")%>" class="product-setting-link">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a> 
                                                 </li>
                                                 <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
+                                                    <a  class="product-setting-link" onclick="addFav(<%=rs("ProductID")%>)">
                                                         <i class="fa-solid fa-heart"></i>
                                                     </a>
                                                 </li>
@@ -245,120 +202,25 @@
                                     </div>
                                     <div class="product-text">
                                         <a class="product-heading">
-                                            <h4>Nike latest sneaker</h4>
+                                            <h4><%=rs("ProcductName")%></h4>
                                         </a>
                                         <div class="product-description">
-                                            <span>$25.00</span>
+                                            <span>$<%=rs("Price")%></span>
                                             <del>$35.00</del>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l-6 m-6 c-12">
-                                <div class="product-container">
-                                    <div class="product-picture">
-                                        <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                        <div class="product-setting">
-                                            <ul class="product-setting-list">
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </a> 
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-text">
-                                        <a class="product-heading">
-                                            <h4>Nike latest sneaker</h4>
-                                        </a>
-                                        <div class="product-description">
-                                            <span>$25.00</span>
-                                            <del>$35.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-6 m-6 c-12">
-                                <div class="product-container">
-                                    <div class="product-picture">
-                                        <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                        <div class="product-setting">
-                                            <ul class="product-setting-list">
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </a> 
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-text">
-                                        <a class="product-heading">
-                                            <h4>Nike latest sneaker</h4>
-                                        </a>
-                                        <div class="product-description">
-                                            <span>$25.00</span>
-                                            <del>$35.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l-6 m-6 c-12">
-                                <div class="product-container">
-                                    <div class="product-picture">
-                                        <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                        <div class="product-setting">
-                                            <ul class="product-setting-list">
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </a> 
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-text">
-                                        <a class="product-heading">
-                                            <h4>Nike latest sneaker</h4>
-                                        </a>
-                                        <div class="product-description">
-                                            <span>$25.00</span>
-                                            <del>$35.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <%
+                                rs.MoveNext()
+                            Loop
+                            rs.Close()
+                            set rs = nothing
+                            connDB.Close()
+                        %>
+                            
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -368,24 +230,35 @@
             <div class="grid wide">
                 <div class="row product-wrap">
                     <div class="product-title">
-                        <h2><span>Inspired products</span></h2>
+                        <h2><span>Jeans products</span></h2>
                         <p>Bring called seed first of third give itself now ment</p>
                     </div>
                 </div>
                 <div class="row">
+                <%
+                    connDB.open()
+                    sql = "select Top 8 * from Products"
+                    sql = sql & " inner join Categories on Categories.CategoryID = Products.CategoryID"
+                    sql = sql & " inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID"
+                    sql = sql & " where Categories.[Description] = 'Jeans'"
+                    sql = sql & " order by Products.createdAt desc"
+                    set rs = connDB.execute(sql)
+                    Do While not rs.EOF
+                %>
+
                     <div class="col l-3 m-6 c-12">
                         <div class="product-container">
                             <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
+                                <img src="<%=rs("Image1")%>" alt="" class="product-img">
                                 <div class="product-setting">
                                     <ul class="product-setting-list">
                                         <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
+                                            <a href="/details.asp?productID=<%=rs("ProductID")%>" class="product-setting-link">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a> 
                                         </li>
                                         <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
+                                            <a  class="product-setting-link" onclick="addFav(<%=rs("ProductID")%>)">
                                                 <i class="fa-solid fa-heart"></i>
                                             </a>
                                         </li>
@@ -399,260 +272,22 @@
                             </div>
                             <div class="product-text">
                                 <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
+                                    <h4><%=rs("ProcductName")%></h4>
                                 </a>
                                 <div class="product-description">
-                                    <span>$25.00</span>
+                                    <span>$<%=rs("Price")%></span>
                                     <del>$35.00</del>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l-3 m-6 c-12">
-                        <div class="product-container">
-                            <div class="product-picture">
-                                <img src="./assets/img/product.jpg" alt="" class="product-img">
-                                <div class="product-setting">
-                                    <ul class="product-setting-list">
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a> 
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-text">
-                                <a class="product-heading">
-                                    <h4>Latest men’s sneaker</h4>
-                                </a>
-                                <div class="product-description">
-                                    <span>$25.00</span>
-                                    <del>$35.00</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <%
+                        rs.MoveNext()
+                    Loop
+                    rs.Close()
+                    set rs = nothing
+                    connDB.Close()
+                %>
                 </div>
             </div>
         </div>
@@ -757,6 +392,25 @@
         if (document.getElementById("notify_success").textContent != "") {
             showToast();
         }
+
+
+        function addFav(id) {
+            $.ajax({
+                url: 'addFavorite.asp',
+                data: {ID_product: id},
+                dataType: 'json',
+                success: function (response) {
+                    $('#notify_success').html(response.messenger);
+                    $('#sl_fav').html(response.sl_fav);
+                    console.log(response.messenger);
+                    showToast();
+                },
+                error: function () {
+                    alert('Lỗi AJAX');
+                }
+            });
+        }
+    
     </script>
     
     

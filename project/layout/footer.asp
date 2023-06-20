@@ -2,7 +2,7 @@
     var sl_sp = document.getElementById('sl_sp');
     if (sl_sp.innerHTML == '0' || sl_sp.innerHTML == '') {
         sl_sp.parentElement.style.display = 'none';
-    }
+    }       
 </script>
 <div class="footer">
     <div class="grid wide">
