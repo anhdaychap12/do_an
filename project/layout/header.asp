@@ -56,7 +56,7 @@
     set rs = nothing
     connHead.Close()
 
-    
+
 %>
 <!DOCTYPE html>
 <html lang="en">

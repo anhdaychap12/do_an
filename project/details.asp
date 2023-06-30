@@ -215,6 +215,13 @@
 
         }
 
+        const modal = document.querySelector('.delete-box') 
+        const modalForm = document.querySelector('.modal-form')
+        modal.addEventListener('click',CloseConfirm)
+        modalForm.addEventListener('click',function(e){
+            e.stopPropagation();
+        })
+
     </script>
 </body>
 </html>
