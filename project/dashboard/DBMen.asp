@@ -76,7 +76,7 @@
                                         <div class="dashboard-product">
                                             <div class="dashboard-text">
                                                 <h4>Men <%=dictMEN(int(CateID))%> </h4>
-                                                <a href="EditProduct.asp" class="dashboard-option-btn dashboard-create">Create</a>
+                                                <a href="AddProduct.asp?CateID=<%=CateID%>" class="dashboard-option-btn dashboard-create">Create</a>
                                             </div>
                                             <div class="form">
                                                 <table>

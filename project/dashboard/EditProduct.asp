@@ -109,57 +109,12 @@ End Function
                 Image6 = rs("Image6")
             End if
             rs.Close()
-            set rs = nothing
-
-            
-
-            
-
-            
+            set rs = nothing    
             connDB.Close()
 
         End If
         
     Else
-        ' if (cint(id)=0) then
-        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
-        '         connDB.Open()  
-        '         sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
-        '         connDB.execute sql1 
-        '         ' Response.write sql1              
-                
-        '         If Err.Number = 0 Then  
-        '             Session("Success") = "New Promotion added!"                    
-        '             Response.redirect("DBDiscount.asp")  
-        '         Else  
-        '             handleError(Err.Description)
-        '         End If
-        '         On Error GoTo 0
-        '     else
-        '         Session("Error") = "You have to input enough info"                
-        '     end if
-        ' else
-        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
-        '         connDB.Open()                
-        '         sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
-        '         connDB.execute sql
-        '         ' Response.write sql
-                
-        '         If Err.Number=0 Then
-        '             Session("Success") = "The promotion was edited!"
-        '             Response.redirect("DBDiscount.asp")
-        '         Else
-        '             handleError(Err.Description)
-        '         End If
-        '         On Error Goto 0
-        '     else
-        '         Session("Error") = "You have to input enough info"
-        '             Response.write(Session("Error"))
-
-        '     end if
-        ' end if
         ProductName = Request.form("ProductName")
         Description = Request.form("Description")
         PromotionID = Request.form("PromotionID")
@@ -247,7 +202,6 @@ End Function
                                             <div class="add-content">
                                                 <div>
                                                     <h4 class="add-text">Product info</h4>
-                                                    <h6 id= "id_proc"><%=id%></h6>
                                                     <div class="row">
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
@@ -444,7 +398,7 @@ End Function
 
         $('#Add-color').change(function () {
             var id_color = $(this).val();
-            var id_product = $('#id_proc').html();
+            var id_product = <%=id%>;
             var data = {ColorID: id_color, ProductID: id_product};
             console.log(data);
             $.ajax({
