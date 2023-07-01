@@ -2,6 +2,15 @@
 <!-- #include file="checkLogin.asp" -->
 
 <%
+
+    Function Price_Now(Price, Discount)
+        If IsEmpty(Discount) Then
+            Price_Now = Clng(Price)
+        Else
+            Price_Now = Clng(Price) - Clng(Discount)
+        End if
+    End Function
+
     Function Ceil(Number)
         Ceil = Int(Number)
         If Ceil<>Number Then
@@ -95,7 +104,7 @@
                                     cmdPrep.ActiveConnection = connDB
                                     cmdPrep.CommandType = 1
                                     cmdPrep.Prepared = true
-                                    cmdPrep.CommandText = "select * from Products inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
+                                    cmdPrep.CommandText = "select * from Products left join Promotions on Promotions.PromotionID = Products.PromotionID inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
                                     cmdPrep.parameters.Append cmdPrep.createParameter("CateID", 3, 1, ,CateID)
                                     cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
                                     cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
@@ -103,6 +112,11 @@
                                     Set rs = cmdPrep.execute
 
                                     do While not rs.EOF
+                                        If isnull(rs("DiscountRate")) Then
+                                            dis = 0
+                                        Else
+                                            dis = Clng(rs("DiscountRate"))
+                                        End if
                             %>
                                         <div class="col l-4 m-6 c-12">
                                             <div class="product-container">
@@ -133,8 +147,15 @@
                                                         <h4><%=rs("ProcductName")%></h4>
                                                     </a>
                                                     <div class="product-description">
-                                                        <span>$<%=rs("Price")%></span>
-                                                        <del>$35.00</del>
+                                                        <span>$<%=Price_Now(rs("Price"), dis)%></span>
+                                                        <%
+                                                            If dis <> 0 Then
+                                                                
+                                                        %>
+                                                            <del>$<%=rs("Price")%></del>
+                                                        <%        
+                                                            End if
+                                                        %>
                                                     </div>
                                                 </div>
                                             </div>

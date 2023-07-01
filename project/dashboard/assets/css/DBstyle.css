@@ -612,6 +612,12 @@ table td div {
     position: relative;
 }
 
+.modal-heading.success {
+    background-color: #71cd14;
+    text-align: center;
+    position: relative;
+}
+
 .modal-heading i {
     font-size: 30px;
     color: #fff;

@@ -10,20 +10,23 @@
 <body>
 
 <div class="page">
-    
-    <form action="upload.asp" method="post" enctype="multipart/form-data" target="iframe_upload">
+		<div class="div">
+			<form id="x">
 
-        <!-- <input type="hidden" name="mensagem" value="Elemento de formul�rio enviado com sucesso!" /> -->
-    
-    	<!-- <p>Nome (para exemplo:)</p>
-        <input type="text" name="exemplo" value="Nome para exemplo." />
-         -->
-        <p>Fiel/Image:</p>
-        <input type="file" name="arquivo" multiple />
-		<input type="file" name="test" multiple />
-        <input type="submit" value="Upload" />
-        <input type="button" value="Upload using Ajax" onclick="enviar();" />
-    </form>
+				<!-- <input type="hidden" name="mensagem" value="Elemento de formul�rio enviado com sucesso!" /> -->
+			
+				<!-- <p>Nome (para exemplo:)</p>
+				<input type="text" name="exemplo" value="Nome para exemplo." />
+				 -->
+				<p>Fiel/Image:</p>
+				<input type="file" name="arquivo" multiple />
+				<input type="file" name="test" multiple />
+				<input type="submit" value="Upload" />
+				<input type="button" value="Upload using Ajax" onclick="enviar();" />
+			</form>
+
+			<form action="" method="get"></form>
+		</div>
     
     <br />
     
@@ -34,7 +37,7 @@
     <script type="text/javascript">
 		function enviar() {
 			
-			var form = $("form");
+			var form = $("#x");
 			var link;
 			var formdata = false;
 			if (window.FormData){
@@ -52,6 +55,7 @@
 					
 					console.log(data);
 					alert(data);
+					var x = '1';
 					link = "assets/img/" + data;
 					$('.dis-img').attr("src", link);
 
