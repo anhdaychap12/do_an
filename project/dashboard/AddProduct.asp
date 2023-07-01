@@ -1,159 +1,231 @@
+
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-Set cmdPrep = Server.CreateObject("ADODB.Command")
-            connDB.Open()
-            cmdPrep.ActiveConnection = connDB
-            cmdPrep.CommandType = 1
-            cmdPrep.CommandText = " select  Colors.* from   Colors " &" select Sizes.* from  sizes"
-            Set Result = cmdPrep.execute 
-            'in ra color
-            Dim dictColor
-            set dictColor = CreateObject("Scripting.Dictionary")
-            ' set dictSize = CreateObject("Scripting.Dictionary")
-        
-            Do while not Result.EOF
-                    Dim x3,y3
-                        x3 = Result("ColorID")
-                        y3 = Result("Color")
-                        dictColor.add x3, y3
+Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem
+set listSize = CreateObject("Scripting.Dictionary")
+set listColor =CreateObject("Scripting.Dictionary")
+set listPromotion =CreateObject("Scripting.Dictionary")
 
-                    ' Dim x4, y4
-                    '     x4 = Result("SizeID")
-                    '     y4 = Result("Size")
-                    '     dictSize.add x4, y4
-                    
-                    Result.MoveNext
-            Loop
-cmdPrep.CommandText = " select Sizes.* from  sizes"
-            Set Result = cmdPrep.execute 
-            'in ra color
-            Dim  dictSize
-            ' set dictColor = CreateObject("Scripting.Dictionary")
-            set dictSize = CreateObject("Scripting.Dictionary")
-        
-            Do while not Result.EOF
-                    ' Dim x3,y3
-                    '     x3 = Result("ColorID")
-                    '     y3 = Result("Color")
-                    '     dictColor.add x3, y3
-
-                    Dim x4, y4
-                        x4 = Result("SizeID")
-                        y4 = Result("Size")
-                        dictSize.add x4, y4
-                    
-                    Result.MoveNext
-            Loop
-
-
-            Result.Close()
-        
-        ' for each key3 in dictColor.keys 
-        ' Response.write key3 &":"& dictColor(key3) & "<br>"
-        ' next
 ' On Error Resume Next
-' Sub handleError(message)
-'     Session("Error") = message
-' End Sub
-'     If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
-'         Response.redirect("../login.asp")
-'     End If
-'     If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
-'         id = Request.QueryString("id")
-'         If (isnull(id) OR trim(id) = "" ) then 
-'             id=0 
-'         End if
-'         If (cint(id)<>0 ) Then
-'             Set cmdPrep = Server.CreateObject("ADODB.Command")
-'             connDB.Open()
-'             cmdPrep.ActiveConnection = connDB
-'             cmdPrep.CommandType = 1
-'             cmdPrep.CommandText = " select Colors.* from  Colors "
-'             Set Result = cmdPrep.execute 
-'             'in ra color
-'             Dim dictColor, dictSize
-'             set dictColor = CreateObject("Scripting.Dictionary")
-'             ' set dictSize = CreateObject("Scripting.Dictionary")
+Sub handleError(message)
+    Session("Error") = message
+End Sub
+
+''Hàm kiểm tra xem productDetails có tồn tại hay không
+Function checkID_Details(t, x, p)
+    connDB.open()
+    sql = "select ProductDetailID from ProductDetails where ProductID = '"&t&"' and ColorID='"&x&"' and SizeID = '"&p&"'"
+    set rs = connDB.execute(sql)
+    If not rs.EOF Then
+        checkID_Details = rs("ProductDetailID")
+    Else
+        checkID_Details = 0
+    End if
+    rs.Close
+    set rs = nothing
+    connDB.close()
+End Function
+
+
+    ''check xem user có tồn tại hay không
+    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
+        Response.redirect("../login.asp")
+    End If
+
+    ''Lấy id của sản phẩm
+    id = Request.QueryString("id")
+    if IsEmpty(id) then
+        id = 0
+    end if
+
+    CateID = Request.QueryString("CateID")
+
+    connDB.open()
+    ''Lấy danh sách màu
+    sql = "select * from Colors"
+    Set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("ColorID")
+        v = rs("Color")
+        listColor.add k, v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
+    ''Lấy danh sách Promotion
+    sql = "SELECT * FROM Promotions"
+    set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("PromotionID")
+        v = rs("PromotionName")
+        listPromotion.add k ,v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
+    ''Lấy danh sách size
+
+    sql = "select * from Sizes"
+    Set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("SizeID")
+        v = rs("Size")
+        listSize.add k, v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
+    connDB.close()
+    
+
+    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
         
-'             Do while not Result.EOF
-'                     Dim x3,y3
-'                         x3 = Result("ColorID")
-'                         y3 = Result("Color")
-'                         dictColor.add x3, y3
+        ' If (cint(id)<>0) Then
+            
+        '     connDB.Open()
+        '     ''Lấy ra tên, giá, mô tả, id khuyến mại của sản phẩm
+        '     sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID,CONCAT( Categories.CategoryName,' ',Categories.Description) as NameCate "
+        '     sql = sql & " from Products inner join Categories on Products.CategoryID = Categories.CategoryID where ProductID = '"&id&"'"
+        '     Set rs = connDB.execute(sql)
 
-'                     ' Dim x4, y4
-'                     '     x4 = Result("Sizes.SizeID")
-'                     '     y4 = Result("Sizes.Size")
-'                     '     dictSize.add x4, y4
-                    
-'                     Result.MoveNext
-'             Loop
+        '     If not rs.EOF Then
+        '         NameCate = rs("NameCate")
+        '         ProductName = rs("ProcductName")
+        '         Price = rs("Price")
+        '         Description = rs("Description")
+        '         PromotionID = rs("PromotionID")
+        '     End if
 
-'             Result.Close()
-'         End If
+        '     rs.Close()
+        '     set rs = nothing
 
-'         for each key3 in dictColor.keys 
-'         Response.write key3 &":"& dictColor(key3) & "<br>"
-'         next
+        '     ''Lấy ra ảnh của sản phẩm
+        '     sql = "select * from ImagePrducts where ProductID = '"&id&"'"
+        '     Set rs = connDB.execute(sql)
 
-'     Else
-'         id = Request.QueryString("id")
-'         ProductName = Request.form("ProcductName")
-'         Price = Request.form("Price")
-'         PromotionID = Request.form("PromotionID")
-'         Description = Request.form("Description")
-'         Image1 = Request.form("Image1")
-'         Image2 = Request.form("Image2")
-'         Image3 = Request.form("Image3")
-'         Image4 = Request.form("Image4")
-'         Image5 = Request.form("Image5")
-'         Image6 = Request.form("Image6")
+        '     If not rs.EOF Then
+        '         Image1 = rs("Image1")
+        '         Image2 = rs("Image2")
+        '         Image3 = rs("Image3")
+        '         Image4 = rs("Image4")
+        '         Image5 = rs("Image5")
+        '         Image6 = rs("Image6")
+        '     End if
+        '     rs.Close()
+        '     set rs = nothing
 
+            
 
+            
 
-'         if (isnull (id) OR trim(id) = "") then id=0 end if
+            
+        '     connDB.Close()
 
-'         if (cint(id)=0) then
-'             if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-'                 Set cmdPrep = Server.CreateObject("ADODB.Command")
-'                 connDB.Open()  
-'                 sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
-'                 connDB.execute sql1 
-'                 ' Response.write sql1              
+        ' End If
+        
+    Else
+        ProductName = Request.form("ProductName")
+        Description = Request.form("Description")
+        PromotionID = Request.form("PromotionID")
+        Price = Request.form("Price")
+        ColorID= Request.form("Color")
+        if (cint(id)=0) then
+            if (NOT isnull(ProcductName) and ProcductName<>"" and NOT isnull(Description) and Description<>"" and NOT isnull(Price) and Price<>"" and NOT isnull(PromotionID) and PromotionID<>"") then
+                Set cmdPrep = Server.CreateObject("ADODB.Command")
+                connDB.Open()  
+                sql1 = "INSERT INTO Products(ProcductName,Description,Price,PromotionID, CategoryID) VALUES('"&ProcductName&"','"&Description&"','"&Price&"','"&PromotionID&"'," & CateID & ")"              
+                connDB.execute sql1 
+                Response.write sql1    
+                'lấy id vừa tạo 
+                sql = "SELECT @@IDENTITY"
+                productID = connDB.Execute(sql).Fields(0).Value
+                Response.write productID       
                 
-'                 If Err.Number = 0 Then  
-'                     Session("Success") = "New Promotion added!"                    
-'                     Response.redirect("DBDiscount.asp")  
-'                 Else  
-'                     handleError(Err.Description)
-'                 End If
-'                 On Error GoTo 0
-'             else
-'                 Session("Error") = "You have to input enough info"                
-'             end if
-'         else
-'             if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-'                 Set cmdPrep = Server.CreateObject("ADODB.Command")
-'                 connDB.Open()                
-'                 sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
-'                 connDB.execute sql
-'                 ' Response.write sql
                 
-'                 If Err.Number=0 Then
-'                     Session("Success") = "The promotion was edited!"
-'                     Response.redirect("DBDiscount.asp")
-'                 Else
-'                     handleError(Err.Description)
-'                 End If
-'                 On Error Goto 0
-'             else
-'                 Session("Error") = "You have to input enough info"
-'                     Response.write(Session("Error"))
+            else
+                Session("Error") = "You have to input enough info"                
+            end if
+        ' else
+        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
+        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
+        '         connDB.Open()                
+        '         sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
+        '         connDB.execute sql
+        '         ' Response.write sql
+                
+        '         If Err.Number=0 Then
+        '             Session("Success") = "The promotion was edited!"
+        '             Response.redirect("DBDiscount.asp")
+        '         Else
+        '             handleError(Err.Description)
+        '         End If
+        '         On Error Goto 0
+        '     else
+        '         Session("Error") = "You have to input enough info"
+        '             Response.write(Session("Error"))
 
-'             end if
-'         end if
-'     End If    
+        '     end if
+        end if
+        
+        response.write ProcductName
+        response.write Description
+
+        response.write productID
+
+        ''1. Cập nhật tên, giá, mô tả, khuyến mại cho sản phẩm
+        connDB.Open()
+        
+        If cint(PromotionID) <> 0 Then ''nếu có khuyến mại
+            sql = "insert into Products(ProcductName,Description,Price,PromotionID,CategoryID) VALUES('"&ProductName&"','"&Description&"','"&Price&"','"&PromotionID&"'," & CateID & ")"
+            connDB.execute(sql)
+        Else ''Không có khuyến mại
+            sql = "insert into Products(ProcductName,Description,Price,PromotionID,CategoryID) VALUES('"&ProductName&"','"&Description&"','"&Price&"',NULL," & CateID & ")"
+            connDB.execute(sql)
+        End if
+        connDB.Close()
+        
+
+        ''2. Cập nhật chi tiết sô lượng sản phẩm theo size, màu
+
+        
+        If Cint(ColorID) <> 0 Then
+            ' true
+            listQuan = Request.form("Quantity")
+
+            listQuan = Split(listQuan, ", ")
+            dem = 0
+            for each i in listSize.keys
+                id_details = checkID_Details(id, ColorID, i)
+                If id_details = 0 Then
+                ' ''nếu id_productDetail đã tồn tại thì update lại số lượng
+                '     connDB.Open()
+                '     sql = "insert into ProductDetails(Quantity) values('"&listQuan(dem)&"')"
+                '     ' sql = sql + " set Quantity = '"&listQuan(dem)&"'"
+                '     ' sql = sql + " where ProductDetailID = '"&id_details&"'"
+                '     connDB.execute(sql)
+                '     connDB.Close()
+                ' Else '' nếu id_productDetail không tồn tại thì insert dữ liệu vào bảng productDetails
+                    connDB.open()
+                    sql = "insert into ProductDetails(ProductID, ColorID, SizeID, Quantity) values"
+                    sql = sql + " ('"&productID&"', '"&ColorID&"', '"&i&"', '"&listQuan(dem)&"')"
+                    ' Response.Write sql
+                    connDB.execute(sql)
+                    connDB.Close()
+                End if
+                dem = dem + 1
+            next
+        End if
+
+        ''3. Cập nhật ảnh sản phẩm
+        
+        
+    End If    
+
+
 %>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -173,51 +245,63 @@ cmdPrep.CommandText = " select Sizes.* from  sizes"
 <body>
         <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
-                            <form>
+                            <form method = "POST" action="">
                                 <div class="grid wide">
                                     <div class="row">
+                                        <div class="col l-12 m-12 c-12">
+                                            <h4 class="title"><%=NameCate%></h4>
+                                        </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
-                                                <form action="Post">
+                                                <div>
                                                     <h4 class="add-text">Product info</h4>
+                                                    <h6 id= "id_proc"><%=id%></h6>
                                                     <div class="row">
-                                                        <div class="col l-4 m-12 c-12">
+                                                        <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="ProductName"><p class="add-description">Product name:</p></label>
-                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="">
+                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>">
                                                              </div>
                                                         </div>
-                                                        <!-- <div class="col l-6 m-6 c-12">
+                                                        <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="CategoryName"><p class="add-description">Category name:</p></label>
-                                                                <input type="text" id="CategoryName" name="CategoryName" placeholder="Category name">
-                                                            </div>
-                                                        </div> -->
-                                                        <div class="col l-4 m-12 c-12">
-                                                            <div class="add-input">
-                                                                <label for="PromotionID"><p class="add-description">Discount ID:</p></label>
-                                                                <input type="text" id="PromotionID" name="PromotionID" placeholder="Enter Number" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col l-4 m-12 c-12">
-                                                            <div class="add-input">
-                                                                <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" id="Price" name="Price" placeholder="Price" value="">
+                                                                <label for="PromotionID"><p class="add-description">PromotionID:</p></label>
+                                                                <select id = "PromotionID" name="PromotionID">
+                                                                    <option value="0">Choose</option>
+                                                                    <%
+                                                                        For each i in listPromotion.keys
+                                                                    %>
+                                                                            <option value="<%=i%>"><%=listPromotion(i)%></option>
+                                                                    <%
+                                                                        next
+                                                                    %>
+                                                                   
+                                                                </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col l-12 m-12 c-12">
+                                                        <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Description"><p class="add-description">Description:</p></label>
-                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="">
+                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>">
                                                             </div>
                                                         </div>
-                                                    </div>  
-                                               </form>
+                                                        <div class="col l-4 m-6 c-12">
+                                                            <div class="add-input">
+                                                                <label for="Price"><p class="add-description">Price:</p></label>
+                                                                <input type="text" min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <button class="add-btn" type="submit">Submit</button>
+                                                    </div> 
+                                               </div>
                                             </div>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
-                                                <form action="Post" class="form-detail">
+                                                <div class="form-detail">
                                                     <h4 class="add-text detail">Product Details</h4>
                                                     <a href="#" class="add-option-btn more"><i class="fa-solid fa-plus"></i></a>
                                                     <div id="detail" class="add-detail">
@@ -228,14 +312,13 @@ cmdPrep.CommandText = " select Sizes.* from  sizes"
                                                                     <select name="Color" id="Add-color" onclick="showAdd()">
                                                                         <option value="0">Choose color</option>
                                                                         <%
-                                                                            Dim key3
-                                                                            For each key3 in dictColor.keys
-
+                                                                            For each i in listColor.keys
                                                                         %>
-                                                                        <option value=<%=key3%>><%=dictColor(key3)%></option>
+                                                                            <option value="<%=i%>"><%=listColor(i)%></option>
                                                                         <%    
                                                                             Next
                                                                         %>
+                                                                        
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -246,143 +329,63 @@ cmdPrep.CommandText = " select Sizes.* from  sizes"
                                                             </div>
                                                             <div class="col l-12 c-12 m-12">
                                                                 <div id="list-add" class="Add-list">
-                                                                    <div class="row no-gutters">
-                                                                    <%
-                                                                            Dim key4
-                                                                            For each key4 in dictSize.keys
-                                                                        %>
-                                                                        <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item"><%=dictSize(key4)%></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity" value="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <%    
-                                                                            Next
-                                                                        %>
-                                                                        <!-- <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item">M</div>
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item">L</div>
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item">XL</div>
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item">2XL</div>
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-1 m-3 c-4">
-                                                                            <div class="add-input">
-                                                                                <p class="add-description">Size:</p>
-                                                                                <div class="size-item">3XL</div>
-                                                                            </div>
-                                                                        </div> 
-                                                                        <div class="col l-11 m-9 c-8">
-                                                                            <div class="add-input">
-                                                                                <label for="Quantity"><p class="add-description">Quantity:</p></label>
-                                                                                <input type="number" id="Quantity" name="Quantity" placeholder="Quantity">
-                                                                            </div>
-                                                                        </div>  -->
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>                                                     
                                                         </div> 
                                                     </div>   
-                                               </form>
+                                               </div>
                                             </div>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content last">
-                                                <form action="Post">
+                                                <div>
                                                     <h4 class="add-text">Product Imagine</h4>
                                                     <div class="row">
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 1:</p></label>
-                                                                <div class="add-img"><img src="<%=Image1%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div> 
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image1%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 2:</p></label>
-                                                                <div class="add-img"><img src="<%=Image2%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image2%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 3:</p></label>
-                                                                <div class="add-img"><img src="<%=Image3%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image3%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 4:</p></label>
-                                                                <div class="add-img"><img src="<%=Image4%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image4%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 5:</p></label>
-                                                                <div class="add-img"><img src="<%=Image5%>" onerorr="this.src='../assets/img/product.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image5%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="image"><p class="add-description">Image 6:</p></label>
-                                                                <div class="add-img"><img src="<%=Image6%>" onerorr="this.src='/assets/img/logo.jpg'" alt=""></div>
+                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image6%>" alt=""></div>
                                                                 <input type="file" id="image" name="image">
                                                              </div>
                                                         </div>
                                                     </div>   
-                                               </form>
+                                               </div>
                                             </div>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
@@ -444,12 +447,24 @@ cmdPrep.CommandText = " select Sizes.* from  sizes"
                 }
             });
         });
+
+        // ajax để hiển thị số lượng sản phẩm tương ứng với size
+
+        $('#Add-color').change(function () {
+            var id_color = $(this).val();
+            var id_product = $('#id_proc').html();
+            var data = {ColorID: id_color, ProductID: id_product};
+            console.log(data);
+            $.ajax({
+                type: "GET",
+                url: "SizeQuan.asp",
+                data: {ColorID: id_color, ProductID: id_product},
+                success: function (response) {
+                    $('#list-add').html(response);
+                    
+                } 
+            });
+        });
     </script>
 </body>
 </html>
-
-' <%
-'     for each key3 in dictColor.keys 
-'     Response.write key3 &":"& dictColor(key3) & "<br>"
-'     next
-' %>

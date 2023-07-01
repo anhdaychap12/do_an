@@ -144,7 +144,7 @@
         })
     </script>
     <%
-        cmdPrep.CommandText = "SELECT MONTH(StartDate) AS month, SUM(DiscountRate) AS sum1 FROM Promotions WHERE YEAR(StartDate) = 2023 GROUP BY MONTH(StartDate);"
+        cmdPrep.CommandText = "SELECT MONTH(OrderDate) AS month, SUM(TotalAmount) AS sum1 FROM Orders WHERE YEAR(OrderDate) = 2023 GROUP BY MONTH(OrderDate);"
         Set Result5 = cmdPrep.execute
         
         Dim dataJSON
@@ -181,7 +181,7 @@
         data: {
             labels:labels ,
             datasets: [{
-                label: 'Total revenue',
+                label: 'Total revenue ($)',
                 data: values,
                 backgroundColor: '#4f98c3',
                 borderColor: '#4f98c3',

@@ -138,8 +138,10 @@
                                 <i class="nav-icon fa fa-bars"></i>
                             </button>
                             <div class="dashboard-main-header-search hide-on-mobile-tablet">
-                                <input type="text" placeholder="Search...">
-                                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                                <form  role="search" action="">
+                                <input type="text" placeholder="Search..." name="search">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                </form>
                             </div>
                             <div class="dashboard-main-header-login">
                             <%

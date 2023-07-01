@@ -28,13 +28,19 @@
 
     offset = (Clng(page) * Clng(limit)) - Clng(limit)
 
-
+    search = Request.QueryString("search")
+    dim sql2 
+    sql2= " AND Username LIKE '"&search&"'"
     set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.Open()
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    cmdPrep.CommandText = "select COUNT(Accounts.AccountID) as [count] from Accounts where Role = 'admin' "
+    If Not IsEmpty(search) Then
+    cmdPrep.CommandText = "select COUNT(Accounts.AccountID) as [count] from Accounts where Role = 'admin' " & sql2
+    Else
+        cmdPrep.CommandText = "select COUNT(Accounts.AccountID) as [count] from Accounts where Role = 'admin'"
+    End If
     set rs = cmdPrep.execute()
     totalRows = Clng(rs("count"))
     rs.Close()
@@ -90,12 +96,24 @@
                                                     </thead>
                                                     <tbody>
                                                     <%
+                                                            search = Request.QueryString("search")
+                                                            dim sql 
+                                                            sql = "SELECT * FROM Accounts  "
+                                                            sql1= " role ='admin' ORDER BY AccountID  offset ? rows fetch next ? rows only"
                                                             connDB.open()
                                                             Set cmdPrep = Server.CreateObject("ADODB.Command")
                                                             cmdPrep.ActiveConnection = connDB
                                                             cmdPrep.CommandType = 1
                                                             cmdPrep.Prepared = True
-                                                            cmdPrep.CommandText = "SELECT * FROM Accounts where role ='admin' ORDER BY AccountID  offset ? rows fetch next ? rows only  "
+                                                            'tim kiem
+                                                            If Not IsEmpty(search) Then
+                                                                sql = sql & " WHERE Username LIKE ? AND" & sql1
+                                                                cmdPrep.Parameters.Append(cmdPrep.CreateParameter("search", 200, 1, 255, "%" & search & "%"))
+                                                            Else 
+                                                                sql = sql & " WHERE " & sql1
+                                                            End If
+
+                                                            cmdPrep.CommandText = sql
                                                             cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
                                                             cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
 
@@ -127,19 +145,19 @@
                                                         If (pages > 1) Then
                                                             If (Clng(page) >= 2) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) - 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
                                                     <%
                                                             End If
 
                                                             for i = 1 to range
                                                     %>
-                                                                <li class="navigation-item "><a href="/dashboard/DBAccount.asp?page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                                <li class="navigation-item "><a href="/dashboard/DBAccount.asp?page=<%=i%>&search=<%=search%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
                                                     <%
                                                             Next
 
                                                             If (Clng(page) < pages) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                                <li class="navigation-item"><a href="/dashboard/DBAccount.asp?page=<%=Clng(page) + 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
                                                     <%      
                                                             End If  
                                                         End if

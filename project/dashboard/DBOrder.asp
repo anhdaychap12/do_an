@@ -20,7 +20,7 @@
     End function
 
     page = Request.QueryString("page")
-    limit = 3
+    limit = 10
 
     If (trim(page) = "") or (isnull(page)) Then
         page = 1
@@ -28,13 +28,19 @@
 
     offset = (Clng(page) * Clng(limit)) - Clng(limit)
 
-
+    search = Request.QueryString("search")
+    dim sql2 
+    sql2= " inner join OrderDetails on Orders.OrderID = OrderDetails.OrderID inner join ProductDetails on OrderDetails.ProductDetailID = ProductDetails.ProductDetailID inner join Products on ProductDetails.ProductID = Products.ProductID WHERE Orders.OrderID LIKE '"& search &"' OR Products.ProcductName LIKE '"& search &"' "
     set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.Open()
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    cmdPrep.CommandText = "select COUNT(OrderDetails.OrderDetailID) as [count] from OrderDetails "
+    If Not IsEmpty(search) Then
+    cmdPrep.CommandText = "select COUNT(Orders.OrderID) as [count] from Orders " & sql2
+    Else
+        cmdPrep.CommandText = "select COUNT(Orders.OrderID) as [count] from Orders"
+    End If
     set rs = cmdPrep.execute()
     totalRows = Clng(rs("count"))
     rs.Close()
@@ -89,41 +95,51 @@
                                                             <th>Quantity</th>
                                                             <th>Order Date</th>
                                                             <th>Shipping fee</th>
-                                                            <th>Promotion (%)</th>
                                                             <th>Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <%
-                                               
+                                                        search = Request.QueryString("search")
+                                                            dim sql 
+                                                            sql = "SELECT Orders.OrderID,Orders.Fullname,Products.ProcductName,Products.Price as PriceProduct,Colors.Color,Sizes.Size,OrderDetails.Quantity,Orders.OrderDate,ShippingFrees.Price as PriceShip,Orders.TotalAmount" &_
+                                                            " FROM(((((ProductDetails INNER JOIN Products ON ProductDetails.ProductID = Products.ProductID)INNER JOIN Sizes ON ProductDetails.SizeID = Sizes.SizeID)INNER JOIN Colors ON ProductDetails.ColorID = Colors.ColorID)"&_
+                                                            " INNER JOIN OrderDetails ON ProductDetails.ProductDetailID = OrderDetails.ProductDetailID)INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID)INNER JOIN ShippingFrees ON Orders.ShippingFreeID = ShippingFrees.ShippingFreeID"
+                                                            sql1= " ORDER BY OrderDetails.OrderDetailID  offset ? rows fetch next ? rows only"
                                                         connDB.open()
                                                         Set cmdPrep = Server.CreateObject("ADODB.Command")
                                                             cmdPrep.ActiveConnection = connDB
                                                             cmdPrep.CommandType = 1
                                                             cmdPrep.Prepared = True
-                                                            cmdPrep.CommandText = "select OrderDetails.OrderDetailID, OrderDetails.Fullname, Products.ProcductName, Products.Price, Colors.Color, Sizes.Size , OrderDetails.Quantity, Orders.OrderDate, ShippingFrees.Price,Promotions.DiscountRate, Orders.TotalAmount from (((((((ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID) inner join Sizes on ProductDetails.SizeID = Sizes.Size) inner join Colors on ProductDetails.ColorID = Colors.ColorID) inner join OrderDetails on ProductDetails.ProductDetailID = OrderDetails.ProductDetailID) inner join Orders on OrderDetails.OrderID = Orders.OrderID) inner join ShippingFrees on Orders.ShippingFreeID = ShippingFrees.ShippingFreeID)  inner join Promotions on Products.PromotionID = Promotions.PromotionID) order by OrderDetails.OrderDetailID offset ? rows fetch next ? rows only "
+                                                            'tim kiem
+                                                            If Not IsEmpty(search) Then
+                                                                sql = sql & " WHERE Orders.OrderID LIKE '"& search &"' OR Products.ProcductName LIKE ?" & sql1
+                                                                cmdPrep.Parameters.Append(cmdPrep.CreateParameter("search", 200, 1, 255, "%" & search & "%"))
+                                                            Else 
+                                                                sql = sql & sql1 
+                                                            End If
+                                                            cmdPrep.CommandText = sql
                                                             cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
-                                                            cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
+                                                            cmdPrep.parameters.Append cmdPrep.createParameter ("limit", 3, 1, ,limit)
 
                                                             Set Result = cmdPrep.execute
                                                         do while not Result.EOF
                                                         %>
                                                         <tr>
-                                                            <td><%=Result1("OrderDetails.OrderDetailID")%></td>
-                                                            <td><%=Result1("Customers.Fullname")%></td>
-                                                            <td><%=Result1("Products.ProcductName")%></td>
-                                                            <td><%=Result1("Products.Price")%></td>
-                                                            <td><%=Result1("Colors.Color")%></td>
-                                                            <td><%=Result1("Sizes.Size")%></td>
-                                                            <td><%=Result1("OrderDetails.Quantity")%></td>
-                                                            <td><%=Result1("Orders.OrderDate")%></td>
-                                                            <td><%=Result1("ShippingFrees.Price")%></td>
-                                                            <td><%=Result1("Promotions.DiscountRate")%></td>
-                                                            <td><%=Result1("Orders.TotalAmount")%></td>
+                                                            <td><%=Result("OrderID")%></td>
+                                                            <td><%=Result("Fullname")%></td>
+                                                            <td><%=Result("ProcductName")%></td>
+                                                            <td><%=Result("PriceProduct")%></td>
+                                                            <td><%=Result("Color")%></td>
+                                                            <td><%=Result("Size")%></td>
+                                                            <td><%=Result("Quantity")%></td>
+                                                            <td><%=Result("OrderDate")%></td>
+                                                            <td><%=Result("PriceShip")%></td>
+                                                            <td><%=Result("TotalAmount")%></td>
                                                         </tr>
                                                         <%
-                                                        Result2.MoveNext
-                                                        loop
+                                                            Result.MoveNext
+                                                            loop
                                                         %>
                                                     </tbody>
                                                 </table>
@@ -134,19 +150,19 @@
                                                         If (pages > 1) Then
                                                             If (Clng(page) >= 2) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBOrder.asp?page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                                <li class="navigation-item"><a href="/dashboard/DBOrder.asp?page=<%=Clng(page) - 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
                                                     <%
                                                             End If
 
                                                             for i = 1 to range
                                                     %>
-                                                                <li class="navigation-item "><a href="/dashboard/DBOrder.asp?page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                                <li class="navigation-item "><a href="/dashboard/DBOrder.asp?page=<%=i%>&search=<%=search%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
                                                     <%
                                                             Next
 
                                                             If (Clng(page) < pages) Then
                                                     %>
-                                                                <li class="navigation-item"><a href="/dashboard/DBOrder.asp?page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                                <li class="navigation-item"><a href="/dashboard/DBOrder.asp?page=<%=Clng(page) + 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
                                                     <%      
                                                             End If  
                                                         End if

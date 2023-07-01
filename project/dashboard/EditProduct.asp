@@ -83,11 +83,12 @@ End Function
             
             connDB.Open()
             ''Lấy ra tên, giá, mô tả, id khuyến mại của sản phẩm
-            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID"
-            sql = sql & " from Products where ProductID = '"&id&"'"
+            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID,CONCAT( Categories.CategoryName,' ',Categories.Description) as NameCate "
+            sql = sql & " from Products inner join Categories on Products.CategoryID = Categories.CategoryID where ProductID = '"&id&"'"
             Set rs = connDB.execute(sql)
 
             If not rs.EOF Then
+                NameCate = rs("NameCate")
                 ProductName = rs("ProcductName")
                 Price = rs("Price")
                 Description = rs("Description")
@@ -242,7 +243,7 @@ End Function
                                 <div class="grid wide">
                                     <div class="row">
                                         <div class="col l-12 m-12 c-12">
-                                            <h4 class="title">Men Jeans</h4>
+                                            <h4 class="title"><%=NameCate%></h4>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
