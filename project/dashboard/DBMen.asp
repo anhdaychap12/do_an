@@ -38,7 +38,7 @@
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    If Not IsEmpty(search) Then
+    If (NOT isnull(search) and search<>"") Then
     cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ? " & sql2
     Else
         cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ?"
@@ -135,7 +135,8 @@
                                                             <td>
                                                                 <div class="dashboard-option">
                                                                     <a href="EditProduct.asp?id=<%=Result("ProductID")%>&CateID=<%=CateID%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
-                                                                    <a href="" class="dashboard-option-btn dashboard-delete"><i class="fa-solid fa-trash-can"></i></a>
+                                                                    <a data-href="deleteMen.asp?id=<%=Result("ProductID")%>" class="dashboard-option-btn dashboard-delete" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
+
                                                                 </div>
                                                             </td>
                                                             <%
@@ -225,7 +226,7 @@
         $(function()
         {
             $('#confirm-delete').on('show.bs.modal', function(e){
-                $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
+                $(this).find('.modal-btn-clear').attr('href', $(e.relatedTarget).data('href'));
             });
         });
     </script>

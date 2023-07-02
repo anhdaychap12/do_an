@@ -36,7 +36,7 @@
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    If Not IsEmpty(search) Then
+    If (NOT isnull(search) and search<>"") Then
     cmdPrep.CommandText = "select COUNT(Customers.CustomerID) as [count] from Customers " & sql2
     Else
         cmdPrep.CommandText = "select COUNT(Customers.CustomerID) as [count] from Customers"

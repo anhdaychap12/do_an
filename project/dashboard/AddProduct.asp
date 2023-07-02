@@ -1,56 +1,26 @@
-
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem
-set listSize = CreateObject("Scripting.Dictionary")
-set listColor =CreateObject("Scripting.Dictionary")
+Dim sql, listPromotion, k, v, i, id_details, listQuan, dem, cateId,listCate
 set listPromotion =CreateObject("Scripting.Dictionary")
+set listCate =CreateObject("Scripting.Dictionary")
 
 ' On Error Resume Next
 Sub handleError(message)
     Session("Error") = message
 End Sub
 
-''Hàm kiểm tra xem productDetails có tồn tại hay không
-Function checkID_Details(t, x, p)
+    ''lấy cateId
+    cateId = Request.QueryString("CateID")
+
     connDB.open()
-    sql = "select ProductDetailID from ProductDetails where ProductID = '"&t&"' and ColorID='"&x&"' and SizeID = '"&p&"'"
+
+    'lấy name + description của cate
+    sql = " select CONCAT(CategoryName ,' ',Categories.Description) as NameCate from Categories where CategoryID= '"& cateId&"'"
     set rs = connDB.execute(sql)
     If not rs.EOF Then
-        checkID_Details = rs("ProductDetailID")
-    Else
-        checkID_Details = 0
-    End if
-    rs.Close
-    set rs = nothing
-    connDB.close()
-End Function
-
-
-    ''check xem user có tồn tại hay không
-    If (isnull(Session("user")) OR TRIM(Session("user")) = "") Then
-        Response.redirect("../login.asp")
+                NameCate = rs("NameCate")
     End If
-
-    ''Lấy id của sản phẩm
-    id = Request.QueryString("id")
-    if IsEmpty(id) then
-        id = 0
-    end if
-
-    CateID = Request.QueryString("CateID")
-
-    connDB.open()
-    ''Lấy danh sách màu
-    sql = "select * from Colors"
-    Set rs = connDB.execute(sql)
-    Do While not rs.EOF
-        k = rs("ColorID")
-        v = rs("Color")
-        listColor.add k, v
-        rs.MoveNext()
-    Loop
     rs.Close()
     set rs = nothing
 
@@ -66,165 +36,19 @@ End Function
     rs.Close()
     set rs = nothing
 
-    ''Lấy danh sách size
-
-    sql = "select * from Sizes"
+    'lấy cateid để trả về trang men , women
+     sql = "select * from Categories where CategoryID = '"&cateId&"'"
     Set rs = connDB.execute(sql)
     Do While not rs.EOF
-        k = rs("SizeID")
-        v = rs("Size")
-        listSize.add k, v
+        k = rs("CategoryID")
+        v = rs("CategoryName")
+        listCate.add k, v
         rs.MoveNext()
     Loop
     rs.Close()
     set rs = nothing
 
-    connDB.close()
-    
-
-    If (Request.ServerVariables("REQUEST_METHOD") = "GET") THEN        
-        
-        ' If (cint(id)<>0) Then
-            
-        '     connDB.Open()
-        '     ''Lấy ra tên, giá, mô tả, id khuyến mại của sản phẩm
-        '     sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID,CONCAT( Categories.CategoryName,' ',Categories.Description) as NameCate "
-        '     sql = sql & " from Products inner join Categories on Products.CategoryID = Categories.CategoryID where ProductID = '"&id&"'"
-        '     Set rs = connDB.execute(sql)
-
-        '     If not rs.EOF Then
-        '         NameCate = rs("NameCate")
-        '         ProductName = rs("ProcductName")
-        '         Price = rs("Price")
-        '         Description = rs("Description")
-        '         PromotionID = rs("PromotionID")
-        '     End if
-
-        '     rs.Close()
-        '     set rs = nothing
-
-        '     ''Lấy ra ảnh của sản phẩm
-        '     sql = "select * from ImagePrducts where ProductID = '"&id&"'"
-        '     Set rs = connDB.execute(sql)
-
-        '     If not rs.EOF Then
-        '         Image1 = rs("Image1")
-        '         Image2 = rs("Image2")
-        '         Image3 = rs("Image3")
-        '         Image4 = rs("Image4")
-        '         Image5 = rs("Image5")
-        '         Image6 = rs("Image6")
-        '     End if
-        '     rs.Close()
-        '     set rs = nothing
-
-            
-
-            
-
-            
-        '     connDB.Close()
-
-        ' End If
-        
-    Else
-        ProductName = Request.form("ProductName")
-        Description = Request.form("Description")
-        PromotionID = Request.form("PromotionID")
-        Price = Request.form("Price")
-        ColorID= Request.form("Color")
-        if (cint(id)=0) then
-            if (NOT isnull(ProcductName) and ProcductName<>"" and NOT isnull(Description) and Description<>"" and NOT isnull(Price) and Price<>"" and NOT isnull(PromotionID) and PromotionID<>"") then
-                Set cmdPrep = Server.CreateObject("ADODB.Command")
-                connDB.Open()  
-                sql1 = "INSERT INTO Products(ProcductName,Description,Price,PromotionID, CategoryID) VALUES('"&ProcductName&"','"&Description&"','"&Price&"','"&PromotionID&"'," & CateID & ")"              
-                connDB.execute sql1 
-                Response.write sql1    
-                'lấy id vừa tạo 
-                sql = "SELECT @@IDENTITY"
-                productID = connDB.Execute(sql).Fields(0).Value
-                Response.write productID       
-                
-                
-            else
-                Session("Error") = "You have to input enough info"                
-            end if
-        ' else
-        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
-        '         connDB.Open()                
-        '         sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
-        '         connDB.execute sql
-        '         ' Response.write sql
-                
-        '         If Err.Number=0 Then
-        '             Session("Success") = "The promotion was edited!"
-        '             Response.redirect("DBDiscount.asp")
-        '         Else
-        '             handleError(Err.Description)
-        '         End If
-        '         On Error Goto 0
-        '     else
-        '         Session("Error") = "You have to input enough info"
-        '             Response.write(Session("Error"))
-
-        '     end if
-        end if
-        
-        response.write ProcductName
-        response.write Description
-
-        response.write productID
-
-        ''1. Cập nhật tên, giá, mô tả, khuyến mại cho sản phẩm
-        connDB.Open()
-        
-        If cint(PromotionID) <> 0 Then ''nếu có khuyến mại
-            sql = "insert into Products(ProcductName,Description,Price,PromotionID,CategoryID) VALUES('"&ProductName&"','"&Description&"','"&Price&"','"&PromotionID&"'," & CateID & ")"
-            connDB.execute(sql)
-        Else ''Không có khuyến mại
-            sql = "insert into Products(ProcductName,Description,Price,PromotionID,CategoryID) VALUES('"&ProductName&"','"&Description&"','"&Price&"',NULL," & CateID & ")"
-            connDB.execute(sql)
-        End if
-        connDB.Close()
-        
-
-        ''2. Cập nhật chi tiết sô lượng sản phẩm theo size, màu
-
-        
-        If Cint(ColorID) <> 0 Then
-            ' true
-            listQuan = Request.form("Quantity")
-
-            listQuan = Split(listQuan, ", ")
-            dem = 0
-            for each i in listSize.keys
-                id_details = checkID_Details(id, ColorID, i)
-                If id_details = 0 Then
-                ' ''nếu id_productDetail đã tồn tại thì update lại số lượng
-                '     connDB.Open()
-                '     sql = "insert into ProductDetails(Quantity) values('"&listQuan(dem)&"')"
-                '     ' sql = sql + " set Quantity = '"&listQuan(dem)&"'"
-                '     ' sql = sql + " where ProductDetailID = '"&id_details&"'"
-                '     connDB.execute(sql)
-                '     connDB.Close()
-                ' Else '' nếu id_productDetail không tồn tại thì insert dữ liệu vào bảng productDetails
-                    connDB.open()
-                    sql = "insert into ProductDetails(ProductID, ColorID, SizeID, Quantity) values"
-                    sql = sql + " ('"&productID&"', '"&ColorID&"', '"&i&"', '"&listQuan(dem)&"')"
-                    ' Response.Write sql
-                    connDB.execute(sql)
-                    connDB.Close()
-                End if
-                dem = dem + 1
-            next
-        End if
-
-        ''3. Cập nhật ảnh sản phẩm
-        
-        
-    End If    
-
+    connDB.close()   
 
 %>
 <!DOCTYPE html>
@@ -255,7 +79,6 @@ End Function
                                             <div class="add-content">
                                                 <div>
                                                     <h4 class="add-text">Product info</h4>
-                                                    <h6 id= "id_proc"><%=id%></h6>
                                                     <div class="row">
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
@@ -275,7 +98,7 @@ End Function
                                                                     <%
                                                                         next
                                                                     %>
-                                                                   
+                                                                    <option value="2">6/6</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -291,107 +114,29 @@ End Function
                                                                 <input type="text" min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="row">
-                                                        <button class="add-btn" type="submit">Submit</button>
                                                     </div> 
                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col l-12 c-12 c-12">
-                                            <div class="add-content">
-                                                <div class="form-detail">
-                                                    <h4 class="add-text detail">Product Details</h4>
-                                                    <a href="#" class="add-option-btn more"><i class="fa-solid fa-plus"></i></a>
-                                                    <div id="detail" class="add-detail">
-                                                        <div class="row">
-                                                            <div class="col l-11 m-10 c-9">
-                                                                <div class="add-input">
-                                                                    <label for="Color"><p class="add-description">Color:</p></label>
-                                                                    <select name="Color" id="Add-color" onclick="showAdd()">
-                                                                        <option value="0">Choose color</option>
-                                                                        <%
-                                                                            For each i in listColor.keys
-                                                                        %>
-                                                                            <option value="<%=i%>"><%=listColor(i)%></option>
-                                                                        <%    
-                                                                            Next
-                                                                        %>
-                                                                        
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col l-1 m-2 c-3">
-                                                                <div class="add-input detail-remove">
-                                                                    <a href="#" class="add-option-btn del"><i class="fa-solid fa-minus"></i></a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col l-12 c-12 m-12">
-                                                                <div id="list-add" class="Add-list">
-                                                                    
-                                                                </div>
-                                                            </div>                                                     
-                                                        </div> 
-                                                    </div>   
-                                               </div>
-                                            </div>
-                                        </div>
-                                        <div class="col l-12 c-12 c-12">
-                                            <div class="add-content last">
-                                                <div>
-                                                    <h4 class="add-text">Product Imagine</h4>
-                                                    <div class="row">
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 1:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image1%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 2:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image2%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 3:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image3%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 4:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image4%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 5:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image5%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                        <div class="col l-4 m-6 c-12">
-                                                            <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 6:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image6%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
-                                                             </div>
-                                                        </div>
-                                                    </div>   
-                                               </div>
-                                            </div>
-                                        </div>
+                                        
+                                        
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-setting last">
-                                                <button class="add-btn" type="submit">Submit</button>
-                                                <a href="Dashboard.asp" class="add-btn cancel">Cancel</a>
+                                                <button class="add-btn" type="button" onclick="addPro()">Submit</button>
+                                                <%
+                                                for each key in listCate.keys
+                                                    If (listCate(key) <> "Women") Then
+                                                %>
+                                                <a href="DBMen.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                    Else
+                                                %>
+                                                <a href="DBWomen.asp" class="add-btn cancel">Cancel</a>
+                                                <% 
+                                                    End If
+                                                Next
+                                                %>
                                              </div>
                                         </div>
                                     </div>
@@ -400,6 +145,21 @@ End Function
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal delete-box" tabindex="-1" id="confirm-delete">
+        <div class="modal-dialog modal-form">
+            <div class="modal-heading success">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="modal-content">
+                <h4>Success!</h4>
+                <b id = "messenger"></b>
+            </div>
+            <div class="modal-option">
+                <a class="modal-btn modal-btn-clear" id="next">Update Quantity</a>
+                <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal" onclick="CloseConfirm()">Cancel</button>
             </div>
         </div>
     </div>
@@ -449,22 +209,34 @@ End Function
         });
 
         // ajax để hiển thị số lượng sản phẩm tương ứng với size
+        
+        function addPro() {
+            var ProductName = $('#ProductName').val();
+            var Description = $('#Description').val();
+            var PromotionID = $('#PromotionID').val();
+            var Price = $('#Price').val();
+            var CateID = <%=cateId%>;
 
-        $('#Add-color').change(function () {
-            var id_color = $(this).val();
-            var id_product = $('#id_proc').html();
-            var data = {ColorID: id_color, ProductID: id_product};
-            console.log(data);
+            data = {ProductName, Description, PromotionID, Price, CateID};
+            $('#confirm-delete').css("display", "block");
             $.ajax({
                 type: "GET",
-                url: "SizeQuan.asp",
-                data: {ColorID: id_color, ProductID: id_product},
+                url: "AjaxAddProduct.asp",
+                data: data,
                 success: function (response) {
-                    $('#list-add').html(response);
-                    
+                    $('#messenger').html(response.message);
+                    var id = response.id_Pro;
+                    $("#next").attr("href", "EditProduct.asp?id="+id);
+
                 } 
             });
-        });
+        }
+
+        function CloseConfirm(){
+            document.getElementById('confirm-delete').style.display = "none";
+
+        }
     </script>
 </body>
 </html>
+

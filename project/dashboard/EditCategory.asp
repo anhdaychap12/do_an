@@ -163,18 +163,17 @@ End Sub
         })
 
         function checkCategory() {
-            var check_Category = document.getElementById("CategoryName").value
-            if (check_Category !== "Men" || check_Category !== "Women") {
-                document.getElementById("Error").innerHTML = "Please fill Men or Women!"
-                document.getElementById("CategoryName").style.border= "red  1px solid"
-                document.getElementById("Error").style.color = "red"
-                return false
+            var check_Category = document.getElementById("CategoryName").value;
+            if (check_Category !== "Men" && check_Category !== "Women") {
+                document.getElementById("Error").innerHTML = "Please enter Men or Women!";
+                document.getElementById("CategoryName").style.border = "red 1px solid";
+                document.getElementById("Error").style.color = "red";
+                return false;
+            } else {
+                document.getElementById("Error").innerHTML = "";
+                document.getElementById("CategoryName").style.border = "none";
+                return true;
             }
-            else {
-                document.getElementById("Error").innerHTML = ""
-                document.getElementById("CategoryName").style.border= "none"
-                return true
-            }    
         }
     </script>
 </body>

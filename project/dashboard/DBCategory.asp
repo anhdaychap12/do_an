@@ -35,7 +35,7 @@
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    If Not IsEmpty(search) Then
+    If (NOT isnull(search) and search<>"") Then
     cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products " & sql2
     Else
         cmdPrep.CommandText = "select COUNT(Categories.CategoryID) as [count] from Categories"

@@ -2,10 +2,11 @@
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem
+Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem, listCate, cate
 set listSize = CreateObject("Scripting.Dictionary")
 set listColor =CreateObject("Scripting.Dictionary")
 set listPromotion =CreateObject("Scripting.Dictionary")
+set listCate =CreateObject("Scripting.Dictionary")
 
 ' On Error Resume Next
 Sub handleError(message)
@@ -35,6 +36,9 @@ End Function
 
     ''Lấy id của sản phẩm
     id = Request.QueryString("id")
+
+    'lấy CateID
+    CateID = Request.QueryString("CateID")
 
     connDB.open()
     ''Lấy danh sách màu
@@ -69,6 +73,18 @@ End Function
         k = rs("SizeID")
         v = rs("Size")
         listSize.add k, v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
+    'lấy cateid để trả về trang men , women
+     sql = "select * from Categories where CategoryID = '"&CateID&"'"
+    Set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("CategoryID")
+        v = rs("CategoryName")
+        listCate.add k, v
         rs.MoveNext()
     Loop
     rs.Close()
@@ -111,57 +127,12 @@ End Function
                 Image6 = rs("Image6")
             End if
             rs.Close()
-            set rs = nothing
-
-            
-
-            
-
-            
+            set rs = nothing    
             connDB.Close()
 
         End If
         
     Else
-        ' if (cint(id)=0) then
-        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
-        '         connDB.Open()  
-        '         sql1 = "INSERT INTO Promotions(PromotionName,DiscountRate,StartDate,EndDate) VALUES('"&PromotionName&"','"&DiscountRate&"','"&StartDate&"','"&EndDate&"')"              
-        '         connDB.execute sql1 
-        '         ' Response.write sql1              
-                
-        '         If Err.Number = 0 Then  
-        '             Session("Success") = "New Promotion added!"                    
-        '             Response.redirect("DBDiscount.asp")  
-        '         Else  
-        '             handleError(Err.Description)
-        '         End If
-        '         On Error GoTo 0
-        '     else
-        '         Session("Error") = "You have to input enough info"                
-        '     end if
-        ' else
-        '     if (NOT isnull(PromotionName) and PromotionName<>"" and NOT isnull(DiscountRate) and DiscountRate<>"" and NOT isnull(StartDate) and StartDate<>"" and NOT isnull(EndDate) and EndDate<>"") then
-        '         Set cmdPrep = Server.CreateObject("ADODB.Command")
-        '         connDB.Open()                
-        '         sql = "UPDATE Promotions SET PromotionName='"&PromotionName&"',DiscountRate='"&DiscountRate&"',StartDate='"&StartDate&"',EndDate='"&EndDate&"' WHERE PromotionID='"&id&"'"
-        '         connDB.execute sql
-        '         ' Response.write sql
-                
-        '         If Err.Number=0 Then
-        '             Session("Success") = "The promotion was edited!"
-        '             Response.redirect("DBDiscount.asp")
-        '         Else
-        '             handleError(Err.Description)
-        '         End If
-        '         On Error Goto 0
-        '     else
-        '         Session("Error") = "You have to input enough info"
-        '             Response.write(Session("Error"))
-
-        '     end if
-        ' end if
         ProductName = Request.form("ProductName")
         Description = Request.form("Description")
         PromotionID = Request.form("PromotionID")
@@ -249,7 +220,6 @@ End Function
                                             <div class="add-content">
                                                 <div>
                                                     <h4 class="add-text">Product info</h4>
-                                                    <h6 id= "id_proc"><%=id%></h6>
                                                     <div class="row">
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
@@ -385,7 +355,19 @@ End Function
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-setting last">
                                                 <button class="add-btn" type="submit">Submit</button>
-                                                <a href="Dashboard.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                for each cate in listCate.keys
+                                                    If (listCate(cate) <> "Women") Then
+                                                %>
+                                                <a href="DBMen.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                    Else 
+                                                %>
+                                                <a href="DBWomen.asp" class="add-btn cancel">Cancel</a>
+                                                <% 
+                                                    End If
+                                                Next
+                                                %>
                                              </div>
                                         </div>
                                     </div>
@@ -446,7 +428,7 @@ End Function
 
         $('#Add-color').change(function () {
             var id_color = $(this).val();
-            var id_product = $('#id_proc').html();
+            var id_product = <%=id%>;
             var data = {ColorID: id_color, ProductID: id_product};
             console.log(data);
             $.ajax({
