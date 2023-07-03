@@ -606,6 +606,10 @@ table td div {
     overflow: hidden;
 }
 
+.modal-form.ADD {
+    width: 400px !important;
+}
+
 .modal-heading {
     background-color: #dc3545;
     text-align: center;
