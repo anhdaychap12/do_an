@@ -1,6 +1,32 @@
 <!-- #include file="connect.asp" -->
 <!--#include file="layout/header.asp"-->
 <%
+    ''Lay ds khuyen mai dang ap dung
+    Dim ds_dis
+    set ds_dis = CreateObject("Scripting.Dictionary")
+
+    connDB.Open()
+    set rs = connDB.execute("select * from Promotions")
+    Do While not rs.EOF
+        dis_id = rs("PromotionID")
+        dis_rate = rs("DiscountRate")
+        ds_dis.add dis_id, dis_rate
+        rs.MoveNext
+    Loop
+    rs.close()
+    set rs = nothing
+    connDB.Close()
+
+
+    ''ham tinh gia tien hien tai cua mat hang
+    Function Price_Now(Price, Discount)
+        If isnull(Discount) Then
+            Price_Now = Clng(Price)
+        Else
+            Price_Now = Clng(Price) - Clng(Discount)
+        End if
+    End Function
+
     ''1 Lấy id của khách khàng nếu là khách vãng lãi ->id=0
     Dim id_cus, sql, fullname, email, address, tinh, huyen, xa, so_nha, sdt, totalAmount, ShippingFree, ShippingFreeID, mycarts, cart_key, OrderID
     If not IsEmpty(session("user")) Then   
@@ -169,7 +195,8 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="totalAmount" id="totalAmount">
-                                <input type="hidden" name="ShippingFree" id="ShippingFree" value="Normal">
+                                <input type="hidden" name="ShippingFree" id="ShippingFree">
+                                
                                 <button type="submit" class="checkout-btn">Continute Checkout</button>
                            </form>
                         </div>
@@ -189,8 +216,9 @@
                                         set mycarts = session("mycarts")
                                         connDB.Open()
                                         for each cart_key in mycarts.keys
-                                            set rs = connDB.execute("select Products.ProductID, Products.ProcductName, Sizes.Size, Colors.Color, ImagePrducts.Image1,  Products.Price from ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID inner join Sizes on ProductDetails.SizeID = Sizes.SizeID inner join Colors on Colors.ColorID = ProductDetails.ColorID inner join ImagePrducts on ProductDetails.ProductID = ImagePrducts.ProductID where ProductDetailID = '"&cart_key&"'")
+                                            set rs = connDB.execute("select Products.ProductID, Products.ProcductName, Sizes.Size, Colors.Color, ImagePrducts.Image1,  Products.Price, Products.PromotionID from ProductDetails inner join Products on ProductDetails.ProductID = Products.ProductID inner join Sizes on ProductDetails.SizeID = Sizes.SizeID inner join Colors on Colors.ColorID = ProductDetails.ColorID inner join ImagePrducts on ProductDetails.ProductID = ImagePrducts.ProductID where ProductDetailID = '"&cart_key&"'")
                                             If not rs.EOF Then
+
                                 %>
                                     <div class="checkout-cart-item">
                                         <div class="checkout-cart-item-title">
@@ -199,7 +227,18 @@
                                             <p><%=rs("Color")%></p>
                                         </div>
                                         <h4 class="so_luong">x<%=mycarts(cart_key)%></h4>
-                                        <h4 class="gia_tien">$<%=rs("Price")%></h4>
+                                <%
+                                        If isnull(rs("PromotionID")) Then
+                                %>
+                                            <h4 class="gia_tien">$<%=rs("Price")%></h4>
+                                <%
+                                        Else
+            
+                                %>
+                                            <h4 class="gia_tien">$<%=Price_Now(rs("Price"), ds_dis(cint(rs("PromotionID"))))%></h4>
+                                <%
+                                        End if
+                                %>
                                     </div>
                                 <%                                            
                                             End if
@@ -234,6 +273,7 @@
     </div>
     <script src="main.js"></script>
     <script>
+        
         function tong_gia_tien_noship() {
             var kq = 0;
             $('.checkout-cart-item').each(function () {
@@ -273,6 +313,9 @@
         var str = $('#ship').html();
         var rs_str = str.split("$");
         var tong_gia_tien = tong_gia_tien_noship() + parseInt(rs_str[1])
+        var cc = $('#Select_Free').val();
+        console.log(cc);
+        $('#ShippingFree').val(cc);
         $('#totalAmount').val(tong_gia_tien)
         console.log($('#totalAmount').val());
         $('#ShippingFree').val($('#ship_name').html())
