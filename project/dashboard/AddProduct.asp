@@ -1,8 +1,9 @@
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-Dim sql, listPromotion, k, v, i, id_details, listQuan, dem, cateId
+Dim sql, listPromotion, k, v, i, id_details, listQuan, dem, cateId,listCate
 set listPromotion =CreateObject("Scripting.Dictionary")
+set listCate =CreateObject("Scripting.Dictionary")
 
 ' On Error Resume Next
 Sub handleError(message)
@@ -13,7 +14,15 @@ End Sub
     cateId = Request.QueryString("CateID")
 
     connDB.open()
-    
+
+    'lấy name + description của cate
+    sql = " select CONCAT(CategoryName ,' ',Categories.Description) as NameCate from Categories where CategoryID= '"& cateId&"'"
+    set rs = connDB.execute(sql)
+    If not rs.EOF Then
+                NameCate = rs("NameCate")
+    End If
+    rs.Close()
+    set rs = nothing
 
     ''Lấy danh sách Promotion
     sql = "SELECT * FROM Promotions"
@@ -22,6 +31,18 @@ End Sub
         k = rs("PromotionID")
         v = rs("PromotionName")
         listPromotion.add k ,v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
+    'lấy cateid để trả về trang men , women
+     sql = "select * from Categories where CategoryID = '"&cateId&"'"
+    Set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("CategoryID")
+        v = rs("CategoryName")
+        listCate.add k, v
         rs.MoveNext()
     Loop
     rs.Close()
@@ -44,6 +65,14 @@ End Sub
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .dashboard-main-header-search{
+            display: none;
+        }
+        .dashboard-main-header{
+            justify-content: flex-end;
+        }
+    </style>
 </head>
 <body>
         <!--#include file="menu.nav.asp"-->
@@ -52,7 +81,7 @@ End Sub
                                 <div class="grid wide">
                                     <div class="row">
                                         <div class="col l-12 m-12 c-12">
-                                            <h4 class="title">Men Jeans</h4>
+                                            <h4 class="title"><%=NameCate%></h4>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
@@ -96,6 +125,7 @@ End Sub
                                                                 <small id="Error_Price" class="errorAdd"></small>
                                                             </div>
                                                         </div>
+
                                                     </div> 
                                                </div>
                                             </div>
@@ -105,7 +135,19 @@ End Sub
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-setting last">
                                                 <button class="add-btn" type="button" onclick="addPro()">Submit</button>
-                                                <a href="Dashboard.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                for each key in listCate.keys
+                                                    If (listCate(key) <> "Women") Then
+                                                %>
+                                                <a href="DBMen.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                    Else
+                                                %>
+                                                <a href="DBWomen.asp" class="add-btn cancel">Cancel</a>
+                                                <% 
+                                                    End If
+                                                Next
+                                                %>
                                              </div>
                                         </div>
                                     </div>
@@ -254,3 +296,4 @@ End Sub
     </script>
 </body>
 </html>
+

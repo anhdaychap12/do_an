@@ -1,10 +1,12 @@
+
 <!-- #include file="connect.asp" -->
 <!-- #include file="checkLogin.asp" -->
 <%
-Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem
+Dim sql, Image1, Image2, Image3, Image4, Image5, Image6, listColor, listSize, listPromotion, k, v, i, id_details, listQuan, dem, listCate, cate
 set listSize = CreateObject("Scripting.Dictionary")
 set listColor =CreateObject("Scripting.Dictionary")
 set listPromotion =CreateObject("Scripting.Dictionary")
+set listCate =CreateObject("Scripting.Dictionary")
 
 ' On Error Resume Next
 Sub handleError(message)
@@ -34,6 +36,9 @@ End Function
 
     ''Lấy id của sản phẩm
     id = Request.QueryString("id")
+
+    'lấy CateID
+    CateID = Request.QueryString("CateID")
 
     connDB.open()
     ''Lấy danh sách màu
@@ -73,6 +78,18 @@ End Function
     rs.Close()
     set rs = nothing
 
+    'lấy cateid để trả về trang men , women
+     sql = "select * from Categories where CategoryID = '"&CateID&"'"
+    Set rs = connDB.execute(sql)
+    Do While not rs.EOF
+        k = rs("CategoryID")
+        v = rs("CategoryName")
+        listCate.add k, v
+        rs.MoveNext()
+    Loop
+    rs.Close()
+    set rs = nothing
+
     connDB.close()
     
 
@@ -82,11 +99,12 @@ End Function
             
             connDB.Open()
             ''Lấy ra tên, giá, mô tả, id khuyến mại của sản phẩm
-            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID"
-            sql = sql & " from Products where ProductID = '"&id&"'"
+            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID,CONCAT( Categories.CategoryName,' ',Categories.Description) as NameCate "
+            sql = sql & " from Products inner join Categories on Products.CategoryID = Categories.CategoryID where ProductID = '"&id&"'"
             Set rs = connDB.execute(sql)
 
             If not rs.EOF Then
+                NameCate = rs("NameCate")
                 ProductName = rs("ProcductName")
                 Price = rs("Price")
                 Description = rs("Description")
@@ -120,6 +138,12 @@ End Function
         PromotionID = Request.form("PromotionID")
         Price = Request.form("Price")
         ColorID= Request.form("Color")
+        Image1 = Request.form("p_img1")
+        Image2 = Request.form("p_img2")
+        Image3 = Request.form("p_img3")
+        Image4 = Request.form("p_img4")
+        Image5 = Request.form("p_img5")
+        Image6 = Request.form("p_img6")
 
         ''1. Cập nhật tên, giá, mô tả, khuyến mại cho sản phẩm
         connDB.Open()
@@ -168,8 +192,14 @@ End Function
         End if
 
         ''3. Cập nhật ảnh sản phẩm
-        
-        
+        connDB.Open()
+        If (id <> 0) then
+            sql = "update ImagePrducts"
+            sql = sql & " set Image1 = '"&Image1&"', Image2 = '"&Image2&"', Image3= '"&Image3&"', Image4 ='"&Image4&"', Image5 ='"&Image5&"', Image6 ='"&Image6&"'"
+            sql = sql & " where ImagePrducts.ProductID = '"&id&"'"
+            connDB.execute(sql)
+            connDB.Close()
+        End If  
     End If    
 
 
@@ -189,10 +219,10 @@ End Function
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <style>
-        .dashboard-main-header-search {
+        .dashboard-main-header-search{
             display: none;
         }
-        .dashboard-main-header {
+        .dashboard-main-header{
             justify-content: flex-end;
         }
     </style>
@@ -204,7 +234,7 @@ End Function
                                 <div class="grid wide">
                                     <div class="row">
                                         <div class="col l-12 m-12 c-12">
-                                            <h4 class="title">Men Jeans</h4>
+                                            <h4 class="title"><%=NameCate%></h4>
                                         </div>
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-content">
@@ -245,10 +275,6 @@ End Function
                                                                 <input type="text" required  min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <button class="add-btn" type="submit">Submit</button>
                                                     </div> 
                                                </div>
                                             </div>
@@ -298,44 +324,50 @@ End Function
                                                     <div class="row">
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 1:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image1%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-1"><p class="add-description">Image 1:</p></label>
+                                                                <div class="add-img"><img id="Image1" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image1%>" alt=""></div>
+                                                                <input type="text" name="p_img1" id="p_img1" hidden  value="<%=Image1%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-1" name="image-1" class="IMAGE" onchange="UploadFile('image-1')">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 2:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image2%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-2"><p class="add-description">Image 2:</p></label>
+                                                                <div class="add-img"><img id="Image2" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image2%>" alt=""></div>
+                                                                <input type="text" name="p_img2" id="p_img2" hidden value="<%=Image2%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-2" name="image-2" class="IMAGE" onchange="UploadFile('image-2')">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 3:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image3%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-3"><p class="add-description">Image 3:</p></label>
+                                                                <div class="add-img"><img id="Image3" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image3%>" alt=""></div>
+                                                                <input type="text" name="p_img3" id="p_img3" hidden value="<%=Image3%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-3" name="image-3" class="IMAGE" onchange="UploadFile('image-3')">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 4:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image4%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-4"><p class="add-description">Image 4:</p></label>
+                                                                <div class="add-img"><img id="Image4" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image4%>" alt=""></div>
+                                                                <input type="text" name="p_img4" id="p_img4" hidden value="<%=Image4%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-4" name="image-4" class="IMAGE" onchange="UploadFile('image-4')">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 5:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image5%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-5"><p class="add-description">Image 5:</p></label>
+                                                                <div class="add-img"><img id="Image5" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image5%>" alt=""></div>
+                                                                <input type="text" name="p_img5" id="p_img5" hidden value="<%=Image5%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-5" name="image-5" class="IMAGE" onchange="UploadFile('image-5')">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
-                                                                <label for="image"><p class="add-description">Image 6:</p></label>
-                                                                <div class="add-img"><img onerror="this.src='/assets/img/replace.jpg'" src="<%=Image6%>" alt=""></div>
-                                                                <input type="file" id="image" name="image">
+                                                                <label for="image-6"><p class="add-description">Image 6:</p></label>
+                                                                <div class="add-img"><img id="Image6" onerror="this.src='/assets/img/replace.jpg'" src="<%=Image6%>" alt=""></div>
+                                                                <input type="text" name="p_img6" id="p_img6" hidden value="<%=Image6%>">
+                                                                <input type="file" accept="image/jpeg, image/png" id="image-6" name="image-6" class="IMAGE" onchange="UploadFile('image-6')">
                                                              </div>
                                                         </div>
                                                     </div>   
@@ -345,7 +377,19 @@ End Function
                                         <div class="col l-12 c-12 c-12">
                                             <div class="add-setting last">
                                                 <button class="add-btn" type="submit">Submit</button>
-                                                <a href="Dashboard.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                for each cate in listCate.keys
+                                                    If (listCate(cate) <> "Women") Then
+                                                %>
+                                                <a href="DBMen.asp" class="add-btn cancel">Cancel</a>
+                                                <%
+                                                    Else 
+                                                %>
+                                                <a href="DBWomen.asp" class="add-btn cancel">Cancel</a>
+                                                <% 
+                                                    End If
+                                                Next
+                                                %>
                                              </div>
                                         </div>
                                     </div>
@@ -390,6 +434,39 @@ End Function
             }
         }
 
+        function UploadFile(inputID) {
+            const url = document.getElementById(inputID).files[0]
+            let nameImg = url.name
+            let srcImg = '../dashboard/assets/img/' + nameImg
+            switch(inputID)
+            {
+                case 'image-1':
+                    document.getElementById('Image1').src= srcImg
+                    document.getElementById('p_img1').value = srcImg
+                    break;
+                case 'image-2':
+                    document.getElementById('Image2').src = srcImg
+                    document.getElementById('p_img2').value = srcImg
+                    break;
+                case 'image-3':
+                    document.getElementById('Image3').src = srcImg
+                    document.getElementById('p_img3').value = srcImg
+                    break;
+                case 'image-4':
+                    document.getElementById('Image4').src = srcImg
+                    document.getElementById('p_img4').value = srcImg
+                    break;
+                case 'image-5':
+                    document.getElementById('Image5').src = srcImg
+                    document.getElementById('p_img5').value = srcImg
+                    break;
+                case 'image-6':
+                    document.getElementById('Image6').src = srcImg
+                    document.getElementById('p_img6').value = srcImg
+                    break;             
+            }
+        }
+        
         $(document).ready(function(){
             
             $(".add-option-btn.more").click(function(){

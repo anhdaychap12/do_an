@@ -98,10 +98,10 @@ End Sub
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
-        .dashboard-main-header-search {
+        .dashboard-main-header-search{
             display: none;
         }
-        .dashboard-main-header {
+        .dashboard-main-header{
             justify-content: flex-end;
         }
     </style>
