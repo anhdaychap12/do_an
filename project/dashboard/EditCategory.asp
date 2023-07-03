@@ -90,6 +90,14 @@ End Sub
     <link rel="stylesheet" href="./assets/css/Grid.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .dashboard-main-header-search {
+            display: none;
+        }
+        .dashboard-main-header {
+            justify-content: flex-end;
+        }
+    </style>
 </head>
 <body>
                <!--#include file="menu.nav.asp"-->
@@ -163,8 +171,12 @@ End Sub
         })
 
         function checkCategory() {
+            document.getElementById("CategoryName").addEventListener("input",()=>{
+            document.getElementById("Error").innerHTML ="";
+            document.getElementById("CategoryName").style.border= ""
+            })
             var check_Category = document.getElementById("CategoryName").value
-            if (check_Category !== "Men" || check_Category !== "Women") {
+            if (check_Category !== "Men" && check_Category !== "Women") {
                 document.getElementById("Error").innerHTML = "Please fill Men or Women!"
                 document.getElementById("CategoryName").style.border= "red  1px solid"
                 document.getElementById("Error").style.color = "red"

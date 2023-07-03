@@ -49,10 +49,7 @@
                             '3. Dùng vòng lặp dictionary ->xuất ra danh sách hàng hóa của từng hóa đơn
                             connDB.Open()
                             for each Y in dictOrderID.keys
-                                SQL_ID = "SELECT Orders.OrderID , OrderDetails.Quantity ,Products.ProcductName, Products.Price as ProductPrice, ShippingFrees.Price as ShippingPrice, Orders.TotalAmount, cast(OrderDate as date) as OrderDATE" 
-                                SQL_ID = SQL_ID + " FROM Orders inner join ShippingFrees on ShippingFrees.ShippingFreeID = Orders.ShippingFreeID inner join OrderDetails on Orders.OrderID = OrderDetails.OrderID"
-                                SQL_ID = SQL_ID + " inner join ProductDetails on OrderDetails.ProductDetailID = ProductDetails.ProductDetailID" 
-                                SQL_ID = SQL_ID + " inner join Products on ProductDetails.ProductID = Products.ProductID WHERE Orders.OrderID = '"&dictOrderID(Y)&"'"                           
+                                SQL_ID = "SELECT Orders.*, ShippingFrees.Price as ShippingPrice, Orders.TotalAmount, cast(OrderDate as date) as OrderDATE FROM Orders inner join ShippingFrees on ShippingFrees.ShippingFreeID = Orders.ShippingFreeID  WHERE Orders.OrderID = '"&dictOrderID(Y)&"' "                         
                             set rs = connDB.execute(SQL_ID)
                             If not rs.EOF Then
                         %>
@@ -61,13 +58,13 @@
                                 <div class="col l-2 m-6 c-12">
                                     <div class="history-content origin">
                                         <p>Order ID: <span><%=rs("OrderID")%></span></p>
-                                        <h4><%=rs("ProcductName")%></h4>
+                                        <a href="Confirm.asp?OrderID=<%=rs("OrderID")%>" class="history-details">Details</a>
                                     </div>
                                 </div>
                                 <div class="col l-2 m-6 c-12">
                                     <div class="history-content fake">
-                                        <p>Price <span class="history-quantity">x <%=rs("Quantity")%></span></p>
-                                        <h4>$<%=rs("ProductPrice")%></h4>
+                                        <p>Phone</p>
+                                        <h4><%=rs("Phone")%></h4>
                                     </div>
                                 </div>
                                 <div class="col l-2 m-6 c-12">
@@ -95,7 +92,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="history-info">Your order will be delivered by <span><%=rs("OrderDATE")%></span></p>
+                            <p class="history-info">To Address: <span><%=rs("Address")%></span></p>
                         </div>
                         <%
                                 End if
