@@ -104,7 +104,7 @@
                                     cmdPrep.ActiveConnection = connDB
                                     cmdPrep.CommandType = 1
                                     cmdPrep.Prepared = true
-                                    cmdPrep.CommandText = "select * from Products left join Promotions on Promotions.PromotionID = Products.PromotionID inner join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
+                                    cmdPrep.CommandText = "select * from Products left join Promotions on Promotions.PromotionID = Products.PromotionID left join ImagePrducts on ImagePrducts.ProductID = Products.ProductID where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
                                     cmdPrep.parameters.Append cmdPrep.createParameter("CateID", 3, 1, ,CateID)
                                     cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
                                     cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
