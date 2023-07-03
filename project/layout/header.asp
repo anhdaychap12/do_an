@@ -161,9 +161,19 @@
                             
                             <%
                                 If Session("user") <> "" and trim(Session("user")) <> "" Then
+                                    connHead.Open()
+                                    set rs = connHead.execute("SELECT * FROM Customers inner join Accounts on Customers.AccountID = Accounts.AccountID WHERE Username = '"&session("user")&"'")                                 
+                                    if Not rs.EOF Then
+                                    dim avatar 
+                                    avatar = rs("Image")
+                                    end if
+                                    rs.close()
+                                    set rs = nothing
+                                    connHead.Close()
+                                    set connHead = nothing
                             %>    
                                 <li class="section-right-item">
-                                    <img src="../assets/img/customer.jpg" alt="" class="avatar">
+                                    <img src="<%=avatar%>" onerror="this.src='../assets/img/customer.jpg'" alt="" class="avatar">
                                     <ul class="section-right-list-sub">
                                         <li class="section-right-item-sub"><p><%=Session("user")%></p></li>
                                         <li class="section-right-item-sub"><a href="profile.asp" class="section-right-item-link-sub"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>
@@ -177,7 +187,7 @@
                                 Else
                             %>
                                 <li class="section-right-item"><a href="login.asp" class="section-right-item-link"><i class="nav-icon fa-solid fa-user"></i></a></li>
-                            <%    
+                            <%  
                                 End if
                             %>
                         </ul>
@@ -257,7 +267,7 @@
                     <%
                         If Session("user") <> "" and trim(Session("user")) <> "" Then
                     %>  
-                        <img src="../assets/img/customer.jpg" alt="" class="avatar avatar-mobile">
+                        <img src="<%=avatar%>" onerror="this.src='../assets/img/customer.jpg'" alt="avatar" class="avatar avatar-mobile">
                         <ul class="mobile sub-center">
                             <li class="sub-center-item"><p><%=Session("user")%></p></li>
                             <li class="sub-center-item"><a href="profile.asp" class="sub-center-item-link"><i class="fa-solid fa-pen-to-square"></i> Profile</a></li>

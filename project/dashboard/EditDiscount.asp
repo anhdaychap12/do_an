@@ -193,10 +193,15 @@ End Sub
     </script>
     <script>
         function validateDiscountRate() {
+        document.getElementById("DiscountRate").addEventListener("input",()=>{
+            document.getElementById("error_discount").innerHTML ="";
+            document.getElementById("DiscountRate").style.border= ""
+        })    
         var discountRate = document.getElementById("DiscountRate").value;
         if (discountRate < 0 || discountRate > 100) {
             document.getElementById("error_discount").innerHTML ="Discount rate must be between 0 and 100!";
             document.getElementById("error_discount").style.color = "red";
+            document.getElementById("DiscountRate").style.border= "red  1px solid"
             return false;
         }
         else{
@@ -204,13 +209,13 @@ End Sub
             return true;
         }
         }
-
-        function validateDate() {
+        function validateDate() {    
         var startDate = new Date(document.getElementById("StartDate").value);
         var endDate = new Date(document.getElementById("EndDate").value);
         if (endDate <= startDate) {
             document.getElementById("error_enddate").innerHTML ="End date must be after start date!";
             document.getElementById("error_enddate").style.color = "red";
+            document.getElementById("EndDate").style.border= "red  1px solid"
             return false;
         }
         else{

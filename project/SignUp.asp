@@ -81,7 +81,7 @@
                         <div class="login__wrap">
                             <div class="login__group register">
                                 <label for="user_address" class="login__label"><i class="fa-solid fa-location-dot"></i> Address :</label>
-                                <input type="text" class="login__input" name="user_address" id="user_address" placeholder="Address">
+                                <input type="text" class="login__input" name="user_address" id="user_address" placeholder="Address-Ward-District-Province/City">
                                 <small id="error_address"></small>
                             </div>
                             <div class="login__group register">

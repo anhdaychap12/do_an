@@ -134,11 +134,6 @@
                                                                     <i class="fa-solid fa-heart"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="product-setting-item">
-                                                                <a href="" class="product-setting-link">
-                                                                    <i class="fa-solid fa-cart-shopping"></i>
-                                                                </a>
-                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

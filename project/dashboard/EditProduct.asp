@@ -244,7 +244,7 @@ End Function
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="ProductName"><p class="add-description">Product name:</p></label>
-                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>">
+                                                                <input type="text" id="ProductName" required name="ProductName" placeholder="Product name" value="<%=ProductName%>">
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
@@ -266,13 +266,13 @@ End Function
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Description"><p class="add-description">Description:</p></label>
-                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>">
+                                                                <input type="text" required id="Description" name="Description" placeholder="Description" value="<%=Description%>">
                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
+                                                                <input type="text" required  min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
                                                             </div>
                                                         </div>
                                                     </div> 

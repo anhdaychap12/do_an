@@ -76,7 +76,7 @@
                                             </div>
                                             <div class="col l-12 m-12 c-12">
                                                 <div class="cart-item">
-                                                    <a href="#" class="details-buy fav" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>  
+                                                    <a href="/details.asp?productID=<%=rs("ProductID")%>" class="details-buy fav">Views <i class="fa-solid fa-eye"></i></a>  
                                                 </div>
                                             </div>
                                         </div>
@@ -102,32 +102,9 @@
             </div>
         </div>
         <!-- #include file="layout/footer.asp" -->
-    </div>
-    <div class="modal delete-box" tabindex="-1" id="confirm-delete">
-        <div class="modal-dialog modal-form">
-            <div class="modal-heading">
-                <i class="fa-regular fa-circle-check"></i>
-            </div>
-            <div class="modal-content">
-                <h4>Success!</h4>
-                <p>You added all the items.</p>
-            </div>
-            <div class="modal-option">
-                <a class="modal-btn modal-btn-clear">Continue</a>
-                <button type="button" class="modal-btn-cancel" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>  
+    </div> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-    <script>
-        $(function()
-        {
-            $('#confirm-delete').on('show.bs.modal', function(e){
-                $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
-            });
-        });
-    </script> 
     <script src="main.js"></script>
 </body>
 </html>
