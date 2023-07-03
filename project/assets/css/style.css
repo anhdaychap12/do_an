@@ -340,7 +340,7 @@
     border-radius: 5px;
     position: absolute;
     right: 120px;
-    top: 80px;
+    top: 70px;
     padding: 8px;
     z-index: 999;
     display: none;
@@ -356,7 +356,8 @@
 
 .search-box {
     text-align: center;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     max-height: 257px;
 }
 
