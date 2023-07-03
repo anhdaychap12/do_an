@@ -91,10 +91,10 @@ End Sub
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <style>
-        .dashboard-main-header-search {
+        .dashboard-main-header-search{
             display: none;
         }
-        .dashboard-main-header {
+        .dashboard-main-header{
             justify-content: flex-end;
         }
     </style>
@@ -171,6 +171,18 @@ End Sub
         })
 
         function checkCategory() {
+<<<<<<< HEAD
+            var check_Category = document.getElementById("CategoryName").value;
+            if (check_Category !== "Men" && check_Category !== "Women") {
+                document.getElementById("Error").innerHTML = "Please enter Men or Women!";
+                document.getElementById("CategoryName").style.border = "red 1px solid";
+                document.getElementById("Error").style.color = "red";
+                return false;
+            } else {
+                document.getElementById("Error").innerHTML = "";
+                document.getElementById("CategoryName").style.border = "none";
+                return true;
+=======
             document.getElementById("CategoryName").addEventListener("input",()=>{
             document.getElementById("Error").innerHTML ="";
             document.getElementById("CategoryName").style.border= ""
@@ -181,12 +193,8 @@ End Sub
                 document.getElementById("CategoryName").style.border= "red  1px solid"
                 document.getElementById("Error").style.color = "red"
                 return false
+>>>>>>> c95b6d6ad5791e5ea4a8f548689ca9ef75761f4f
             }
-            else {
-                document.getElementById("Error").innerHTML = ""
-                document.getElementById("CategoryName").style.border= "none"
-                return true
-            }    
         }
     </script>
 </body>
