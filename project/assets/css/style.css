@@ -84,7 +84,6 @@
 
 /* nav */
 .nav {
-    height: 80px;
     line-height: 24px;
     background-color: #fff;
 }
@@ -101,7 +100,7 @@
 .nav-left {
     display: flex;
     align-items: center;
-    padding: 21px 0;
+    padding: 16px 0;
 }
 
 .nav-left-brand {
@@ -123,7 +122,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 21px 0;
+    padding: 16px 0;
 }
 
 .section-right-list,
@@ -235,7 +234,7 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 21px 0;
+    padding: 16px 0;
     position: relative;
 }
 
@@ -444,7 +443,7 @@
     position: relative;
     object-fit: cover;
     margin-left: 8px;
-    top: -4px;
+    top: 1px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -2108,6 +2107,7 @@ input[type=number]::-webkit-outer-spin-button {
 .checkout-btn:hover {
     border: 1px solid #71cd14;
     color: #71cd14;
+    cursor: pointer;
     background-color: transparent;
 }
 
@@ -2217,7 +2217,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .confirm-list {
-    max-height: 366px;
+    max-height: 419px;
     overflow-y: auto;
 }
 
@@ -2351,7 +2351,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .history-list {
-   max-height: 380px;
+   max-height: 392px;
    overflow: auto;
 }
 
@@ -2370,6 +2370,7 @@ input[type=number]::-webkit-outer-spin-button {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     padding: 16px;
     border-radius: 5px;
+    background-color: #beffc5;
 }
 
 .history-content {
@@ -2396,6 +2397,26 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 500;
     color: #2a2a2a;
     margin: 16px 0;
+}
+
+.history-details {
+    display: block;
+    margin: 16px 0;
+    padding: 8px 16px;
+    background-color: #10e16d;
+    border: 1px solid transparent;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.history-details:hover {
+    background-color: transparent;
+    border-color: #10e16d;
+    color: #10e16d;
+    cursor: pointer;
 }
 
 .history-content.origin > h4 {

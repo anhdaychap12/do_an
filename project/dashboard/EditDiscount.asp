@@ -97,7 +97,14 @@ End Sub
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+    <style>
+        .dashboard-main-header-search {
+            display: none;
+        }
+        .dashboard-main-header {
+            justify-content: flex-end;
+        }
+    </style>
 </head>
 <body>
             <!--#include file="menu.nav.asp"-->
@@ -186,10 +193,15 @@ End Sub
     </script>
     <script>
         function validateDiscountRate() {
+        document.getElementById("DiscountRate").addEventListener("input",()=>{
+            document.getElementById("error_discount").innerHTML ="";
+            document.getElementById("DiscountRate").style.border= ""
+        })    
         var discountRate = document.getElementById("DiscountRate").value;
         if (discountRate < 0 || discountRate > 100) {
             document.getElementById("error_discount").innerHTML ="Discount rate must be between 0 and 100!";
             document.getElementById("error_discount").style.color = "red";
+            document.getElementById("DiscountRate").style.border= "red  1px solid"
             return false;
         }
         else{
@@ -197,13 +209,13 @@ End Sub
             return true;
         }
         }
-
-        function validateDate() {
+        function validateDate() {    
         var startDate = new Date(document.getElementById("StartDate").value);
         var endDate = new Date(document.getElementById("EndDate").value);
         if (endDate <= startDate) {
             document.getElementById("error_enddate").innerHTML ="End date must be after start date!";
             document.getElementById("error_enddate").style.color = "red";
+            document.getElementById("EndDate").style.border= "red  1px solid"
             return false;
         }
         else{

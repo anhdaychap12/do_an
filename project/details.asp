@@ -102,7 +102,7 @@
                             </div>
                             <div class="col l-8 m-12 c-12">
                                 <div class="details-text">
-                                    <a href="" class="details-cancel"><i class="fa-solid fa-xmark"></i></a>
+                                    <a href="index.asp" class="details-cancel"><i class="fa-solid fa-xmark"></i></a>
                                     <div class="details-heading">
                                         <p>Details Product</p>
                                         <h1><%=rs("ProcductName")%></h1>

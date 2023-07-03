@@ -101,11 +101,6 @@
                                                 <i class="fa-solid fa-heart"></i>
                                             </a>
                                         </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -192,11 +187,6 @@
                                                         <i class="fa-solid fa-heart"></i>
                                                     </a>
                                                 </li>
-                                                <li class="product-setting-item">
-                                                    <a href="" class="product-setting-link">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -260,11 +250,6 @@
                                         <li class="product-setting-item">
                                             <a  class="product-setting-link" onclick="addFav(<%=rs("ProductID")%>)">
                                                 <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="product-setting-item">
-                                            <a href="" class="product-setting-link">
-                                                <i class="fa-solid fa-cart-shopping"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -392,7 +377,6 @@
         if (document.getElementById("notify_success").textContent != "") {
             showToast();
         }
-
 
         function addFav(id) {
             $.ajax({
