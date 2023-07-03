@@ -4,11 +4,7 @@
     Dim connHead
     set connHead = Server.CreateObject("ADODB.Connection")
     Dim strConnectionHead
-<<<<<<< HEAD
-    strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-85SJOGH\SQLASP;Database=WEB_BQA1;User Id=sa ;Password=123"
-=======
     strConnectionHead = "Provider=SQLOLEDB.1;Data Source=DESKTOP-NLBPS1S;Database=WEB_BQA1;User Id=sa ;Password=ducanh"
->>>>>>> c95b6d6ad5791e5ea4a8f548689ca9ef75761f4f
     connHead.ConnectionString = strConnectionHead
     Dim rs, stringSQL
     sqlString = "select * from Categories"
