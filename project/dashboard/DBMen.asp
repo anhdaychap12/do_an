@@ -30,12 +30,19 @@
         CateID = 1
     End if
 
+    search = Request.QueryString("search")
+    dim sql2 
+    sql2= " AND ProcductName LIKE '"&search&"'"
     set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.Open()
     cmdPrep.ActiveConnection = connDB
     cmdPrep.CommandType = 1
     cmdPrep.Prepared = true
-    cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ?"
+    If (NOT isnull(search) and search<>"") Then
+    cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ? " & sql2
+    Else
+        cmdPrep.CommandText = "select COUNT(Products.ProductID) as [count] from Products where CategoryID = ?"
+    End If
     cmdPrep.parameters(0) = CateID
     set Result = cmdPrep.execute()
     totalRows = Clng(Result("count"))
@@ -86,18 +93,30 @@
                                                             <th>Name</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                            <th>Promotion ID</th>
+                                                            <th>Discount ID</th>
+                                                            <th>Create At</th>
                                                             <th>Option</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <%
+                                                            search = Request.QueryString("search")
+                                                            dim sql 
+                                                            sql = "SELECT * FROM Products  "
+                                                            sql1= " CategoryID = ? ORDER BY Products.ProductID  offset ? rows fetch next ? rows only"
                                                                 set cmdPrep = Server.CreateObject("ADODB.Command")
                                                                 connDB.Open()
                                                                 cmdPrep.ActiveConnection = connDB
                                                                 cmdPrep.CommandType = 1
                                                                 cmdPrep.Prepared = true
-                                                                cmdPrep.CommandText = "select * from Products  where CategoryID = ? order by Products.ProductID offset ? rows fetch next ? rows only"
+                                                                'tim kiem
+                                                                If Not IsEmpty(search) Then
+                                                                    sql = sql & " WHERE ProcductName LIKE ? AND" & sql1
+                                                                    cmdPrep.Parameters.Append(cmdPrep.CreateParameter("search", 200, 1, 255, "%" & search & "%"))
+                                                                    Else
+                                                                    sql = sql & " WHERE" & sql1
+                                                                End If
+                                                                cmdPrep.CommandText = sql
                                                                 cmdPrep.parameters.Append cmdPrep.createParameter("CateID", 3, 1, ,CateID)
                                                                 cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
                                                                 cmdPrep.parameters.Append cmdPrep.createParameter("limit", 3, 1, ,limit)
@@ -112,10 +131,12 @@
                                                             <td><div><%=Result("Description")%></div></td>
                                                             <td><%=Result("Price")%></td>
                                                             <td><%=Result("PromotionID")%></td>
+                                                            <td><%=Result("createdAt")%></td>
                                                             <td>
                                                                 <div class="dashboard-option">
-                                                                    <a href="EditProduct.asp?id=<%=Result("ProductID")%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
-                                                                    <a href="" class="dashboard-option-btn dashboard-delete"><i class="fa-solid fa-trash-can"></i></a>
+                                                                    <a href="EditProduct.asp?id=<%=Result("ProductID")%>&CateID=<%=CateID%>" class="dashboard-option-btn dashboard-update"><i class="fa-solid fa-pen"></i></a>
+                                                                    <a data-href="deleteMen.asp?id=<%=Result("ProductID")%>" class="dashboard-option-btn dashboard-delete" data-bs-toggle="modal" data-bs-target="#confirm-delete" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
+
                                                                 </div>
                                                             </td>
                                                             <%
@@ -132,19 +153,19 @@
                                                     If (pages > 1) Then
                                                         If (Clng(page) >= 2) Then
                                                 %>
-                                                            <li class="navigation-item"><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=Clng(page) - 1%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
+                                                            <li class="navigation-item"><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=Clng(page) - 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-left"></i></a></li> 
                                                 <%
                                                         End If
 
                                                         for i = 1 to range
                                                 %>
-                                                            <li class="navigation-item "><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=i%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
+                                                            <li class="navigation-item "><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=i%>&search=<%=search%>" class="navigation-link <%=checkPage(Clng(i)=Clng(page),"active")%>"><%=i%></a></li>
                                                 <%
                                                         Next
 
                                                         If (Clng(page) < pages) Then
                                                 %>
-                                                            <li class="navigation-item"><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=Clng(page) + 1%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
+                                                            <li class="navigation-item"><a href="/dashboard/DBMen.asp?CateID=<%=CateID%>&page=<%=Clng(page) + 1%>&search=<%=search%>" class="navigation-link"><i class="fa-solid fa-chevron-right"></i></a></li>
                                                 <%      
                                                         End If  
                                                     End if
@@ -205,7 +226,7 @@
         $(function()
         {
             $('#confirm-delete').on('show.bs.modal', function(e){
-                $(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
+                $(this).find('.modal-btn-clear').attr('href', $(e.relatedTarget).data('href'));
             });
         });
     </script>

@@ -183,7 +183,7 @@
     border: 1px solid #4a4a4a;
 }
 
-.dashboard-main-header-search > button {
+.dashboard-main-header-search > form > button {
     padding: 8px 16px;
     background-color: #4a4a4a;
     color: #fff;
@@ -194,7 +194,7 @@
     right: 0;
 }
 
-.dashboard-main-header-search > button:hover {
+.dashboard-main-header-search > form > button:hover {
     opacity: 0.6;
 }
 

@@ -1,7 +1,6 @@
 <!-- #include file="connect.asp" -->
 <%
-    dim p_user, p_pass, p_name, p_phone, p_email, p_address, p_img, id_acc, p_SQL
-
+    dim p_user, p_pass, p_name, p_phone, p_email, p_address, p_img, id_acc, p_SQL, fileSize
     If isEmpty(session("user")) then
         Response.redirect("/login.asp")
     else
@@ -26,7 +25,8 @@
             p_phone = Request.form("p_phone")
             p_email = Request.form("p_email")
             p_address = Request.form("p_address")
-            p_SQL = "UPDATE Customers SET Fullname = '"&p_name&"', PhoneNumber = '"&p_phone&"', Email = '"&p_email&"', Address = '"&p_address&"' WHERE Customers.AccountID = '"&id_acc&"'" 
+            p_img = Request.form("p_img")
+            p_SQL = "UPDATE Customers SET Fullname = '"&p_name&"', PhoneNumber = '"&p_phone&"', Email = '"&p_email&"', Address = '"&p_address&"', Image ='"&p_img&"' WHERE Customers.AccountID = '"&id_acc&"'" 
             p_SQL = p_SQL + "UPDATE Accounts SET Username ='"&p_user&"', Password = '"&p_pass&"' WHERE Accounts.AccountID = '"&id_acc&"'"
             set rs = connDB.execute(p_SQL)
         end if  
@@ -57,19 +57,20 @@
                         <p>Bring called seed first of third give itself now ment</p>
                     </div>
                 </div>
-                <form method="Post" id="form-info" onsubmit="return check_Validate()" class="info-form">
+                <form method="Post" enctype="multipart/form-data" id="form-info" onsubmit="return check_Validate()" class="info-form">
                     <div class="row">
                         <div class="col l-3 m-4 c-12">
                             <div class="info-img">
-                                <img src="<%=p_img%>" alt="">
+                                <img id="img-upload" src="<%=p_img%>" onerror="this.src='../assets/img/customer.jpg'" alt="">
                                 <div class="upload-img">
-                                    <input type="file" accept="image/png, image/jpeg ,image/jpg" id="image" name="image" class="upload-file">
+                                    <input type="text" hidden name="p_img" id="p_img" value="<%=p_img%>">
+                                    <input directory="img/avatar" type="file" accept="image/jpeg,image/png" id="image" name="image" class="upload-file" onchange="UploadFile()">
                                     <label for="image" class="upload-img-btn"><i class="fa-solid fa-camera"></i></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col l-9 m-8 c-12">
-                            <div class="info-text">
+                            <div class="info-text"> 
                                 <h4>Info</h4>
                                 <div class="info-form-item">
                                     <p>Account:</p>
@@ -154,6 +155,14 @@
                 });
             });
         });
+
+        function UploadFile() {
+            const url = document.getElementById('image').files[0]
+            let nameImg = url.name
+            let srcImg = '../assets/img/avatar/' + nameImg
+            document.getElementById('img-upload').src = srcImg
+            document.getElementById('p_img').value = srcImg
+        }
 
         const modal = document.querySelector('.delete-box') 
         const modalForm = document.querySelector('.modal-form')

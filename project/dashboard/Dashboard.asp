@@ -26,6 +26,14 @@
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-main-header-search{
+            display: none;
+        }
+        .dashboard-main-header{
+            justify-content: flex-end;
+        }
+    </style>
 </head>
 <body>
         <!--#include file="menu.nav.asp"-->
@@ -144,7 +152,7 @@
         })
     </script>
     <%
-        cmdPrep.CommandText = "SELECT MONTH(StartDate) AS month, SUM(DiscountRate) AS sum1 FROM Promotions WHERE YEAR(StartDate) = 2023 GROUP BY MONTH(StartDate);"
+        cmdPrep.CommandText = "SELECT MONTH(OrderDate) AS month, SUM(TotalAmount) AS sum1 FROM Orders WHERE YEAR(OrderDate) = 2023 GROUP BY MONTH(OrderDate);"
         Set Result5 = cmdPrep.execute
         
         Dim dataJSON
@@ -181,7 +189,7 @@
         data: {
             labels:labels ,
             datasets: [{
-                label: 'Total revenue',
+                label: 'Total revenue ($)',
                 data: values,
                 backgroundColor: '#4f98c3',
                 borderColor: '#4f98c3',
