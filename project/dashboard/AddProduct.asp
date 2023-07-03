@@ -77,7 +77,7 @@ End Sub
 <body>
         <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
-                            <form method = "POST" action="">
+                            <form method = "POST" action="" onsubmit="return checkAddProduct()">
                                 <div class="grid wide">
                                     <div class="row">
                                         <div class="col l-12 m-12 c-12">
@@ -91,7 +91,8 @@ End Sub
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="ProductName"><p class="add-description">Product name:</p></label>
-                                                                <input type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>" required>
+                                                                <input class="addInput" type="text" id="ProductName" name="ProductName" placeholder="Product name" value="<%=ProductName%>">
+                                                                <small id="Error_ProductName" class="errorAdd"></small>
                                                              </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
@@ -113,13 +114,15 @@ End Sub
                                                         <div class="col l-8 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Description"><p class="add-description">Description:</p></label>
-                                                                <input type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>" required>
+                                                                <input class="addInput" type="text" id="Description" name="Description" placeholder="Description" value="<%=Description%>">
+                                                                <small id="Error_Description" class="errorAdd"></small>
                                                             </div>
                                                         </div>
                                                         <div class="col l-4 m-6 c-12">
                                                             <div class="add-input">
                                                                 <label for="Price"><p class="add-description">Price:</p></label>
-                                                                <input type="text" min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>" >
+                                                                <input class="addInput" type="text" min="0" id="Price" name="Price" placeholder="Price" value="<%=Price%>">
+                                                                <small id="Error_Price" class="errorAdd"></small>
                                                             </div>
                                                         </div>
 
@@ -157,7 +160,7 @@ End Sub
         </div>
     </div>
     <div class="modal delete-box" tabindex="-1" id="confirm-delete">
-        <div class="modal-dialog modal-form">
+        <div class="modal-dialog modal-form ADD">
             <div class="modal-heading success">
                 <i class="fa-regular fa-circle-check"></i>
             </div>
@@ -216,33 +219,79 @@ End Sub
             });
         });
 
-        // ajax để hiển thị số lượng sản phẩm tương ứng với size
-        
-        function addPro() {
-            var ProductName = $('#ProductName').val();
-            var Description = $('#Description').val();
-            var PromotionID = $('#PromotionID').val();
-            var Price = $('#Price').val();
-            var CateID = <%=cateId%>;
-
-            data = {ProductName, Description, PromotionID, Price, CateID};
-            $('#confirm-delete').css("display", "block");
-            $.ajax({
-                type: "GET",
-                url: "AjaxAddProduct.asp",
-                data: data,
-                success: function (response) {
-                    $('#messenger').html(response.message);
-                    var id = response.id_Pro;
-                    $("#next").attr("href", "EditProduct.asp?id="+id);
-
-                } 
-            });
+        // ajax để hiển thị số lượng sản phẩm tương ứng với size.
+        function checkAddProduct() {
+            const addInputs = document.querySelectorAll(".addInput");
+            let isValid = true;
+            for (let addInput of addInputs) {
+                addInput.addEventListener("input", () => {
+                    addInput.style.border = "";
+                    addInput.nextElementSibling.innerHTML=""
+                });
+                if (addInput.value.trim() === "") {
+                    document.getElementById("Error_" + addInput.id).innerHTML = "Invalid " + addInput.id + "!";
+                    addInput.style.border = "red 1px solid";
+                    document.getElementById("Error_" + addInput.id).style.color = "red";
+                    isValid = false;
+                } else {
+                    document.getElementById("Error_" + addInput.id).innerHTML = "";
+                    addInput.style.border = "";
+                }
+            }
+            return isValid;
         }
+
+        function addPro() {
+            if (checkAddProduct()) {
+                var ProductName = $('#ProductName').val();
+                var Description = $('#Description').val();
+                var PromotionID = $('#PromotionID').val();
+                var Price = $('#Price').val();
+                var CateID = <%=cateId%>;
+                data = { ProductName, Description, PromotionID, Price, CateID };
+                $('#confirm-delete').css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "AjaxAddProduct.asp",
+                    data: data,
+                    success: function (response) {
+                        $('#messenger').html(response.message);
+                        var id = response.id_Pro;
+                        $("#next").attr("href", "EditProduct.asp?id=" + id);
+                    }
+                });
+            }
+        }
+
+        // function addPro() {
+        //     var ProductName = $('#ProductName').val();
+        //     var Description = $('#Description').val();
+        //     var PromotionID = $('#PromotionID').val();
+        //     var Price = $('#Price').val();
+        //     var CateID = <%=cateId%>;
+        //     data = {ProductName, Description, PromotionID, Price, CateID};
+        //     $('#confirm-delete').css("display", "block");
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "AjaxAddProduct.asp",
+        //         data: data,
+        //         success: function (response) {
+        //             $('#messenger').html(response.message);
+        //             var id = response.id_Pro;
+        //             $("#next").attr("href", "EditProduct.asp?id="+id);
+        //         } 
+        //     });
+        // }
+
+        const modal = document.querySelector('.delete-box') 
+        const modalForm = document.querySelector('.modal-form')
+        modal.addEventListener('click',CloseConfirm)
+        modalForm.addEventListener('click',function(e){
+            e.stopPropagation();
+        })
 
         function CloseConfirm(){
             document.getElementById('confirm-delete').style.display = "none";
-
         }
     </script>
 </body>
