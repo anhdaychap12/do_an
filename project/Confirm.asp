@@ -157,6 +157,27 @@
         </div>
         <!-- #include file="layout/footer.asp" -->
     </div>
+    <%
+        if session("user")="" and trim(session("user"))="" then
+    %>
+    <div class="modal delete-box nolog" tabindex="-1" id="confirm-delete">
+        <div class="modal-dialog modal-form">
+            <div class="modal-heading">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="modal-content">
+                <h4>Success!</h4>
+                <p>Do you want to sign up to view your history for future times?</p>
+            </div>
+            <div class="modal-option">
+                <a class="modal-btn modal-btn-cancel" href="SignUp.asp">Sign Up</a>
+                <a class="modal-btn modal-btn-clear" onclick="CloseConfirm()">Cancel</a>
+            </div>
+        </div>
+    </div>
+    <%
+        End if
+    %>
     <script src="main.js"></script>
     <script>
         function priceTotal() {
@@ -170,6 +191,16 @@
             return kq;
         }
         $('#rs_priceTotal').html(priceTotal());
-        
+        function CloseConfirm(){
+                    document.getElementById('confirm-delete').style.display = "none";
+
+        }
+
+        const modal = document.querySelector('.delete-box') 
+        const modalForm = document.querySelector('.modal-form')
+        modal.addEventListener('click',CloseConfirm)
+        modalForm.addEventListener('click',function(e){
+            e.stopPropagation();
+        })
     </script>
 </body>    

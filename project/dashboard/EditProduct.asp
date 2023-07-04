@@ -56,6 +56,18 @@ End Function
     CateID = Request.QueryString("CateID")
 
     connDB.open()
+
+    'lấy name + description của cate
+    sql = " select CONCAT(CategoryName ,' ',Categories.Description) as NameCate from Categories where CategoryID= '"& CateID&"'"
+    set rs = connDB.execute(sql)
+    If not rs.EOF Then
+                NameCate = rs("NameCate")
+    End If
+    rs.Close()
+    set rs = nothing
+    connDB.close()
+
+    connDB.open()
     ''Lấy danh sách màu
     sql = "select * from Colors"
     Set rs = connDB.execute(sql)
@@ -114,12 +126,11 @@ End Function
             
             connDB.Open()
             ''Lấy ra tên, giá, mô tả, id khuyến mại của sản phẩm
-            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID,CONCAT( Categories.CategoryName,' ',Categories.Description) as NameCate "
+            sql = "select Products.ProcductName, Products.[Description], Products.Price, Products.PromotionID "
             sql = sql & " from Products inner join Categories on Products.CategoryID = Categories.CategoryID where ProductID = '"&id&"'"
             Set rs = connDB.execute(sql)
 
             If not rs.EOF Then
-                NameCate = rs("NameCate")
                 ProductName = rs("ProcductName")
                 Price = rs("Price")
                 Description = rs("Description")
@@ -253,7 +264,7 @@ End Function
 <body>
         <!--#include file="menu.nav.asp"-->
                         <div class="dashboard-main-body">
-                            <form method = "POST" action="">
+                            <form method = "POST" action="" onsubmit="showToastr()">
                                 <div class="grid wide">
                                     <div class="row">
                                         <div class="col l-12 m-12 c-12">
@@ -424,6 +435,9 @@ End Function
             </div>
         </div>
     </div>
+    <div id="toast" class="toast">
+    <p id="notify_success">Edited product successfully!</p>
+    </div>
    <script type="text/javascript">
         $(document).ready(function(){
             $('.dashboard-menu-item-link').click(function(){
@@ -519,6 +533,20 @@ End Function
                 } 
             });
         });
+
+        console.log(document.getElementById("notify_success").textContent);
+        if (document.getElementById("notify_success").textContent != "") {
+            showToast();
+        }
+
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.classList.add("show");
+        
+            setTimeout(function() {
+            toast.classList.remove("show");
+            }, 2000); // Hide the toast after 3 seconds (3000 milliseconds)
+        }
     </script>
 </body>
 </html>
