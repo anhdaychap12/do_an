@@ -256,8 +256,8 @@ End Sub
                     data: data,
                     success: function (response) {
                         $('#messenger').html(response.message);
-                        var id = response.id_Pro;
-                        $("#next").attr("href", "EditProduct.asp?id=" + id);
+                        var id_Pro = response.id_Pro;
+                        $("#next").attr("href", "EditProduct.asp?id=" + id_Pro);
                     }
                 });
             }
