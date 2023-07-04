@@ -8,10 +8,8 @@
     end if
     Set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.open()
-    cmdPrep.CommandType = 1
-    cmdPrep.CommandText = "DELETE from Accounts WHERE AccountID =?"
-    cmdPrep.parameters.Append cmdPrep.createParameter("AccountID",3,1, , id)
-    cmdPrep.execute
+    sql = "DELETE from Accounts WHERE AccountID = '"&id&"'" 
+    connDB.Execute(sql)
 
     connDB.Close()
     If Err.Number = 0 Then
@@ -20,6 +18,6 @@
         Session("Error") = Err.Description
     End If
     Response.Redirect("DBAccount.asp")
-    On Error Goto 0  
+    
 
 %>

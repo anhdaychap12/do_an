@@ -14,6 +14,9 @@
     sql = "DELETE FROM ProductDetails WHERE ProductID = '"&id&"'" 
     connDB.Execute(sql)
 
+    sql = "DELETE FROM ImagePrducts WHERE ProductID = '"&id&"'" 
+    connDB.Execute(sql)
+
     ' Xóa bản ghi trong bảng "Products"
     sql = "DELETE FROM Products WHERE ProductID = '"&id&"'"
     connDB.Execute(sql)
