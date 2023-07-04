@@ -13,6 +13,21 @@ Sub handleError(message)
     Session("Error") = message
 End Sub
 
+''Hàm kiểm tra xem ID_img có tồn tại hay không
+Function checkID_Img(t)
+    connDB.open()
+    sql = "select * from ImagePrducts where ProductID = '"&t&"'"
+    set rs = connDB.execute(sql)
+    If not rs.EOF Then
+        checkID_Img = rs("ImageProductID")
+    Else
+        checkID_Img = 0
+    End if
+    rs.Close
+    set rs = nothing
+    connDB.close()
+End Function
+
 ''Hàm kiểm tra xem productDetails có tồn tại hay không
 Function checkID_Details(t, x, p)
     connDB.open()
@@ -192,14 +207,22 @@ End Function
         End if
 
         ''3. Cập nhật ảnh sản phẩm
-        connDB.Open()
-        If (id <> 0) then
+        id_img = checkID_Img(id)
+        Response.Write id_img
+        If (id_img <> 0) then
+            connDB.Open()
             sql = "update ImagePrducts"
             sql = sql & " set Image1 = '"&Image1&"', Image2 = '"&Image2&"', Image3= '"&Image3&"', Image4 ='"&Image4&"', Image5 ='"&Image5&"', Image6 ='"&Image6&"'"
             sql = sql & " where ImagePrducts.ProductID = '"&id&"'"
             connDB.execute(sql)
+            connDB.close()
+        else
+            connDB.open()
+            sql = "insert into ImagePrducts(ProductID, Image1, Image2, Image3, Image4, Image5, Image6) values"
+            sql = sql & " ('"&id&"', '"&Image1&"', '"&Image2&"', '"&Image3&"', '"&Image4&"', '"&Image5&"', '"&Image6&"')"
+            connDB.execute(sql)
             connDB.Close()
-        End If  
+        End If     
     End If    
 
 
