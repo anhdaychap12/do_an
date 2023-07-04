@@ -30,7 +30,7 @@
 
     search = Request.QueryString("search")
     dim sql2 
-    sql2= " inner join OrderDetails on Orders.OrderID = OrderDetails.OrderID inner join ProductDetails on OrderDetails.ProductDetailID = ProductDetails.ProductDetailID inner join Products on ProductDetails.ProductID = Products.ProductID WHERE Orders.OrderID LIKE '"& search &"' OR Products.ProcductName LIKE '"& search &"' "
+    sql2= " WHERE Orders.OrderID LIKE '"& search &"'  "
     set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.Open()
     cmdPrep.ActiveConnection = connDB
@@ -39,7 +39,7 @@
     If (NOT isnull(search) and search<>"") Then
     cmdPrep.CommandText = "select COUNT(Orders.OrderID) as [count] from Orders " & sql2
     Else
-        cmdPrep.CommandText = "select COUNT(Orders.OrderID) as [count] from Orders"
+    cmdPrep.CommandText = "select COUNT(Orders.OrderID) as [count] from Orders"
     End If
     set rs = cmdPrep.execute()
     totalRows = Clng(rs("count"))
@@ -88,59 +88,52 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Customer Name</th>
-                                                            <th>Product Name</th>
-                                                            <th>Price</th>
-                                                            <th>Color</th>
-                                                            <th>Size</th>
-                                                            <th>Quantity</th>
+                                                            <th>Customer Type</th>
+                                                            <th>Email</th>                                                           
+                                                            <th>Address</th>
+                                                            <th>Phone</th>
                                                             <th>Order Date</th>
                                                             <th>Shipping fee</th>
                                                             <th>Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <%
-                                                        search = Request.QueryString("search")
-                                                            dim sql 
-                                                            sql = "SELECT Orders.OrderID,Orders.Fullname,Products.ProcductName,Products.Price as PriceProduct,Colors.Color,Sizes.Size,OrderDetails.Quantity,Orders.OrderDate,ShippingFrees.Price as PriceShip,Orders.TotalAmount" &_
-                                                            " FROM(((((ProductDetails INNER JOIN Products ON ProductDetails.ProductID = Products.ProductID)INNER JOIN Sizes ON ProductDetails.SizeID = Sizes.SizeID)INNER JOIN Colors ON ProductDetails.ColorID = Colors.ColorID)"&_
-                                                            " INNER JOIN OrderDetails ON ProductDetails.ProductDetailID = OrderDetails.ProductDetailID)INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID)INNER JOIN ShippingFrees ON Orders.ShippingFreeID = ShippingFrees.ShippingFreeID"
-                                                            sql1= " ORDER BY OrderDetails.OrderDetailID  offset ? rows fetch next ? rows only"
+                                                    <%
                                                         connDB.open()
-                                                        Set cmdPrep = Server.CreateObject("ADODB.Command")
-                                                            cmdPrep.ActiveConnection = connDB
-                                                            cmdPrep.CommandType = 1
-                                                            cmdPrep.Prepared = True
-                                                            'tim kiem
-                                                            If Not IsEmpty(search) Then
-                                                                sql = sql & " WHERE Orders.OrderID LIKE '"& search &"' OR Products.ProcductName LIKE ?" & sql1
-                                                                cmdPrep.Parameters.Append(cmdPrep.CreateParameter("search", 200, 1, 255, "%" & search & "%"))
-                                                            Else 
-                                                                sql = sql & sql1 
-                                                            End If
-                                                            cmdPrep.CommandText = sql
-                                                            cmdPrep.parameters.Append cmdPrep.createParameter("offset", 3, 1, ,offset)
-                                                            cmdPrep.parameters.Append cmdPrep.createParameter ("limit", 3, 1, ,limit)
-
-                                                            Set Result = cmdPrep.execute
-                                                        do while not Result.EOF
-                                                        %>
-                                                        <tr>
-                                                            <td><%=Result("OrderID")%></td>
-                                                            <td><%=Result("Fullname")%></td>
-                                                            <td><%=Result("ProcductName")%></td>
-                                                            <td><%=Result("PriceProduct")%></td>
-                                                            <td><%=Result("Color")%></td>
-                                                            <td><%=Result("Size")%></td>
-                                                            <td><%=Result("Quantity")%></td>
-                                                            <td><%=Result("OrderDate")%></td>
-                                                            <td><%=Result("PriceShip")%></td>
-                                                            <td><%=Result("TotalAmount")%></td>
-                                                        </tr>
-                                                        <%
-                                                            Result.MoveNext
-                                                            loop
-                                                        %>
+                                                        
+                                                        If isnull(search) Then
+                                                            ' true
+                                                            sql = "select OrderID, OrderDate, TotalAmount, IIF(CustomerID > 0, 'Khach vang lai', 'Thanh vien') as LoaiKhachHang, ShippingFrees.Price as Price_ship, [Address], Email, Phone, Fullname from Orders"
+                                                            sql = sql & " inner join ShippingFrees on ShippingFrees.ShippingFreeID = Orders.ShippingFreeID"
+                                                            sql = sql & " order by Orders.OrderID offset "&offset&" rows fetch next "&limit&" rows only"
+                                                        Else
+                                                            ' false
+                                                            sql = "select OrderID, OrderDate, TotalAmount, IIF(CustomerID > 0, 'Khach vang lai', 'Thanh vien') as LoaiKhachHang, ShippingFrees.Price as Price_ship, [Address], Email, Phone, Fullname from Orders"
+                                                            sql = sql & " inner join ShippingFrees on ShippingFrees.ShippingFreeID = Orders.ShippingFreeID"
+                                                            sql = sql & " where Orders.OrderID like '%"&search&"%'"
+                                                            sql = sql & " order by Orders.OrderID offset "&offset&" rows fetch next "&limit&" rows only"
+                                                        End if
+                                                        set rs = connDB.execute(sql)
+                                                        Do While not rs.EOF
+                                                    %>
+                                                            <tr>
+                                                            <td><%=rs("OrderID")%></td>
+                                                            <td><%=rs("Fullname")%></td>
+                                                            <td><%=rs("LoaiKhachHang")%></td>
+                                                            <td><%=rs("Email")%></td>                                                           
+                                                            <td><%=rs("Address")%></td>
+                                                            <td><%=rs("Phone")%></td>
+                                                            <td><%=rs("OrderDate")%></td>
+                                                            <td><%=rs("Price_ship")%></td>
+                                                            <td><%=rs("TotalAmount")%></td>
+                                                            </tr>
+                                                    <%
+                                                        rs.MoveNext
+                                                        Loop
+                                                        rs.Close
+                                                        set rs = nothing
+                                                        connDB.Close()
+                                                    %>
                                                     </tbody>
                                                 </table>
                                             </div>
