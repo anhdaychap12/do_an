@@ -1446,6 +1446,15 @@
     display: none; 
 }
 
+.modal.nolog {
+    display: block;
+}
+
+.modal.nolog > .modal-form {
+    width: 500px;
+    height: 195px;
+}
+
 .modal-form {
     position: absolute;
     top: 50%;
