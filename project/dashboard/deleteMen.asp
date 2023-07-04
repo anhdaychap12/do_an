@@ -10,7 +10,7 @@
 
     Set cmdPrep = Server.CreateObject("ADODB.Command")
     connDB.Open()
-
+    
     ' Xóa các bản ghi trong bảng "ProductDetails" liên quan đến ProductID
     sql = "DELETE FROM ProductDetails WHERE ProductID = '"&id&"'" 
     connDB.Execute(sql)
