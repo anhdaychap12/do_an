@@ -715,3 +715,27 @@ table td div {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
+
+/* Toastr */
+.toast {
+    text-align: center;
+    width: 40%;
+    z-index: -1;
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #04aa6d;
+    border: 1px solid #12c99b;
+    color: #fff;;
+    padding: 10px 20px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+.toast.show {
+    bottom: 20px;
+    opacity: 1;
+    z-index: 100;
+}
